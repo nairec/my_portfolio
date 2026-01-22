@@ -6,19 +6,18 @@ import ContactItem from "./ContactItem.astro";
 
 <div id="container">
 	<main>
-		<div class="flex flex-col md:flex-row gap-8 items-center">
+		<div class="flex flex-col md:flex-row gap-8 items-center md:mt-15">
 			<section id="hero">
 				<h1>
 					Hi there! I'm <span class="name">Eric</span>, a
 					curious-by-nature and solid programmer.
 				</h1>
 				<p class="text-neutral-400">Quick details about me:</p>
-				<div class="flex flex-col md:flex-row gap-4">
-					<DetailItem title="Based in:" info="Tarragona, Spain 🇪🇸" />
-					<DetailItem title="Age:" info="19 years" />
+				<div class="flex flex-row gap-4">
+					<DetailItem title="📍 Tarragona, Spain 🇪🇸"/>
+					<DetailItem title="🗓️ 19 years"/>
 					<DetailItem
-						title="Current dedication:"
-						info="Full-time student at URV"
+						title="🧑‍🎓 Full-time student at URV"
 					/>
 				</div>
 				<p
@@ -105,7 +104,7 @@ import ContactItem from "./ContactItem.astro";
 				Do you have any questions, suggestions or offers? I'm looking
 				forward for your message!
 			</p>
-			<div class="flex flex-col md:flex-row gap-8">
+			<div class="flex flex-row gap-8">
 				<ContactItem
 					title="Email ✉️"
 					info="irecgc@gmail.com"
@@ -119,7 +118,7 @@ import ContactItem from "./ContactItem.astro";
 				<ContactItem
 					title="LinkedIn ⛓️"
 					info="Eric Garcia"
-					url="https://linkedin.com/in/eric-recio"
+					url="https://linkedin.com/in/eric-garcia-cano-019652329"
 				/>
 				<ContactItem
 					title="Twitter/X 🐦"
@@ -143,7 +142,7 @@ import ContactItem from "./ContactItem.astro";
 		height: 105%;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		justify-content: start;
 		align-items: center;
 		gap: 50px;
 	}
