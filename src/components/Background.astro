@@ -1,0 +1,23 @@
+---
+const { mode } = Astro.props;
+
+const palette =
+    mode === "work"
+        ? {
+              primary: "blue-900/40",
+              secondary: "indigo-900/40",
+              accent: "slate-900/90",
+          }
+        : {
+              primary: "fuchsia-900/40",
+              secondary: "purple-900/40",
+              accent: "slate-900/90",
+          };
+---
+
+<div class={`fixed inset-0 -z-50 h-full w-full bg-slate-950`}>
+    <div
+        class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+    >
+    </div>
+</div>

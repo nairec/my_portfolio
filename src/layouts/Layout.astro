@@ -1,3 +1,8 @@
+---
+import Background from "../components/Background.astro";
+import "../styles/global.css";
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,17 +10,19 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Eric Garcia</title>
 	</head>
 	<body>
+		<Background mode="work" />
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
 	html,
 	body {
 		margin: 0;
+		padding: 0;
 		width: 100%;
 		height: 100%;
 	}

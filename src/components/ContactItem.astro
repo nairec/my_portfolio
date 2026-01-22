@@ -1,0 +1,10 @@
+---
+const { title, info, url } = Astro.props;
+---
+
+<div id="container" class="flex flex-col">
+    <h2 class="border-l-2 border-white pl-2 font-bold">{title}</h2>
+    <a href={url} class="border-l-2 border-slate-400 pl-2 pt-2" target="_blank"
+        >{info}</a
+    >
+</div>
