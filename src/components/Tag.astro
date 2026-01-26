@@ -1,10 +1,44 @@
 ---
-const { tag } = Astro.props;
+export interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+
+const icons = import.meta.glob("/src/assets/*.svg", { as: "raw", eager: true });
+const iconPath = `/src/assets/${name}.svg`;
+const svgCode = icons[iconPath];
+
+if (!svgCode) {
+  console.error(`Icono "${name}" no encontrado en /src/assets/icons/`);
+}
+
+const randomDelay = Math.random() * 5;
 ---
 
 <div
-    id="tag"
-    class="border border-emerald-400 px-3 py-1 rounded-xl bg-indigo-30 w-fit text-sm backdrop-blur-xl bg-emerald-300/20"
+  class="animate-float"
+  style={{
+    filter: "drop-shadow(0 0 1px currentColor)",
+    animationDelay: `${randomDelay}s`,
+  }}
 >
-    {tag}
+  <span class:list={["inline-block", className]} set:html={svgCode} />
 </div>
+
+<style>
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+</style>

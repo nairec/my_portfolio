@@ -12,17 +12,14 @@ import ContactItem from "./ContactItem.astro";
 					Hi there! I'm <span class="name">Eric</span>, a
 					curious-by-nature and solid programmer.
 				</h1>
-				<p class="text-neutral-400">Quick details about me:</p>
 				<div class="flex flex-row gap-4">
-					<DetailItem title="📍 Tarragona, Spain 🇪🇸"/>
-					<DetailItem title="🗓️ 19 years"/>
-					<DetailItem
-						title="🧑‍🎓 Full-time student at URV"
-					/>
+					<DetailItem title="📍 Tarragona, Spain 🇪🇸" />
+					<DetailItem title="🗓️ 19 years" />
+					<DetailItem title="🧑‍🎓 Full-time student" />
 				</div>
 				<p
 					id="bio"
-					class="border border-white border-1 p-4 rounded-lg text-white mt-5 text-xl"
+					class="backdrop-blur-xl bg-indigo-400/10 p-4 rounded-lg text-white mt-5 text-xl"
 				>
 					I'm a thoughtful junior programmer who is passionate about
 					finding new things to <span class="highlight">learn</span> and
@@ -35,48 +32,61 @@ import ContactItem from "./ContactItem.astro";
 					My hobbies include reading, some writing, playing videogames,
 					sometimes cardistry and working on my side projects.
 					<br />
-					I'm currently studying at the Universitat Rovira i Virgili, coursing
-					second year of a Computer Science degree.
+					I'm currently coursing second year of a Computer Science degree.
 				</p>
 			</section>
 			<ul
-				class="flex flex-col gap-8 text-white border border-white border-1 p-4 rounded-lg h-fit"
+				class="flex flex-col gap-7 backdrop-blur-xl bg-indigo-400/10 text-white p-4 rounded-lg h-fit"
 			>
 				<div class="flex flex-col gap-2">
 					<li>Languages:</li>
-					<ul class="inline-flex gap-2">
-						<Tag tag="Python" />
-						<Tag tag="JavaScript" />
-						<Tag tag="TypeScript" />
-						<Tag tag="C" />
-						<Tag tag="Java" />
-						<Tag tag="HTML" />
-						<Tag tag="CSS" />
+					<ul class="inline-flex gap-4">
+						<Tag
+							name="python"
+							class="w-8 h-8 text-blue-500 drop-shadow-xl"
+						/>
+						<Tag
+							name="javascript"
+							class="w-8 h-8 text-yellow-500"
+						/>
+						<Tag
+							name="typescript"
+							class="w-8 h-8 text-blue-600 scale-170"
+						/>
+						<Tag name="C" class="w-8 h-8 text-blue-500" />
+						<Tag name="java2" class="w-8 h-8 text-blue-500" />
+						<Tag
+							name="html2"
+							class="w-8 h-8 text-red-500 scale-120"
+						/>
+						<Tag
+							name="css"
+							class="w-8 h-8 text-blue-700 scale-120"
+						/>
 					</ul>
 				</div>
 				<div class="flex flex-col gap-2">
 					<li>Frontend:</li>
-					<ul class="inline-flex gap-2">
-						<Tag tag="React" />
-						<Tag tag="Astro" />
-						<Tag tag="Next.js" />
+					<ul class="inline-flex gap-4">
+						<Tag name="react" class="w-8 h-8 text-sky-500" />
+						<Tag name="astroIcon" class="w-8 h-8 text-cyan-500" />
+						<Tag name="nextjs" class="w-8 h-8 text-white-500" />
 					</ul>
 				</div>
 				<div class="flex flex-col gap-2">
 					<li>Backend:</li>
-					<ul class="inline-flex gap-2">
-						<Tag tag="Node.js" />
-						<Tag tag="MongoDB" />
-						<Tag tag="Postman" />
-						<Tag tag="FastAPI" />
+					<ul class="inline-flex gap-4">
+						<Tag name="nodejs" class="w-8 h-8 text-green-600" />
+						<Tag name="mongodb" class="w-8 h-8 text-blue-500" />
+						<Tag name="postman" class="w-8 h-8 text-orange-500" />
+						<Tag name="fastapi" class="w-8 h-8 text-green-700" />
 					</ul>
 				</div>
 				<div class="flex flex-col gap-2">
 					<li>Tools:</li>
-					<ul class="inline-flex gap-2">
-						<Tag tag="Git" />
-						<Tag tag="Vercel" />
-						<Tag tag="Docker" />
+					<ul class="inline-flex gap-4">
+						<Tag name="git" class="w-8 h-8 text-orange-600" />
+						<Tag name="vercel" class="w-16 h-16 text-white-500" />
 					</ul>
 				</div>
 			</ul>
