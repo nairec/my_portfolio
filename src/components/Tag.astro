@@ -6,7 +6,7 @@ export interface Props {
 
 const { name, class: className } = Astro.props;
 
-const icons = import.meta.glob("/src/assets/*.svg", { as: "raw", eager: true });
+const icons = import.meta.glob("/src/assets/SVGs/*.svg", { as: "raw", eager: true });
 const iconPath = `/src/assets/${name}.svg`;
 const svgCode = icons[iconPath];
 
