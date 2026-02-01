@@ -6,12 +6,12 @@ export interface Props {
 
 const { name, class: className } = Astro.props;
 
-const icons = import.meta.glob("/src/assets/*.svg", { as: "raw", eager: true });
-const iconPath = `/src/assets/${name}.svg`;
+const icons = import.meta.glob("/src/assets/SVGs/*.svg", { as: "raw", eager: true });
+const iconPath = `/src/assets/SVGs/${name}.svg`;
 const svgCode = icons[iconPath];
 
 if (!svgCode) {
-  console.error(`Icono "${name}" no encontrado en /src/assets/icons/`);
+  console.error(`Icono "${name}" no encontrado en /src/assets/SVGs/`);
 }
 
 const randomDelay = Math.random() * 5;

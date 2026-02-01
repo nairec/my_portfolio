@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectsTitle from "../components/ProjectsTitle.astro";
+import ProjectTag from "../components/ProjectTag.astro";
+
+import projects from "../projectsList.json";
+---
+
+<Layout>
+    <ProjectsTitle/>
+    <div class="flex flex-wrap gap-5 p-10 mt-5">
+        {projects.map((project) => 
+            <div class="project-tag-wrapper" data-type={project.type}>
+                <ProjectTag name={project.name} desc={project.description} link={project.link} imgPath={project.imgPath}/>
+            </div>
+        )}
+    </div>
+</Layout>
+<script>
+    import { mode } from '../projects.js';
+
+    document.addEventListener('astro:page-load', () => {
+        mode.subscribe((value) => {
+            const projectTags = document.querySelectorAll('.project-tag-wrapper');
+            console.log(projectTags);
+            projectTags.forEach((tag) => {
+                const projectType = tag.getAttribute('data-type');
+                const htmlTag = tag as HTMLElement;
+                if (projectType === value) {
+                    htmlTag.style.display = 'block';
+                } else {
+                    htmlTag.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>

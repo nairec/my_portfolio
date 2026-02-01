@@ -1,0 +1,155 @@
+---
+import { mode } from '../projects.js';
+---
+
+<label class="switch">
+    <input class="switch__input" type="checkbox" role="switch" aria-label="Toggle projects type" id="toggleModeCheckbox" checked={mode.get() === 'serious'}/>
+	<svg class="switch__icon switch__icon--fun" fill="currentcolor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M23.226 2.361c-0.8-0.375-1.556-0.729-2.245-1.075-1.765-0.884-3.364-1.313-4.89-1.313-3.072 0-5.197 1.772-6.53 3.105l-6.464 6.471c-3.459 3.463-4.011 6.988-1.79 11.431 0.345 0.69 0.699 1.448 1.074 2.251 2.022 4.325 4.112 8.796 7.533 8.796 0.096 0 0.191-0.003 0.288-0.011 3.53-0.276 4.532-4.822 5.416-8.831 0.14-0.635 0.274-1.244 0.41-1.79 0.238-0.944 0.705-1.53 1.986-2.814l0.176-0.177 0.108-0.108 0.285-0.284c1.284-1.284 1.87-1.751 2.816-1.989 0.541-0.136 1.148-0.27 1.782-0.409 4.007-0.884 8.55-1.886 8.825-5.423 0.278-3.588-4.327-5.745-8.781-7.83zM29.952 10.010c-0.195 2.493-5.775 3.229-9.097 4.062-1.469 0.371-2.363 1.149-3.712 2.498-0.094 0.094-0.189 0.188-0.284 0.283s-0.189 0.191-0.283 0.284c-1.349 1.351-2.125 2.244-2.495 3.715-0.834 3.325-1.568 8.912-4.058 9.107-0.045 0.003-0.090 0.005-0.135 0.005-2.642 0-4.865-6.008-6.826-9.927-1.992-3.985-1.139-6.569 1.417-9.128 0.49-0.491 1.101-1.101 1.848-1.849 0.763-0.764 1.671-1.673 2.747-2.75 0.747-0.748 1.357-1.357 1.848-1.849 1.588-1.589 3.186-2.52 5.122-2.52 1.181 0 2.489 0.345 3.996 1.102 3.983 1.997 10.122 4.265 9.912 6.968zM14.962 10.977h2v-2h-2v2zM14.962 7.977h2v-2h-2v2zM17.962 7.977h2v-2h-2v2zM17.962 10.977h2v-2h-2v2zM10.309 16.982l0.761-0.761c0.375-0.375 0.375-0.983 0-1.358s-0.982-0.375-1.357 0l-0.761 0.761-0.761-0.761c-0.375-0.375-0.982-0.375-1.357 0s-0.375 0.983 0 1.358l0.761 0.761-0.761 0.761c-0.375 0.375-0.375 0.983 0 1.357s0.983 0.375 1.357 0l0.761-0.761 0.783 0.783c0.375 0.375 0.982 0.375 1.357 0s0.375-0.983 0-1.358z"></path> </g></svg>
+	<svg viewBox="0 -1 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+    class="switch__icon switch__icon--serious" fill="white"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>briefcase</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="white" fill-rule="evenodd" > <g id="Icon-Set" transform="translate(-204.000000, -204.000000)" fill="#000000"> <path d="M234,217 L206,217 L206,212 C206,210.896 206.896,210 208,210 L232,210 C233.104,210 234,210.896 234,212 L234,217 L234,217 Z M218,220 C218,219.634 218.105,219.296 218.277,219 L221.723,219 C221.895,219.296 222,219.634 222,220 C222,221.104 221.104,222 220,222 C218.896,222 218,221.104 218,220 L218,220 Z M234,230 C234,231.104 233.104,232 232,232 L208,232 C206.896,232 206,231.104 206,230 L206,219 L216.142,219 C216.058,219.321 216,219.652 216,220 C216,222.209 217.791,224 220,224 C222.209,224 224,222.209 224,220 C224,219.652 223.942,219.321 223.858,219 L234,219 L234,230 L234,230 Z M216,207 C216,206.448 216.448,206 217,206 L223,206 C223.552,206 224,206.448 224,207 L224,208 L216,208 L216,207 L216,207 Z M232,208 L226,208 L226,206 C226,204.896 225.104,204 224,204 L216,204 C214.896,204 214,204.896 214,206 L214,208 L208,208 C205.791,208 204,209.791 204,212 L204,230 C204,232.209 205.791,234 208,234 L232,234 C234.209,234 236,232.209 236,230 L236,212 C236,209.791 234.209,208 232,208 L232,208 Z" id="briefcase"> </path> </g> </g> </g></svg>
+</label>
+<script>
+    import { mode } from '../projects.js';
+
+    document.addEventListener('astro:page-load', () => {
+        const checkbox = document.getElementById('toggleModeCheckbox') as HTMLInputElement;
+    
+        if (checkbox) {
+            checkbox.checked = mode.get() === 'serious';
+        }
+        function toggleMode() {
+            mode.set(checkbox?.checked ? 'serious' : 'fun');
+            console.log('Mode toggled to:', mode.get());
+        }
+    
+        checkbox?.addEventListener('change', toggleMode);
+    });
+</script>
+
+<style>
+    :root {
+        --hue: 223;
+        --bg: hsl(var(--hue),10%,90%);
+        --fg: hsl(var(--hue),10%,10%);
+        --primary: hsl(var(--hue),90%,50%);
+        --trans-dur: 0.3s;
+        --trans-timing: cubic-bezier(0.76,0.05,0.24,0.95);
+        --trans-timing-in: cubic-bezier(0.76,0.05,0.86,0.06);
+        --trans-timing-out: cubic-bezier(0.05,0.76,0.06,0.86);
+    }
+    input {
+        color: var(--fg);
+        font: 1em/1.5 sans-serif;
+    }
+    .switch {
+        margin: auto;
+        position: relative;
+        cursor: pointer;
+    }
+    .switch__icon,
+    .switch__input {
+        display: block;
+    }
+    .switch__icon {
+        position: absolute;
+        top: 0.6em;
+        right: 0.5em;
+        width: 1.75em;
+        height: 1.75em;
+        transition:
+            opacity calc(var(--trans-dur) / 2),
+            transform calc(var(--trans-dur) / 2);
+    }
+    .switch__icon polyline {
+        transition: stroke-dashoffset calc(var(--trans-dur) / 2);
+    }
+    .switch__icon--fun,
+    .switch__icon--fun polyline {
+        transition-delay: calc(var(--trans-dur) / 2);
+        transition-timing-function: var(--trans-timing-out);
+    }
+    .switch__icon--serious {
+        opacity: 0;
+        transform: translateX(-0.75em) rotate(30deg) scale(0.75);
+        transition-timing-function: var(--trans-timing-in);
+    }
+    .switch__input {
+        background-color: hsl(210,90%,70%);
+        border-radius: 0.75em;
+        box-shadow:
+            0 0 0 0.125em hsla(var(--hue),90%,50%,0),
+            0.125em 0.125em 0.25em hsla(var(--hue),90%,10%,0.2);
+        outline: transparent;
+        position: relative;
+        width: 6em;
+        height: 3em;
+        -webkit-appearance: none;
+        appearance: none;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+            background-color var(--trans-dur) var(--trans-timing),
+            box-shadow 0.15s linear;
+        cursor: pointer;
+    }
+    .switch__input:focus-visible {
+        box-shadow:
+            0 0 0 0.125em hsl(var(--hue),90%,50%),
+            0.125em 0.125em 0.25em hsla(var(--hue),90%,10%,0.2);
+    }
+    .switch__input:before,
+    .switch__input:after {
+        content: "";
+        display: block;
+        position: absolute;
+    }
+    .switch__input:before {
+        background-color: hsl(50,90%,50%);
+        border-radius: inherit;
+        mask-image: linear-gradient(120deg,hsl(0,0%,0%) 20%,hsla(0,0%,0%,0) 80%);
+        -webkit-mask-image: linear-gradient(120deg,hsl(0,0%,0%) 20%,hsla(0,0%,0%,0) 80%);
+        inset: 0;
+        transition: background-color var(--trans-dur) var(--trans-timing);
+    }
+    .switch__input:after {
+        background-color: hsl(0,0%,100%);
+        border-radius: 50%;
+        box-shadow: 0.05em 0.05em 0.05em hsla(var(--hue),90%,10%,0.1);
+        top: 0.3em;
+        left: 0.3em;
+        width: 2.25em;
+        height: 2.25em;
+        transition:
+            background-color var(--trans-dur) var(--trans-timing),
+            transform var(--trans-dur) var(--trans-timing);
+        z-index: 1;
+    }
+    .switch__input:checked {
+        background-color: hsl(290,90%,40%);
+    }
+    .switch__input:checked:before {
+        background-color: hsl(220,90%,40%);
+    }
+    .switch__input:checked:after {
+        background-color: hsl(0,0%,0%);
+        transform: translateX(3.1em);
+    }
+    .switch__input:checked ~ .switch__icon--fun,
+    .switch__input:checked ~ .switch__icon--fun polyline {
+        transition-delay: 0s;
+        transition-timing-function: var(--trans-timing-in);
+    }
+    .switch__input:checked ~ .switch__icon--fun {
+        opacity: 0;
+        transform: translateX(-0.75em) rotate(-30deg) scale(0.75);
+    }
+    .switch__input:checked ~ .switch__icon--fun polyline {
+        stroke-dashoffset: 1.5;
+    }
+    .switch__input:checked ~ .switch__icon--serious {
+        opacity: 1;
+        transform: translateX(-3em);
+        transition-delay: calc(var(--trans-dur) / 2);
+        transition-timing-function: var(--trans-timing-out);
+    }
+
+</style>
