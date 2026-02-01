@@ -11,7 +11,7 @@ import projects from "../projectsList.json";
     <div class="flex flex-wrap gap-5 p-10 mt-5">
         {projects.map((project) => 
             <div class="project-tag-wrapper" data-type={project.type}>
-                <ProjectTag name={project.name} desc={project.description} link={project.link} imgPath={project.imgPath} client:load/>
+                <ProjectTag name={project.name} desc={project.description} link={project.link} imgPath={project.imgPath}/>
             </div>
         )}
     </div>
