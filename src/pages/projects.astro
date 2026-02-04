@@ -8,9 +8,10 @@ import projects from "../projectsList.json";
 
 <Layout>
     <ProjectsTitle/>
-    <div class="flex flex-wrap gap-5 p-10 mt-5">
+    <div class="flex flex-row overflow-x-auto gap-5 px-4 pb-8 w-full snap-x snap-mandatory 
+    md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible md:pb-0 mt-10 sm:h-[65vh]">
         {projects.map((project) => 
-            <div class="project-tag-wrapper" data-type={project.type}>
+            <div class="project-wrapper snap-center shrink-0 first:pl-4 last:pr-4 md:snap-align-none md:shrink project-tag-wrapper" data-type={project.type}>
                 <ProjectTag name={project.name} desc={project.description} link={project.link} imgPath={project.imgPath}/>
             </div>
         )}

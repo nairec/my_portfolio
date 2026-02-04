@@ -13,7 +13,8 @@ const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/project
 if (!images[imgPath]) throw new Error(`"${imgPath}" does not exist in glob: "/src/assets/projectImages/*.{jpeg,jpg,png,gif}"`);
 ---
 
-<div class="flex flex-col gap-5 rounded-lg w-fit p-5 border-2 border-gray-600 backdrop-blur-sm" id="tagDiv" >
+<div class="flex flex-col gap-5 rounded-lg p-5 border-2 border-gray-600 backdrop-blur-lg 
+        w-[85vw] sm:w-[350px] md:w-full h-fullflex" id="tagDiv" >
     <div class="flex flex-row">
         <a
             href={link}
@@ -23,7 +24,7 @@ if (!images[imgPath]) throw new Error(`"${imgPath}" does not exist in glob: "/sr
         >
     </div>
     <Image src={images[imgPath].default} alt={name} priority class="w-full h-54 object-cover rounded-md select-none ring-2 ring-gray-700 shadow-[0_8px_10px_-4px_rgba(0,0,0,0.8)]"/>
-    <p class="text-white w-100 text-shadow-lg">{desc}</p>
+    <p class="text-white text-shadow-lg">{desc}</p>
 </div>
 
 <style>
