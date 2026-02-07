@@ -2,7 +2,7 @@
     {
         "name": "ConwayLightSim",
         "description": "A cellular automaton web simulator inspired by Conway's Game of Life, featuring interactive editing, real-time simulation, reactive audio and more.",
-        "link": "https://github.com/nairec/ConwayLightSim",
+        "link": "https://lightconwaysimulator.vercel.app",
         "type": "fun",
         "imgPath": "/src/assets/projectImages/conwaylightsim.png"
     }
