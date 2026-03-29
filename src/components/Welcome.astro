@@ -6,7 +6,9 @@ import { mode } from "../projects.js";
 
 <div id="container">
     <main>
-        <div class="flex flex-col gap-8 md:mt-15 w-full min-h-100vh">
+        <div
+            class="flex flex-col gap-48 md:mt-15 w-full min-h-100vh align-center"
+        >
             <section id="hero" class="mx-auto">
                 <div class="flex flex-col gap-2">
                     <p class="text-[#BABABA]">Hi there! My name is</p>
@@ -100,6 +102,18 @@ import { mode } from "../projects.js";
                     >
                 </div>
             </section>
+            <section
+                id="stack"
+                class="mx-auto flex flex-col max-w-3xl w-full p-2"
+            >
+                <h2
+                    id="stack-header"
+                    class="relative place-self-center md:place-self-end text-5xl text-[#BABABA]"
+                >
+                    My Stack
+                </h2>
+                
+            </section>
         </div>
     </main>
 </div>
@@ -166,6 +180,17 @@ import { mode } from "../projects.js";
         height: 1px;
         background: #bababa;
     }
+
+    /*#stack-header::after {
+        content: "";
+        position: absolute;
+        bottom: 1rem;
+        right: 105%;
+        display: block;
+        width: 38rem;
+        height: 1px;
+        background: #bababa;
+        }*/
 
     .box {
         padding: 16px;
