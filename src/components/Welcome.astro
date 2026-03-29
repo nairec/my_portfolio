@@ -5,301 +5,249 @@ import { mode } from "../projects.js";
 ---
 
 <div id="container">
-	<main>
-		<div class="flex flex-col md:flex-row gap-8 items-center md:mt-15">
-			<section id="hero">
-				<h1 class="text-3xl text-white">
-					Hi there! I'm <span class="name">Eric</span>, a
-					curious-by-nature and solid programmer.
-				</h1>
-				<div class="flex flex-row gap-4">
-					<DetailItem title="📍 Tarragona, Spain 🇪🇸" />
-					<DetailItem title="🗓️ 19 years" />
-					<DetailItem title="🧑‍🎓 Full-time student" />
-				</div>
-				<p
-					id="bio"
-					class="backdrop-blur-xl bg-indigo-400/10 p-4 rounded-lg text-white mt-5 text-xl"
-				>
-					I'm a thoughtful junior programmer who is passionate about
-					finding new things to <span class="highlight">learn</span> and
-					<span class="highlight">apply</span>, and perfectioning the
-					ones that I already know. <br /> This is true wether I'm working
-					on some project, getting new knowledge about my hobbies or just
-					bored =).
-					<br />
-					<br />
-					My hobbies include reading, some writing, playing videogames,
-					sometimes cardistry and working on my side projects.
-					<br />
-					I'm currently coursing second year of a Computer Science degree.
-				</p>
-			</section>
-			<ul
-				class="flex flex-col gap-7 backdrop-blur-xl bg-indigo-400/10 text-white p-4 rounded-lg h-fit"
-			>
-				<div class="flex flex-col gap-2">
-					<li>Languages:</li>
-					<ul class="inline-flex gap-4">
-						<Tag
-							name="python"
-							class="w-8 h-8 text-blue-500 drop-shadow-xl"
-						/>
-						<Tag
-							name="javascript"
-							class="w-8 h-8 text-yellow-500"
-						/>
-						<Tag
-							name="typescript"
-							class="w-8 h-8 text-blue-600 scale-170"
-						/>
-						<Tag name="C" class="w-8 h-8 text-blue-500" />
-						<Tag name="java2" class="w-8 h-8 text-blue-500" />
-						<Tag
-							name="html2"
-							class="w-8 h-8 text-red-500 scale-120"
-						/>
-						<Tag
-							name="css"
-							class="w-8 h-8 text-blue-700 scale-120"
-						/>
-					</ul>
-				</div>
-				<div class="flex flex-col gap-2">
-					<li>Frontend:</li>
-					<ul class="inline-flex gap-4">
-						<Tag name="react" class="w-8 h-8 text-sky-500" />
-						<Tag name="astroIcon" class="w-8 h-8 text-cyan-500" />
-						<Tag name="nextjs" class="w-8 h-8 text-white-500" />
-					</ul>
-				</div>
-				<div class="flex flex-col gap-2">
-					<li>Backend:</li>
-					<ul class="inline-flex gap-4">
-						<Tag name="nodejs" class="w-8 h-8 text-green-600" />
-						<Tag name="mongodb" class="w-8 h-8 text-blue-500" />
-						<Tag name="postman" class="w-8 h-8 text-orange-500" />
-						<Tag name="fastapi" class="w-8 h-8 text-green-700" />
-					</ul>
-				</div>
-				<div class="flex flex-col gap-2">
-					<li>Tools:</li>
-					<ul class="inline-flex gap-4">
-						<Tag name="git" class="w-8 h-8 text-orange-600" />
-						<Tag name="vercel" class="w-16 h-16 text-white-500" />
-					</ul>
-				</div>
-			</ul>
-		</div>
-		<div class="flex flex-row gap-6 text-white text-xl">
-			<a class="relative group p-2 hover:cursor-pointer group text-center" href="/projects">
-				Check my <span class="group-hover:text-indigo-500 transition-all duration-300 ease-in-out">projects</span>
-				<span
-					class="absolute bottom-0 left-0 w-full h-[2px] bg-white transform scale-x-0 transition-transform duration-300 origin-center group-hover:scale-x-100"
-				></span>
-			</a>
-			<a class="relative group p-2 hover:cursor-pointer group text-center">
-				Give a look to my <span class="group-hover:text-indigo-500 transition-all duration-300 ease-in-out">blog</span>
-				<span
-					class="absolute bottom-0 left-0 w-full h-[2px] bg-white transform scale-x-0 transition-transform duration-300 origin-center group-hover:scale-x-100"
-				></span>
-			</a>
-		</div>
-		<section
-			id="contact"
-			class="flex flex-col gap-6 text-white bg-indigo-400/20 backdrop-blur-xl rounded-lg p-4 w-[60%] group gradient-section"
-		>
-			<h1
-				class="group-hover:text-cyan-400 group-hover:text-shadow-cyan-800 group-hover:text-shadow-sm text-2xl transition-all duration-300 ease-in-out"
-			>
-				Contact me
-			</h1>
-			<p>
-				Do you have any questions, suggestions or offers? I'm looking
-				forward for your message!
-			</p>
-			<div class="flex flex-wrap gap-8">
-				<a href="https://github.com/nairec" target="_blank" aria-label="github"
-					><svg
-						xmlns="http://www.w3.org/2000/svg"
-						id="git-logo"
-						class="link-icon"
-						fill="currentColor"
-						viewBox="0 0 256 256"
-						><path
-							d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"
-						></path></svg
-					></a
-				>
-				<a
-					href="https://linkedin.com/in/eric-garcia-cano"
-					target="_blank" aria-label="linkedin"
-					><svg
-						xmlns="http://www.w3.org/2000/svg"
-						id="linkedIn-logo"
-						class="link-icon"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"
-						><path stroke="none" d="M0 0h24v24H0z" fill="none"
-						></path><path d="M8 11v5"></path><path d="M8 8v.01"
-						></path><path d="M12 16v-5"></path><path
-							d="M16 16v-3a2 2 0 1 0 -4 0"></path><path
-							d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10"
-						></path></svg
-					></a
-				>
-				<a href="https://x.com/PyNair" target="_blank" aria-label="twitter"
-					><svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="link-icon"
-						id="twitter-logo"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"
-						><path stroke="none" d="M0 0h24v24H0z" fill="none"
-						></path><path
-							d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0"
-						></path><path
-							d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"
-						></path></svg
-					></a
-				>
-				<a href="mailto:irecgc@gmail.com" aria-label="email"
-					><svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						id="email-logo"
-						class="link-icon"
-					>
-						<path fill="none" d="M0 0h24v24H0V0z"></path>
-						<path
-							d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"
-							fill="currentColor"></path>
-					</svg></a
-				>
-			</div>
-		</section>
-	</main>
+    <main>
+        <div class="flex flex-col gap-8 md:mt-15 w-full min-h-100vh">
+            <section id="hero" class="mx-auto">
+                <div class="flex flex-col gap-2">
+                    <p class="text-[#BABABA]">Hi there! My name is</p>
+                    <h1 class="name leading-none text-4xl md:text-6xl">
+                        Eric Garcia.
+                    </h1>
+                    <h2 class="title leading-none text-3xl md:text-5xl">
+                        I develop software solutions.
+                    </h2>
+                </div>
+                <p class="bio max-w-prose mt-8">
+                    I'm a thoughtful junior programmer who is passionate about
+                    finding new things to <span class="highlight">learn</span> and
+                    <span class="highlight">apply</span>, and perfectioning the
+                    ones that I already know. <br /> This is true wether I'm working
+                    on some project, getting new knowledge about my hobbies or just
+                    bored =).
+                </p>
+                <div class="flex flex-row gap-6 highlight text-xl mt-12">
+                    <a
+                        class="relative group p-2 hover:cursor-pointer group text-center inline-block border border-s-cyan-600 hover:bg-cyan-800/30 transition-colors"
+                        href="mailto:irecgc@gmail.com"
+                    >
+                        Contact me
+                    </a>
+                </div>
+                <div
+                    id="socialTags"
+                    class="relative flex flex-wrap gap-3 text-[#BABABA] mt-12"
+                >
+                    <a
+                        href="https://github.com/nairec"
+                        target="_blank"
+                        aria-label="github"
+                        ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            id="git-logo"
+                            class="link-icon"
+                            fill="currentColor"
+                            viewBox="0 0 256 256"
+                            ><path
+                                d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"
+                            ></path></svg
+                        ></a
+                    >
+                    <a
+                        href="https://linkedin.com/in/eric-garcia-cano"
+                        target="_blank"
+                        aria-label="linkedin"
+                        ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            id="linkedIn-logo"
+                            class="link-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"
+                            ><path stroke="none" d="M0 0h24v24H0z" fill="none"
+                            ></path><path d="M8 11v5"></path><path d="M8 8v.01"
+                            ></path><path d="M12 16v-5"></path><path
+                                d="M16 16v-3a2 2 0 1 0 -4 0"></path><path
+                                d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10"
+                            ></path></svg
+                        ></a
+                    >
+                    <a
+                        href="https://x.com/PyNair"
+                        target="_blank"
+                        aria-label="twitter"
+                        ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="link-icon"
+                            id="twitter-logo"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"
+                            ><path stroke="none" d="M0 0h24v24H0z" fill="none"
+                            ></path><path
+                                d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0"
+                            ></path><path
+                                d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"
+                            ></path></svg
+                        ></a
+                    >
+                    <a href="mailto:irecgc@gmail.com" aria-label="email"
+                        ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            id="email-logo"
+                            class="link-icon"
+                        >
+                            <path fill="none" d="M0 0h24v24H0V0z"></path>
+                            <path
+                                d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"
+                                fill="currentColor"></path>
+                        </svg></a
+                    >
+                </div>
+            </section>
+        </div>
+    </main>
 </div>
 
 <style>
-	#container {
-		display: flex;
-		flex-direction: column;
-		overflow-x: hidden;
-		overflow-y: hidden;
-	}
+    #container {
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
 
-	main {
-		display: flex;
-		flex-direction: column;
-		justify-content: start;
-		align-items: center;
-		gap: 50px;
-		padding-bottom: 50px;
-	}
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        gap: 50px;
+        padding-bottom: 50px;
+    }
 
-	#hero {
-		display: flex;
-		align-items: start;
-		flex-direction: column;
-		padding: 16px 16px 16px 16px;
-		gap: 16px;
-	}
+    #hero {
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        padding: 16px 16px 16px 16px;
+    }
 
-	.name {
-		font-family:
-			ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas,
-			"DejaVu Sans Mono", monospace;
-		font-weight: normal;
-		color: #41d3ff;
-		margin: 0;
-	}
+    .name {
+        font-family:
+            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+            "DejaVu Sans Mono", monospace;
+        font-weight: 500;
+        color: #41d3ff;
+        margin: 0;
+    }
 
-	h2 {
-		margin: 0 0 1em;
-		font-weight: normal;
-		color: #111827;
-		font-size: 20px;
-	}
+    .title {
+        font-family:
+            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+            "DejaVu Sans Mono", monospace;
+        font-weight: 500;
+        color: #bababa;
+        margin: 0;
+    }
 
-	.box {
-		padding: 16px;
-		background: rgba(255, 255, 255, 1);
-		border-radius: 16px;
-		border: 1px solid white;
-	}
+    .bio {
+        font-family:
+            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+            "DejaVu Sans Mono", monospace;
+        color: #989898;
+        margin: 0;
+        font-size: 1em;
+        margin-top: 2rem;
+    }
 
-	#bio {
-		width: 0;
-		min-width: 100%;
-	}
+    #socialTags::after {
+        content: "";
+        position: absolute;
+        bottom: 1rem;
+        left: 120%;
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: #bababa;
+    }
 
-	.highlight {
-		color: #41d3ff;
-	}
+    .box {
+        padding: 16px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 16px;
+        border: 1px solid white;
+    }
 
-	.link-icon {
-		width: 3rem;
-		height: 3rem;
-		transition: all ease-in-out 0.2s;
-	}
+    #bio {
+        width: 0;
+        min-width: 100%;
+    }
 
-	#git-logo:hover {
-		color: rgb(188, 82, 238);
-		filter: drop-shadow(2px 4px 2px rgb(131, 57, 165));
-	}
+    .highlight {
+        color: #41d3ff;
+    }
 
-	#linkedIn-logo:hover {
-		color: rgb(10, 102, 194);
-		filter: drop-shadow(2px 4px 2px rgb(7, 75, 143));
-	}
+    .link-icon {
+        width: 2rem;
+        height: 2rem;
+        transition: all ease-in-out 0.2s;
+    }
 
-	#twitter-logo:hover {
-		color: rgb(29, 161, 242);
-		filter: drop-shadow(2px 4px 2px rgb(19, 107, 161));
-	}
+    #git-logo:hover {
+        color: rgb(188, 82, 238);
+        filter: drop-shadow(2px 4px 2px rgb(131, 57, 165));
+    }
 
-	#email-logo:hover {
-		color: rgb(172, 42, 19);
-		filter: drop-shadow(1px 1px 2px rgb(172, 42, 19));
-	}
+    #linkedIn-logo:hover {
+        color: rgb(10, 102, 194);
+        filter: drop-shadow(2px 4px 2px rgb(7, 75, 143));
+    }
 
-	@media screen and (max-width: 768px) {
-		#container {
-			display: flex;
-			flex-direction: column;
-		}
+    #twitter-logo:hover {
+        color: rgb(29, 161, 242);
+        filter: drop-shadow(2px 4px 2px rgb(19, 107, 161));
+    }
 
-		#hero {
-			display: block;
-			padding-top: 10%;
-		}
+    #email-logo:hover {
+        color: rgb(172, 42, 19);
+        filter: drop-shadow(1px 1px 2px rgb(172, 42, 19));
+    }
 
-		#links {
-			flex-wrap: wrap;
-		}
+    @media screen and (max-width: 768px) {
+        #container {
+            display: flex;
+            flex-direction: column;
+        }
 
-		#links a.button {
-			padding: 14px 18px;
-		}
+        #hero {
+            display: block;
+            padding-top: 10%;
+        }
 
-		h1 {
-			line-height: 1.5;
-		}
+        #links {
+            flex-wrap: wrap;
+        }
 
-		.link-icon {
-			width: 2rem;
-			height: 2rem;
-		}
-	}
+        #links a.button {
+            padding: 14px 18px;
+        }
+
+        h1 {
+            line-height: 1.5;
+        }
+
+        .link-icon {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
 </style>

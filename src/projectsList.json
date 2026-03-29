@@ -1,9 +1,16 @@
 [
-    {
-        "name": "ConwayLightSim",
-        "description": "A cellular automaton web simulator inspired by Conway's Game of Life, featuring interactive editing, real-time simulation, reactive audio and more.",
-        "link": "https://lightconwaysimulator.vercel.app",
-        "type": "fun",
-        "imgPath": "/src/assets/projectImages/conwaylightsim.png"
-    }
+  {
+    "name": "ConwayLightSim",
+    "description": "A cellular automaton web simulator inspired by Conway's Game of Life, featuring interactive editing, real-time simulation, reactive audio and more.",
+    "link": "https://lightconwaysimulator.vercel.app",
+    "type": "fun",
+    "imgPath": "/src/assets/projectImages/conwaylightsim.png"
+  },
+  {
+    "name": "AetherType",
+    "description": "A distraction-free, local-first writing environment that makes writing a pleasant experience. Step into the aether and write without limits.",
+    "link": "https://aethertype.ink",
+    "type": "serious",
+    "imgPath": "/src/assets/projectImages/aether.png"
+  }
 ]

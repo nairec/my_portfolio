@@ -1,25 +1,38 @@
 ---
-const {pathname} = Astro.url;
+const { pathname } = Astro.url;
 
 const navItems = [
-  { name: 'Home', href: '/' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/blog' },
+    { name: "Home", href: "/" },
+    { name: "Projects", href: "/projects" },
+    { name: "Blog", href: "/blog" },
 ];
 
-const isActive = (href:string) => {
-  const currentPath = pathname.replace(/\/$/, "");
-  const targetPath = href.replace(/\/$/, "");
-  return currentPath === targetPath;
+const isActive = (href: string) => {
+    const currentPath = pathname.replace(/\/$/, "");
+    const targetPath = href.replace(/\/$/, "");
+    return currentPath === targetPath;
 };
 ---
 
 <header>
-  <nav class="flex flex-row gap-5 items-center bg-black text-white p-5 w-full text-lg">
-      {navItems.map((item)=> (
-          <a href={item.href} class:list={["hover:text-cyan-300 transition-all duration-100 ease-in-out", isActive(item.href) ? "text-blue-300" : "text-white"]}>
-              {item.name}
-          </a>
-      ))}
-  </nav>
+    <nav
+        class="flex flex-row gap-5 md:pr-10 items-center justify-end text-white p-5 w-full text-lg"
+    >
+        {
+            navItems.map((item, i) => (
+                <a
+                    href={item.href}
+                    class:list={[
+                        "hover:text-cyan-300 transition-all duration-100 ease-in-out",
+                        isActive(item.href) ? "text-blue-300" : "text-white",
+                    ]}
+                >
+                    <span class="text-[#41d3ff]">
+                        {String(i + 1).padStart(2, "0")}.{" "}
+                    </span>
+                    {item.name}
+                </a>
+            ))
+        }
+    </nav>
 </header>
