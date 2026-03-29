@@ -6,9 +6,10 @@ export interface Props {
     desc: string;
     link: string;
     imgPath: string;
+    stack: string[];
 }
 
-const { name, desc, link, imgPath } = Astro.props;
+const { name, desc, link, imgPath, stack } = Astro.props;
 const images = import.meta.glob<{ default: ImageMetadata }>(
     "/src/assets/projectImages/*.{jpg,png,jpeg}",
     { eager: true },
@@ -28,7 +29,7 @@ if (!images[imgPath])
         <a
             href={link}
             target="_blank"
-            class="text-xl font-semibold text-cyan-300 w-fit relative text-shadow-lg"
+            class="text-xl font-semibold text-[#41d3ff] w-fit relative text-shadow-lg"
             >{name}</a
         >
     </div>
@@ -39,6 +40,13 @@ if (!images[imgPath])
         class="w-full h-54 object-cover rounded-md select-none ring-2 ring-gray-700 shadow-[0_8px_10px_-4px_rgba(0,0,0,0.8)]"
     />
     <p class="text-white text-shadow-lg">{desc}</p>
+    <div class="flex flex-row gap-2">
+        {
+            stack.map((tag) => (
+                <span class="text-sm text-[#41d3ff]">[{tag}]</span>
+            ))
+        }
+    </div>
 </div>
 
 <style>
@@ -68,14 +76,7 @@ if (!images[imgPath])
     #tagDiv {
         position: relative;
         border-radius: 12px;
-        border-color: #1bcfa280;
         transition: all 0.3s ease-in-out;
-        background: #1bcfa238;
-        background: linear-gradient(
-            45deg,
-            rgba(27, 156, 207, 0.137) 20%,
-            rgba(243, 199, 4, 0.123) 80%
-        );
     }
     #tagDiv:hover {
         transform: scale(1.01);
