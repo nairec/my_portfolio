@@ -104,7 +104,7 @@ import { mode } from "../projects.js";
             </section>
             <section
                 id="stack"
-                class="mx-auto flex flex-col max-w-3xl w-full p-2"
+                class="mx-auto flex flex-col max-w-3xl w-full p-2 gap-16"
             >
                 <h2
                     id="stack-header"
@@ -112,7 +112,73 @@ import { mode } from "../projects.js";
                 >
                     My Stack
                 </h2>
-                
+                <ul
+                    class="flex flex-col items-end text-end gap-7 text-white p-4 w-full"
+                >
+                    <div class="flex flex-col gap-3">
+                        <li>Languages</li>
+                        <ul class="inline-flex gap-4">
+                            <Tag
+                                name="python"
+                                class="w-8 h-8 text-blue-500 drop-shadow-xl"
+                            />
+                            <Tag
+                                name="javascript"
+                                class="w-8 h-8 text-yellow-500"
+                            />
+                            <Tag
+                                name="typescript"
+                                class="w-8 h-8 text-blue-600 scale-170"
+                            />
+                            <Tag name="C" class="w-8 h-8 text-blue-500" />
+                            <Tag name="java2" class="w-8 h-8 text-blue-500" />
+                            <Tag
+                                name="html2"
+                                class="w-8 h-8 text-red-500 scale-120"
+                            />
+                            <Tag
+                                name="css"
+                                class="w-8 h-8 text-blue-700 scale-120"
+                            />
+                        </ul>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <li>Frontend</li>
+                        <ul class="inline-flex gap-4">
+                            <Tag name="react" class="w-8 h-8 text-sky-500" />
+                            <Tag
+                                name="astroIcon"
+                                class="w-8 h-8 text-cyan-500"
+                            />
+                            <Tag name="nextjs" class="w-8 h-8 text-white-500" />
+                        </ul>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <li>Backend</li>
+                        <ul class="inline-flex gap-4">
+                            <Tag name="nodejs" class="w-8 h-8 text-green-600" />
+                            <Tag name="mongodb" class="w-8 h-8 text-blue-500" />
+                            <Tag
+                                name="postman"
+                                class="w-8 h-8 text-orange-500"
+                            />
+                            <Tag
+                                name="fastapi"
+                                class="w-8 h-8 text-green-700"
+                            />
+                        </ul>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <li>Tools</li>
+                        <ul class="inline-flex gap-4">
+                            <Tag name="git" class="w-8 h-8 text-orange-600" />
+                            <Tag
+                                name="vercel"
+                                class="w-16 h-16 text-white-500"
+                            />
+                        </ul>
+                    </div>
+                </ul>
             </section>
         </div>
     </main>
