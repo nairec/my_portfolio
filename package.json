@@ -9,11 +9,22 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^5.0.2",
     "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.37.0",
     "@vercel/analytics": "^1.6.1",
     "astro": "^5.16.11",
+    "groq-sdk": "^1.1.2",
     "nanostores": "^1.1.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3"
   }
 }

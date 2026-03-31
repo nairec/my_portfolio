@@ -1,7 +1,18 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 body {
-  margin: 0;
-  padding: 0;
-  scrollbar-gutter: stable;
+    margin: 0;
+    padding: 0;
+    scrollbar-gutter: stable;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #bababa;
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
 }
