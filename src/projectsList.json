@@ -18,7 +18,7 @@
     "type": "serious",
     "height": 1,
     "width": 1,
-    "imgPath": "/src/assets/projectImages/aether4.png",
+    "imgPath": "/src/assets/projectImages/aether2.png",
     "stack": ["Next.js", "Typescript", "Tailwind CSS"]
   }
 ]
