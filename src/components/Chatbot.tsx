@@ -46,6 +46,20 @@ export default function Chatbot() {
         body: JSON.stringify({ messages: history }),
       });
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Server error:", errorData);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Sorry, there was an error processing the request.",
+          },
+        ]);
+        setIsLoading(false);
+        return;
+      }
+
       if (response && response.body != null) {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();

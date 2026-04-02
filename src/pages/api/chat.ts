@@ -40,12 +40,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
     const completion = await groq.chat.completions.create({
       messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-      model: "openai/gpt-oss-20b",
+      model: "llama-3.3-70b-versatile",
       temperature: 1,
       max_completion_tokens: 8192,
       top_p: 1,
       stream: true,
-      reasoning_effort: "medium",
       stop: null,
     });
 
@@ -60,11 +59,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       },
     });
   } catch (error) {
+    console.error("Error detectado en el servidor:", error); // <-- AÑADE ESTO
     return new Response(
-      JSON.stringify({ error: "Error while inferencing the model" }),
-      {
-        status: 500,
-      },
+      JSON.stringify({
+        error: "Error while inferencing the model",
+        details: error instanceof Error ? error.message : error, // <-- Y ESTO
+      }),
+      { status: 500 },
     );
   }
 };
