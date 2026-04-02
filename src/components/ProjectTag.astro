@@ -21,7 +21,7 @@ if (!images[imgPath])
 ---
 
 <div
-    class="flex flex-col gap-5 rounded-lg p-5 border-2 border-gray-600 backdrop-blur-lg
+    class="flex flex-col gap-5 p-5 border-2 border-gray-600 backdrop-blur-lg
         w-[85vw] sm:w-[350px] md:w-full h-fullflex"
     id="tagDiv"
 >
@@ -37,13 +37,13 @@ if (!images[imgPath])
         src={images[imgPath].default}
         alt={name}
         priority
-        class="w-full h-54 object-cover rounded-md select-none ring-2 ring-gray-700 shadow-[0_8px_10px_-4px_rgba(0,0,0,0.8)]"
+        class="w-full h-54 object-fill select-none ring-2 ring-gray-700 shadow-[0_8px_10px_-4px_rgba(0,0,0,0.8)]"
     />
     <p class="text-white text-shadow-lg">{desc}</p>
     <div class="flex flex-row gap-2">
         {
             stack.map((tag) => (
-                <span class="text-sm text-[#41d3ff]">[{tag}]</span>
+                <span class="text-sm text-[#41d3ff] font-mono">[{tag}]</span>
             ))
         }
     </div>
@@ -75,7 +75,6 @@ if (!images[imgPath])
     }
     #tagDiv {
         position: relative;
-        border-radius: 12px;
         transition: all 0.3s ease-in-out;
     }
     #tagDiv:hover {

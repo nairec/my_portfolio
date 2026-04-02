@@ -16,9 +16,9 @@
     "description": "A distraction-free, local-first writing environment that makes writing a pleasant experience. Step into the aether and write without limits.",
     "link": "https://aethertype.ink",
     "type": "serious",
-    "height": 2,
-    "width": 2,
-    "imgPath": "/src/assets/projectImages/aether.png",
+    "height": 1,
+    "width": 1,
+    "imgPath": "/src/assets/projectImages/aether4.png",
     "stack": ["Next.js", "Typescript", "Tailwind CSS"]
   }
 ]

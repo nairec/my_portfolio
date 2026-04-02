@@ -110,7 +110,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="flex flex-col gap-4 border border-[#BABABA] p-4 mt-6 max-w-xl max-h-xl h-120 w-130">
+    <div className="flex flex-col gap-4 border border-[#BABABA] p-4 mt-6 max-w-xl max-h-xl h-120 w-130 font-mono text-sm">
       <div className="flex-1 overflow-y-auto flex flex-col gap-2 pr-2 custom-scrollbar text-clip">
         {messages.map((msg, index) => (
           <p

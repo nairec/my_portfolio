@@ -1,3 +1,12 @@
-import { atom } from 'nanostores';
+import { atom } from "nanostores";
 
-export const mode = atom('fun');
+const initialMode =
+  typeof window !== "undefined"
+    ? localStorage.getItem("project-mode") || "serious"
+    : "serious";
+
+export const mode = atom(initialMode);
+
+mode.listen((value) => {
+  localStorage.setItem("project-mode", value);
+});
