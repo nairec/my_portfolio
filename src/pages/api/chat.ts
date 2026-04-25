@@ -59,11 +59,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       },
     });
   } catch (error) {
-    console.error("Error detectado en el servidor:", error); // <-- AÑADE ESTO
+    console.error("Error detectado en el servidor:", error);
     return new Response(
       JSON.stringify({
         error: "Error while inferencing the model",
-        details: error instanceof Error ? error.message : error, // <-- Y ESTO
+        details: error instanceof Error ? error.message : error,
       }),
       { status: 500 },
     );
