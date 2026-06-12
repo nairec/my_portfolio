@@ -40,7 +40,7 @@ if (!images[imgPath])
         class="w-full h-54 object-fill select-none ring-2 ring-gray-700 shadow-[0_8px_10px_-4px_rgba(0,0,0,0.8)]"
     />
     <p class="text-white text-shadow-lg">{desc}</p>
-    <div class="flex flex-row gap-2">
+    <div class="flex flex-row gap-2 flex-wrap">
         {
             stack.map((tag) => (
                 <span class="text-sm text-[#41d3ff] font-mono">[{tag}]</span>

@@ -20,5 +20,16 @@
     "width": 1,
     "imgPath": "/src/assets/projectImages/aether2.png",
     "stack": ["Next.js", "Typescript", "Tailwind CSS"]
+  },
+  {
+    "name": "LatentSpace",
+    "year": 2026,
+    "description": "A web application that allows you to explore the latent space representation of a set of words using a open-source embedding model and PCA analysis.",
+    "link": "https://latentpoints.vercel.app",
+    "type": "fun",
+    "height": 1,
+    "width": 1,
+    "imgPath": "/src/assets/projectImages/latentSpace.png",
+    "stack": ["Python", "React", "Docker", "FastAPI", "GH Actions", "VPS"]
   }
 ]
