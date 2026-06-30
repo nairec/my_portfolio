@@ -1,9 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ModeToggle from "../components/ModeToggle.astro";
+import ProjectsTitle from "../components/ProjectsTitle.astro";
 import ProjectTag from "../components/ProjectTag.astro";
+import projectsData from "../projectsList.json";
+import type { Project } from "../types/types";
 
-import projects from "../projectsList.json";
+const projects = [...(projectsData as Project[])].sort(
+    (a, b) => b.year - a.year,
+);
 
 const widthScales: Record<number, string> = {
     1: "",
@@ -19,47 +23,59 @@ const heightScales: Record<number, string> = {
 ---
 
 <Layout>
-    <ModeToggle />
-    <div class="grid md:grid-cols-3 p-10 grid-flow-dense max-w-3/4 mx-auto">
-        {
-            projects.map((project) => (
-                <div
-                    class:list={[
-                        "snap-center shrink-0 md:snap-align-none md:shrink project-tag-wrapper p-3",
-                        widthScales[project.width],
-                        heightScales[project.height],
-                    ]}
-                    data-type={project.type}
-                >
-                    <ProjectTag
-                        name={project.name}
-                        desc={project.description}
-                        link={project.link}
-                        imgPath={project.imgPath}
-                        stack={project.stack}
-                    />
-                </div>
-            ))
-        }
+    <div transition:animate="fade">
+        <ProjectsTitle />
+        <div
+            id="projects-grid"
+            class="grid grid-cols-1 md:grid-cols-3 py-8 px-4 md:py-12 md:px-10 grid-flow-dense max-w-6xl mx-auto gap-0"
+        >
+            {
+                projects.map((project) => (
+                    <div
+                        class:list={[
+                            "project-tag-wrapper p-3 transition-opacity duration-base",
+                            widthScales[project.width],
+                            heightScales[project.height],
+                        ]}
+                        data-type={project.type}
+                    >
+                        <ProjectTag
+                            name={project.name}
+                            desc={project.description}
+                            link={project.link}
+                            imgPath={project.imgPath}
+                            stack={project.stack}
+                            year={project.year}
+                            type={project.type}
+                        />
+                    </div>
+                ))
+            }
+        </div>
     </div>
 </Layout>
 <script>
+    import autoAnimate from "@formkit/auto-animate";
     import { mode } from "../projects.js";
 
     document.addEventListener("astro:page-load", () => {
-        mode.subscribe((value) => {
-            const projectTags = document.querySelectorAll(
-                ".project-tag-wrapper",
-            );
-            projectTags.forEach((tag) => {
-                const projectType = tag.getAttribute("data-type");
-                const htmlTag = tag as HTMLElement;
+        const grid = document.getElementById("projects-grid");
+        if (grid) autoAnimate(grid, { duration: 250 });
+
+        function applyFilter(value: string) {
+            const wrappers = document.querySelectorAll(".project-tag-wrapper");
+            wrappers.forEach((wrapper) => {
+                const el = wrapper as HTMLElement;
+                const projectType = el.getAttribute("data-type");
                 if (projectType === value) {
-                    htmlTag.style.display = "block";
+                    el.classList.remove("hidden");
                 } else {
-                    htmlTag.style.display = "none";
+                    el.classList.add("hidden");
                 }
             });
-        });
+        }
+
+        mode.subscribe(applyFilter);
+        applyFilter(mode.get());
     });
 </script>

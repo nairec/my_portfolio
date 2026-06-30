@@ -1,14 +1,12 @@
 ---
-import DetailItem from "./DetailItem.astro";
 import Tag from "./Tag.astro";
-import { mode } from "../projects.js";
 import Chatbot from "./Chatbot.tsx";
 ---
 
 <div id="container">
     <main>
         <div
-            class="flex flex-row gap-18 md:mt-15 min-h-100vh align-center justify-between"
+            class="flex flex-row gap-16 xl:gap-20 md:mt-15 min-h-100vh align-center justify-between max-w-7xl mx-auto px-6 w-full"
         >
             <section id="hero" class="mx-auto w-fit">
                 <div class="flex flex-col gap-2">
@@ -20,7 +18,7 @@ import Chatbot from "./Chatbot.tsx";
                         I develop software solutions.
                     </h2>
                 </div>
-                <p class="bio max-w-prose mt-8">
+                <p class="bio max-w-prose mt-8 leading-relaxed">
                     I'm a thoughtful junior programmer who is passionate about
                     finding new things to <span class="highlight">learn</span> and
                     <span class="highlight">apply</span>, and perfectioning the
@@ -30,7 +28,7 @@ import Chatbot from "./Chatbot.tsx";
                 </p>
                 <div class="flex flex-row gap-6 highlight text-xl mt-12">
                     <a
-                        class="relative group p-2 hover:cursor-pointer group text-center inline-block border border-s-cyan-600 hover:bg-cyan-800/30 transition-colors"
+                        class="interactive-base focus-ring relative p-2 hover:cursor-pointer text-center inline-block border border-cyan-600/40 backdrop-blur-sm hover:bg-cyan-800/20 hover:border-cyan-400/60"
                         href="mailto:irecgc@gmail.com"
                     >
                         Contact me
@@ -43,7 +41,9 @@ import Chatbot from "./Chatbot.tsx";
                     <a
                         href="https://github.com/nairec"
                         target="_blank"
+                        rel="noopener noreferrer"
                         aria-label="github"
+                        class="interactive-base focus-ring rounded-sm"
                         ><svg
                             xmlns="http://www.w3.org/2000/svg"
                             id="git-logo"
@@ -58,7 +58,9 @@ import Chatbot from "./Chatbot.tsx";
                     <a
                         href="https://linkedin.com/in/eric-garcia-cano"
                         target="_blank"
+                        rel="noopener noreferrer"
                         aria-label="linkedin"
+                        class="interactive-base focus-ring rounded-sm"
                         ><svg
                             xmlns="http://www.w3.org/2000/svg"
                             id="linkedIn-logo"
@@ -81,7 +83,9 @@ import Chatbot from "./Chatbot.tsx";
                     <a
                         href="https://x.com/PyNair"
                         target="_blank"
+                        rel="noopener noreferrer"
                         aria-label="twitter"
+                        class="interactive-base focus-ring rounded-sm"
                         ><svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="link-icon"
@@ -109,11 +113,11 @@ import Chatbot from "./Chatbot.tsx";
         </div>
         <section
             id="stack"
-            class="mx-auto flex flex-col max-w-3xl w-full p-2 gap-16"
+            class="mx-auto flex flex-col max-w-3xl w-full px-2 gap-16 border-t border-gray-800 pt-16"
         >
             <h2
                 id="stack-header"
-                class="relative place-self-center md:place-self-end text-5xl text-[#BABABA]"
+                class="relative place-self-center md:place-self-end text-5xl text-muted tracking-tight"
             >
                 My Stack
             </h2>
@@ -197,8 +201,14 @@ import Chatbot from "./Chatbot.tsx";
         flex-direction: column;
         justify-content: start;
         align-items: center;
-        gap: 12rem;
+        gap: 6rem;
         padding-bottom: 50px;
+    }
+
+    @media (min-width: 768px) {
+        main {
+            gap: 8rem;
+        }
     }
 
     #hero {
@@ -230,7 +240,7 @@ import Chatbot from "./Chatbot.tsx";
         font-family:
             "Cascadia Code", "Source Code Pro", Menlo, Consolas,
             "DejaVu Sans Mono", monospace;
-        color: #989898;
+        color: var(--color-bio);
         margin: 0;
         font-size: 1em;
         margin-top: 2rem;
@@ -277,7 +287,9 @@ import Chatbot from "./Chatbot.tsx";
     .link-icon {
         width: 2rem;
         height: 2rem;
-        transition: all ease-in-out 0.2s;
+        transition:
+            color var(--duration-base) var(--ease-out-smooth),
+            filter var(--duration-base) var(--ease-out-smooth);
     }
 
     #git-logo:hover {

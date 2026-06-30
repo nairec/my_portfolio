@@ -1,18 +1,96 @@
 @import "tailwindcss";
 
+@theme {
+    --color-accent: #41d3ff;
+    --color-accent-hover: #00c932;
+    --color-muted: #bababa;
+    --color-bio: #a8a8a8;
+    --color-surface-border: #4b5563;
+
+    --ease-out-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    --duration-fast: 150ms;
+    --duration-base: 250ms;
+    --duration-slow: 400ms;
+}
+
+/* Reserva espacio para la barra y evita saltos al cambiar de modo / altura de página */
+html {
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-muted) 55%, var(--color-accent) 45%)
+        transparent;
+    overflow-x: clip;
+}
+
+html::-webkit-scrollbar {
+    width: 4px;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-muted) 60%, var(--color-accent) 40%);
+    border-radius: 999px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--color-muted) 30%, var(--color-accent) 70%);
+}
+
 body {
     margin: 0;
     padding: 0;
+    min-height: 100vh;
     scrollbar-gutter: stable;
+}
+
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-muted) 55%, var(--color-accent) 45%)
+        transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
     width: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #bababa;
-    border-radius: 10px;
+    background: color-mix(in srgb, var(--color-muted) 60%, var(--color-accent) 40%);
+    border-radius: 999px;
 }
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--color-muted) 30%, var(--color-accent) 70%);
+}
+
 .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
+}
+
+.interactive-base {
+    transition:
+        color var(--duration-base) var(--ease-out-smooth),
+        background-color var(--duration-base) var(--ease-out-smooth),
+        border-color var(--duration-base) var(--ease-out-smooth),
+        opacity var(--duration-base) var(--ease-out-smooth),
+        transform var(--duration-fast) var(--ease-out-smooth);
+}
+
+.focus-ring:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 2px black,
+        0 0 0 4px color-mix(in srgb, var(--color-accent) 50%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

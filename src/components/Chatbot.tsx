@@ -2,16 +2,12 @@ import "tailwindcss";
 import React from "react";
 import type { Message } from "../types/types";
 import { useEffect, useState } from "react";
+import { useStore } from "@nanostores/react";
+import { chatMessages } from "../chatStore";
 
 export default function Chatbot() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content:
-        "Hi! I'm iREC, a digital representative of Eric. Feel free to ask me anything!",
-    },
-  ]);
+  const messages = useStore(chatMessages);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -30,7 +26,7 @@ export default function Chatbot() {
         { content: input, role: "user" },
         { role: "assistant", content: "" },
       ] as Message[];
-      setMessages(updatedHistory);
+      chatMessages.set(updatedHistory);
       setInput("");
       await SendMessage(updatedHistory);
     }
@@ -49,8 +45,8 @@ export default function Chatbot() {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         console.error("Server error:", errorData);
-        setMessages((prev) => [
-          ...prev,
+        chatMessages.set([
+          ...history.slice(0, -1),
           {
             role: "assistant",
             content: "Sorry, there was an error processing the request.",
@@ -78,14 +74,13 @@ export default function Chatbot() {
                 const content = parsed.choices[0]?.delta?.content || "";
                 accumulatedText += content;
 
-                setMessages((prev) => {
-                  const newMessages = [...prev];
-                  const lastMessage = newMessages[newMessages.length - 1];
-                  if (lastMessage && lastMessage.role === "assistant") {
-                    lastMessage.content = accumulatedText;
-                  }
-                  return newMessages;
-                });
+                chatMessages.set(
+                  history.map((msg, i) =>
+                    i === history.length - 1 && msg.role === "assistant"
+                    ? { ...msg, content: accumulatedText }
+                    : msg
+                  )
+                );
               } catch (e) {
                 console.error(e);
               }
@@ -112,7 +107,7 @@ export default function Chatbot() {
   return (
     <div className="flex flex-col gap-4 border border-[#BABABA] p-4 mt-6 max-w-xl max-h-xl h-120 w-130 font-mono text-sm">
       <div className="flex-1 overflow-y-auto flex flex-col gap-2 pr-2 custom-scrollbar text-clip">
-        {messages.map((msg, index) => (
+        {messages.map((msg: Message, index: number) => (
           <p
             key={index}
             className={`max-w-[85%] break-words ${msg.role === "user" ? "text-right self-end ml-auto text-[#41d3ff]" : "text-white text-left self-start mr-auto"}`}
@@ -129,13 +124,13 @@ export default function Chatbot() {
           type="text"
           onChange={handleInputChange}
           value={input}
-          className="flex-1 px-3 py-2 text-[#41d3ff] bg-transparent outline-none placeholder:text-[#BABABA]/50"
+          className="flex-1 px-3 py-2 text-[#41d3ff] bg-transparent outline-none placeholder:text-[#BABABA]/50 focus-visible:ring-2 focus-visible:ring-[#41d3ff]/50 focus-visible:ring-inset"
           placeholder="Ask iREC anything..."
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="px-4 py-2 text-[#BABABA] hover:text-[#41d3ff] hover:bg-[#41d3ff]/10 transition-colors cursor-pointer"
+          className="px-4 py-2 text-[#BABABA] hover:text-[#41d3ff] hover:bg-[#41d3ff]/10 transition-colors duration-[250ms] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#41d3ff]/50"
           aria-label="Send message"
         >
           {isLoading ? "..." : "↵"}

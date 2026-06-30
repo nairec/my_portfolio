@@ -1,29 +1,48 @@
 ---
 import ModeToggle from "./ModeToggle.astro";
-import { mode } from "../projects.js";
 ---
 
-<div class="flex flex-col gap-5 items-center mt-10 w-full text-center">
+<div class="flex flex-col gap-6 items-center mt-10 w-full text-center px-6">
+    <h1 class="font-mono text-2xl md:text-3xl text-white">
+        <span class="text-accent">02.</span>
+        <span id="projectsSpan" class="text-indigo-400 transition-colors duration-300">
+            serious projects
+        </span>
+    </h1>
     <ModeToggle />
 </div>
 
 <script>
     import { mode } from "../projects.js";
+
     document.addEventListener("astro:page-load", () => {
         const projectsSpan = document.getElementById("projectsSpan");
 
         mode.subscribe((value) => {
-            if (projectsSpan) {
-                if (value === "fun") {
-                    projectsSpan.textContent = "fun projects";
-                    projectsSpan.classList.remove("text-indigo-500");
-                    projectsSpan.classList.add("text-cyan-300");
-                } else {
-                    projectsSpan.textContent = "serious projects";
-                    projectsSpan.classList.remove("text-cyan-300");
-                    projectsSpan.classList.add("text-indigo-500");
-                }
+            if (!projectsSpan) return;
+
+            if (value === "fun") {
+                projectsSpan.textContent = "fun projects";
+                projectsSpan.classList.remove("text-indigo-400");
+                projectsSpan.classList.add("text-cyan-300");
+            } else {
+                projectsSpan.textContent = "serious projects";
+                projectsSpan.classList.remove("text-cyan-300");
+                projectsSpan.classList.add("text-indigo-400");
             }
         });
+
+        const current = mode.get();
+        if (projectsSpan) {
+            if (current === "fun") {
+                projectsSpan.textContent = "fun projects";
+                projectsSpan.classList.remove("text-indigo-400");
+                projectsSpan.classList.add("text-cyan-300");
+            } else {
+                projectsSpan.textContent = "serious projects";
+                projectsSpan.classList.remove("text-cyan-300");
+                projectsSpan.classList.add("text-indigo-400");
+            }
+        }
     });
 </script>

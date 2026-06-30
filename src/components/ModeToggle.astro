@@ -1,63 +1,119 @@
 ---
-import { mode } from "../projects.js";
 ---
 
 <div
-    class="flex gap-10 font-mono text-xs items-center justify-center my-8 uppercase tracking-widest text-white"
+    id="mode-toggle"
+    class="relative flex gap-10 font-mono text-xs items-center justify-center my-8 uppercase tracking-widest text-white"
 >
     <button
         id="mode-serious"
-        class="mode-btn transition-all duration-300 pb-1 border-b-2 border-transparent opacity-50 hover:opacity-100 cursor-pointer"
+        type="button"
+        class="mode-btn interactive-base pb-1 opacity-50 hover:opacity-100 cursor-pointer focus-ring active:scale-95"
     >
         01_Serious
     </button>
 
-    <span class="opacity-20">/</span>
+    <span class="opacity-20 pointer-events-none" aria-hidden="true">/</span>
 
     <button
         id="mode-fun"
-        class="mode-btn transition-all duration-300 pb-1 border-b-2 border-transparent opacity-50 hover:opacity-100 cursor-pointer"
+        type="button"
+        class="mode-btn interactive-base pb-1 opacity-50 hover:opacity-100 cursor-pointer focus-ring active:scale-95"
     >
         02_Fun
     </button>
+
+    <span
+        id="mode-indicator"
+        class="mode-indicator absolute bottom-0 left-0 h-0.5 rounded-full pointer-events-none indicator-serious"
+        aria-hidden="true"
+    ></span>
 </div>
+
+<style>
+    .mode-indicator {
+        transition:
+            transform var(--duration-base) var(--ease-out-smooth),
+            width var(--duration-base) var(--ease-out-smooth),
+            background-color var(--duration-base) var(--ease-out-smooth);
+    }
+
+    .indicator-serious {
+        background-color: rgb(129 140 248);
+    }
+
+    .indicator-fun {
+        background-color: rgb(34 211 238);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .mode-indicator {
+            transition: background-color var(--duration-base) var(--ease-out-smooth);
+        }
+    }
+</style>
+
 <script>
     import { mode } from "../projects.js";
+
     document.addEventListener("astro:page-load", () => {
+        const container = document.getElementById("mode-toggle");
+        const indicator = document.getElementById("mode-indicator");
         const btnSerious = document.getElementById(
             "mode-serious",
         ) as HTMLButtonElement;
         const btnFun = document.getElementById("mode-fun") as HTMLButtonElement;
 
+        const seriousActive = ["text-indigo-400", "opacity-100"];
+        const funActive = ["text-cyan-400", "opacity-100"];
+
+        let skipTransition = true;
+
+        function moveIndicator(
+            activeBtn: HTMLButtonElement,
+            isSerious: boolean,
+        ) {
+            if (!container || !indicator) return;
+
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = activeBtn.getBoundingClientRect();
+
+            if (skipTransition) {
+                indicator.style.transition = "none";
+            }
+
+            indicator.style.width = `${btnRect.width}px`;
+            indicator.style.transform = `translateX(${btnRect.left - containerRect.left}px)`;
+            indicator.classList.toggle("indicator-serious", isSerious);
+            indicator.classList.toggle("indicator-fun", !isSerious);
+
+            if (skipTransition) {
+                requestAnimationFrame(() => {
+                    indicator.style.transition = "";
+                    skipTransition = false;
+                });
+            }
+        }
+
+        function setActive(btn: HTMLButtonElement, activeClasses: string[]) {
+            btn.classList.add(...activeClasses);
+            btn.classList.remove("opacity-50");
+        }
+
+        function setInactive(btn: HTMLButtonElement, activeClasses: string[]) {
+            btn.classList.remove(...activeClasses);
+            btn.classList.add("opacity-50");
+        }
+
         function updateUI(currentMode: string) {
             if (currentMode === "serious") {
-                btnSerious.classList.add(
-                    "border-cyan-400",
-                    "text-cyan-400",
-                    "opacity-100",
-                );
-                btnSerious.classList.remove("border-transparent", "opacity-50");
-
-                btnFun.classList.remove(
-                    "border-cyan-400",
-                    "text-cyan-400",
-                    "opacity-100",
-                );
-                btnFun.classList.add("border-transparent", "opacity-50");
+                setActive(btnSerious, seriousActive);
+                setInactive(btnFun, funActive);
+                moveIndicator(btnSerious, true);
             } else {
-                btnFun.classList.add(
-                    "border-cyan-400",
-                    "text-cyan-400",
-                    "opacity-100",
-                );
-                btnFun.classList.remove("border-transparent", "opacity-50");
-
-                btnSerious.classList.remove(
-                    "border-cyan-400",
-                    "text-cyan-400",
-                    "opacity-100",
-                );
-                btnSerious.classList.add("border-transparent", "opacity-50");
+                setActive(btnFun, funActive);
+                setInactive(btnSerious, seriousActive);
+                moveIndicator(btnFun, false);
             }
         }
 
@@ -72,5 +128,7 @@ import { mode } from "../projects.js";
         });
 
         updateUI(mode.get());
+
+        window.addEventListener("resize", () => updateUI(mode.get()));
     });
 </script>

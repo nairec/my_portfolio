@@ -17,17 +17,20 @@ const isActive = (href: string) => {
 <header>
     <nav
         class="flex flex-row gap-5 md:pr-10 items-center font-mono justify-end text-white p-5 w-full"
+        aria-label="Main navigation"
     >
         {
             navItems.map((item, i) => (
                 <a
                     href={item.href}
                     class:list={[
-                        "hover:text-cyan-300 transition-all duration-100 ease-in-out",
-                        isActive(item.href) ? "text-blue-300" : "text-white",
+                        "interactive-base focus-ring pb-0.5",
+                        isActive(item.href)
+                            ? "text-cyan-300 border-b border-cyan-400/60"
+                            : "text-white border-b border-transparent hover:text-cyan-300",
                     ]}
                 >
-                    <span class="text-[#41d3ff]">
+                    <span class="text-accent">
                         {String(i + 1).padStart(2, "0")}.{" "}
                     </span>
                     {item.name}
