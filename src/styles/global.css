@@ -21,6 +21,10 @@ html {
         transparent;
     overflow-x: clip;
     background-color: #000;
+    background-image:
+        linear-gradient(to right, #80808012 1px, transparent 1px),
+        linear-gradient(to bottom, #80808012 1px, transparent 1px);
+    background-size: 24px 24px;
     color-scheme: dark;
 }
 
@@ -46,7 +50,6 @@ body {
     padding: 0;
     min-height: 100vh;
     scrollbar-gutter: stable;
-    background-color: #000;
     color: #fff;
 }
 

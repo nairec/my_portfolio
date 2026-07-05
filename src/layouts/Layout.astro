@@ -10,10 +10,13 @@ import "@fontsource-variable/plus-jakarta-sans";
 
 const locale = Astro.locals.locale;
 const t = getTranslations(locale);
+
+const gridBackground =
+    "background-color:#000;background-image:linear-gradient(to right,#80808012 1px,transparent 1px),linear-gradient(to bottom,#80808012 1px,transparent 1px);background-size:24px 24px;color-scheme:dark";
 ---
 
 <!doctype html>
-<html lang={locale} style="background-color:#000;color-scheme:dark" transition:animate="none">
+<html lang={locale} style={gridBackground}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -24,12 +27,14 @@ const t = getTranslations(locale);
         <Analytics />
         <title>{t.meta.title}</title>
     </head>
-    <body style="background-color:#000;color:#fff;margin:0">
+    <body style="margin:0;color:#fff">
         <a href="#main-content" class="skip-link focus-ring">{t.a11y.skipToContent}</a>
         <Background mode="work" />
-        <Navbar />
-        <slot />
-        <Footer />
+        <div class="relative z-10">
+            <Navbar />
+            <slot />
+            <Footer />
+        </div>
     </body>
 </html>
 

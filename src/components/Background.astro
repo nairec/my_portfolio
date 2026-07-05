@@ -15,13 +15,13 @@ const palette =
           };
 ---
 
-<div class={`fixed inset-0 -z-50 h-full w-full bg-black`} aria-hidden="true">
+<div
+    class="pointer-events-none fixed inset-0 z-0 h-full w-full"
+    transition:persist="site-background"
+    aria-hidden="true"
+>
     <div
-        class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
-    >
-    </div>
-    <div
-        class="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_left,var(--color-cyan-600),transparent)] opacity-20"
+        class="absolute inset-0 h-full w-full bg-[radial-gradient(ellipse_at_bottom_left,#0891b2,transparent)] opacity-20"
     >
     </div>
 </div>

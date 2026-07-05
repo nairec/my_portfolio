@@ -72,17 +72,18 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 
 **Anti-FOUC (flash blanco en prod):** Con `output: "server"`, el CSS externo puede llegar después del HTML. Mitigaciones en [`astro.config.mjs`](astro.config.mjs) y [`Layout.astro`](src/layouts/Layout.astro):
 - `build.inlineStylesheets: "always"` — inyecta Tailwind y estilos en `<style>` del `<head>` en el primer byte.
-- Fondo negro inline en `<html>` y `<body>` + `color-scheme: dark` — pinta antes de que cargue la hoja global.
-- `html`/`body` en `global.css` repiten `#000` para consistencia tras hidratar.
-- **Sin prerender** de `/` y `/projects`: el middleware i18n resuelve idioma por cookie/`Accept-Language` en cada request; prerender congelaría solo el locale por defecto.
+- Cuadrícula + fondo negro inline en `<html>` — visible desde el primer paint, sin quedar oculta detrás del `background` del `body`.
+- `Background.astro` con `z-0` (no `-z-50`) y `transition:persist="site-background"` — cuadrícula estable en navegación SPA.
+- Imágenes/SVG con `view-transition-name: none` y `transition:animate="none"` en miniaturas de proyecto — evitan snapshots en View Transitions.
+- **Sin prerender** de `/` y `/projects`: el middleware i18n resuelve idioma por cookie/`Accept-Language` en cada request.
 
 ## Páginas
 
 ### `src/pages/index.astro`
-Home con `Welcome.astro`. Navegación SPA vía `ClientRouter` sin animación de View Transitions (`transition:animate="none"` en `<html>`) para evitar flashes de snapshot en imágenes.
+Home con `Welcome.astro`. Contenido con `transition:animate="fade"`; shell (navbar, footer, fondo) persiste sin parpadeo.
 
 ### `src/pages/projects.astro`
-Grid de proyectos con filtro serious/fun. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`.
+Grid de proyectos con filtro serious/fun. Contenido envuelto en `transition:animate="fade"`. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`.
 
 ## Componentes clave
 
