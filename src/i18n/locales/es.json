@@ -25,6 +25,27 @@
     "bioEnd": ", y perfeccionar las que ya conozco. Esto es cierto tanto si estoy trabajando en un proyecto, aprendiendo sobre mis aficiones o simplemente aburrido =).",
     "contact": "Contáctame"
   },
+  "works": {
+    "heading": "Especialidades",
+    "items": [
+      {
+        "title": "Desarrollo web",
+        "description": "Desarrollo aplicaciones web full-stack usando tecnologías modernas como React, Next.js y Astro, entre otras. Tengo experiencia en el uso de APIs REST, autenticación y manejo de bases de datos. Me centro en la creación de aplicaciones optimizadas, seguras y escalables."
+      },
+      {
+        "title": "Integración de IA",
+        "description": "El sector de la inteligencia artificial es actualmente el que más interés me genera. Tengo conocimientos sobre fundamentos de LLMs, arquitecturas transformer, fine-tuning, embeddings, RAG, entre otras técnicas. Tengo experiencia desarrollando sistemas agénticos para automatización y optimización de procesos."
+      },
+      {
+        "title": "Automatización de tareas",
+        "description": "Tengo experiencia en lenguajes de scripting como Python y Bash para automatizar tareas repetitivas, además de librerías numéricas y de procesamiento de datos como Pandas y NumPy para analizar y procesar datos de forma eficiente y automática."
+      },
+      {
+        "title": "Despliegue de aplicaciones en la nube",
+        "description": "He desplegado aplicaciones en servidores remotos propios usando Docker y servicios de alojamiento como DigitalOcean, Vercel y Heroku. También estoy acostumbrado a usar herramientas de CI/CD como GitHub Actions para automatizar el despliegue y la integración continua de mis aplicaciones."
+      }
+    ]
+  },
   "stack": {
     "heading": "Mi Stack",
     "languages": "Lenguajes",

@@ -42,7 +42,7 @@ Implementado en [`src/middleware.ts`](src/middleware.ts). El `<html lang>` se ac
 ### Traducciones
 Archivos JSON en `src/i18n/locales/`. Los componentes Astro leen `Astro.locals.locale` y usan `getTranslations(locale)`.
 
-- Textos de UI: nav, hero, stack, projects, chat, footer
+- Textos de UI: nav, hero, works, stack, projects, chat, footer
 - Descripciones de proyectos: por `slug` en `t.projects.descriptions`
 - Prompts del chatbot: `getSystemPrompt(locale)` en [`src/lib/prompts.ts`](src/lib/prompts.ts)
 
@@ -77,11 +77,17 @@ Grid de proyectos con filtro serious/fun. Ordena por `year` descendente. Integra
 
 ## Componentes clave
 
+### `SectionDivider.astro`
+Separador decorativo entre secciones principales de la home: líneas en gradiente muted/cyan con `//` estilizado en mono (skew + opacidad distinta por barra, glow sutil). `role="separator"` y `aria-hidden`. Usado entre hero → works → stack en `Welcome.astro`.
+
 ### `Welcome.astro`
-Hero (mono + cyan), bio, CTA contacto, redes sociales y sección "My Stack" con iconos flotantes (`Tag.astro`). Contenedor `max-w-7xl` con espaciado vertical reducido (6–8rem entre secciones).
+Hero (mono + cyan), bio, CTA contacto, redes sociales, sección **"Especialidades"** (`#works`) con cuatro áreas de trabajo, y sección "My Stack" con iconos flotantes (`Tag.astro`). Contenedor `max-w-7xl` con espaciado vertical reducido (6–8rem entre secciones).
+
+#### Sección `#works`
+Bloques apilados (`t.works.items[]`) con `title` y `description` por área. Cada bloque: cabecera horizontal (ilustración SVG grande + número/título) y párrafo descriptivo debajo. En desktop, los bloques impares alternan imagen a la derecha (`work-block--reverse`). Textos editables en `src/i18n/locales/es.json`; EN/CA con placeholders hasta traducción.
 
 ### `Navbar.astro`
-Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con subrayado.
+Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con subrayado. Header **sticky** (`top-0`, `z-50`) con fondo semitransparente y `backdrop-blur` para legibilidad al hacer scroll.
 
 ### `LanguageSwitcher.astro`
 Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.

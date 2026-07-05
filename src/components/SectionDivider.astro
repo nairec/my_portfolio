@@ -1,0 +1,75 @@
+---
+export interface Props {
+    class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div
+    class:list={["section-divider", className]}
+    role="separator"
+    aria-hidden="true"
+>
+    <span class="section-divider__line"></span>
+    <span class="section-divider__mark" aria-hidden="true">
+        <span class="section-divider__slash">/</span>
+        <span class="section-divider__slash">/</span>
+    </span>
+    <span class="section-divider__line"></span>
+</div>
+
+<style>
+    .section-divider {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        width: 100%;
+        max-width: 42rem;
+        margin-inline: auto;
+        padding-block: 0.5rem;
+    }
+
+    .section-divider__line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+            to right,
+            transparent,
+            color-mix(in srgb, var(--color-muted) 35%, var(--color-accent) 25%),
+            transparent
+        );
+        opacity: 0.85;
+    }
+
+    .section-divider__mark {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 0.1em;
+        flex-shrink: 0;
+        font-family:
+            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+            "DejaVu Sans Mono", monospace;
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1;
+        color: var(--color-accent);
+        letter-spacing: -0.04em;
+        user-select: none;
+    }
+
+    .section-divider__slash {
+        display: inline-block;
+        text-shadow: 0 0 18px color-mix(in srgb, var(--color-accent) 35%, transparent);
+    }
+
+    .section-divider__slash:first-child {
+        transform: skewX(-14deg);
+        opacity: 0.55;
+    }
+
+    .section-divider__slash:last-child {
+        transform: skewX(-14deg) translateY(-1px);
+        opacity: 1;
+    }
+</style>

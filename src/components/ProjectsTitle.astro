@@ -30,19 +30,20 @@ const t = getTranslations(Astro.locals.locale);
         const projectsSpan = document.getElementById("projectsSpan");
         if (!projectsSpan) return;
 
+        const span = projectsSpan;
         const titleSerious =
-            projectsSpan.dataset.titleSerious ?? "serious projects";
-        const titleFun = projectsSpan.dataset.titleFun ?? "fun projects";
+            span.dataset.titleSerious ?? "serious projects";
+        const titleFun = span.dataset.titleFun ?? "fun projects";
 
         function updateTitle(value: string) {
             if (value === "fun") {
-                projectsSpan.textContent = titleFun;
-                projectsSpan.classList.remove("text-indigo-400");
-                projectsSpan.classList.add("text-cyan-300");
+                span.textContent = titleFun;
+                span.classList.remove("text-indigo-400");
+                span.classList.add("text-cyan-300");
             } else {
-                projectsSpan.textContent = titleSerious;
-                projectsSpan.classList.remove("text-cyan-300");
-                projectsSpan.classList.add("text-indigo-400");
+                span.textContent = titleSerious;
+                span.classList.remove("text-cyan-300");
+                span.classList.add("text-indigo-400");
             }
         }
 

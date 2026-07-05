@@ -19,7 +19,9 @@ const isActive = (href: string) => {
 };
 ---
 
-<header>
+<header
+    class="sticky top-0 z-50 w-full border-b border-gray-800/60 bg-black/25 backdrop-blur-md"
+>
     <nav
         class="flex flex-row flex-wrap gap-5 md:pr-10 items-center font-mono justify-end text-white p-5 w-full"
         aria-label={t.nav.ariaLabel}

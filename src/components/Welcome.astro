@@ -1,11 +1,22 @@
 ---
 import Tag from "./Tag.astro";
 import Chatbot from "./Chatbot.tsx";
+import SectionDivider from "./SectionDivider.astro";
 import { getTranslations } from "../i18n";
-import type { Locale } from "../i18n";
+import webDevIllustration from "../assets/SVGs/web-developer.svg?raw";
+import aiIllustration from "../assets/SVGs/artificial-intelligence.svg?raw";
+import automationIllustration from "../assets/SVGs/task-automation.svg?raw";
+import cloudIllustration from "../assets/SVGs/cloud-dev.svg?raw";
 
 const locale = Astro.locals.locale;
 const t = getTranslations(locale);
+
+const workIllustrations = [
+    webDevIllustration,
+    aiIllustration,
+    automationIllustration,
+    cloudIllustration,
+];
 ---
 
 <div id="container">
@@ -112,7 +123,6 @@ const t = getTranslations(locale);
             <section id="chatbot-box" class="xl:flex hidden">
                 <Chatbot
                     client:load
-                    key={locale}
                     locale={locale}
                     placeholder={t.chat.placeholder}
                     sendAria={t.chat.sendAria}
@@ -121,9 +131,49 @@ const t = getTranslations(locale);
                 />
             </section>
         </div>
+        <SectionDivider class="px-6" />
+        <section
+            id="works"
+            class="mx-auto flex flex-col max-w-5xl w-full px-6 gap-16"
+        >
+            <h2
+                id="works-header"
+                class="relative place-self-center md:place-self-start text-5xl text-muted tracking-tight"
+            >
+                {t.works.heading}
+            </h2>
+            <div class="works-list">
+                {
+                    t.works.items.map((item, index) => (
+                        <article
+                            class:list={[
+                                "work-block",
+                                index % 2 === 1 && "work-block--reverse",
+                            ]}
+                        >
+                            <div class="work-header">
+                                <div
+                                    class="work-illustration"
+                                    set:html={workIllustrations[index]}
+                                    aria-hidden="true"
+                                />
+                                <div class="work-heading">
+                                    <span class="work-number">
+                                        {String(index + 1).padStart(2, "0")}
+                                    </span>
+                                    <h3 class="work-title">{item.title}</h3>
+                                </div>
+                            </div>
+                            <p class="work-description">{item.description}</p>
+                        </article>
+                    ))
+                }
+            </div>
+        </section>
+        <SectionDivider class="px-6" />
         <section
             id="stack"
-            class="mx-auto flex flex-col max-w-3xl w-full px-2 gap-16 border-t border-gray-800 pt-16"
+            class="mx-auto flex flex-col max-w-3xl w-full px-2 gap-16"
         >
             <h2
                 id="stack-header"
@@ -265,6 +315,125 @@ const t = getTranslations(locale);
         width: 100%;
         height: 1px;
         background: #bababa;
+    }
+
+    .works-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        width: 100%;
+    }
+
+    @media (min-width: 768px) {
+        .works-list {
+            gap: 5rem;
+        }
+    }
+
+    .work-block {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-bottom: 4rem;
+        border-bottom: 1px solid color-mix(in srgb, #bababa 20%, transparent);
+        font-family:
+            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+            "DejaVu Sans Mono", monospace;
+    }
+
+    .work-block:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .work-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .work-header {
+            flex-direction: row;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .work-block--reverse .work-header {
+            flex-direction: row-reverse;
+        }
+    }
+
+    .work-illustration {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 55%;
+        min-width: 0;
+        padding: 0.5rem;
+    }
+
+    .work-illustration :global(svg) {
+        width: 100%;
+        height: auto;
+        max-height: 12rem;
+    }
+
+    @media (min-width: 768px) {
+        .work-illustration :global(svg) {
+            max-height: 14rem;
+        }
+    }
+
+    .work-heading {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        flex: 1 1 45%;
+        min-width: 0;
+    }
+
+    @media (min-width: 768px) {
+        .work-block--reverse .work-heading {
+            align-items: flex-end;
+            text-align: right;
+        }
+    }
+
+    .work-number {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: #41d3ff;
+        line-height: 1;
+    }
+
+    @media (min-width: 768px) {
+        .work-number {
+            font-size: 1.5rem;
+        }
+    }
+
+    .work-title {
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 1.2;
+        margin: 0;
+    }
+
+    @media (min-width: 768px) {
+        .work-title {
+            font-size: 1.75rem;
+        }
+    }
+
+    .work-description {
+        color: var(--color-bio);
+        font-size: 1rem;
+        line-height: 1.7;
+        margin: 0;
+        max-width: 65ch;
     }
 
     /*#stack-header::after {

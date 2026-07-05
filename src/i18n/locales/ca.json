@@ -25,6 +25,27 @@
     "bioEnd": ", i per perfeccionar les que ja conec. Això és cert tant si estic treballant en un projecte, aprenent sobre les meves aficions o simplement avorrit =).",
     "contact": "Contacta'm"
   },
+  "works": {
+    "heading": "Especialitats",
+    "items": [
+      {
+        "title": "Desenvolupament web",
+        "description": "Desenvolupo aplicacions web full-stack amb tecnologies modernes com React, Next.js i Astro, entre d'altres. Tinc experiència en l'ús d'APIs REST, autenticació i gestió de bases de dades. Em centro en la creació d'aplicacions optimitzades, segures i escalables."
+      },
+      {
+        "title": "Integració d'IA",
+        "description": "El sector de la intel·ligència artificial és actualment el que més interès em genera. Tinc coneixements sobre fonaments de LLMs, arquitectures transformer, fine-tuning, embeddings, RAG, entre d'altres tècniques. Tinc experiència desenvolupant sistemes agèntics per a l'automatització i l'optimització de processos."
+      },
+      {
+        "title": "Automatització de tasques",
+        "description": "Tinc experiència en llenguatges de scripting com Python i Bash per automatitzar tasques repetitives, a més de llibreries numèriques i de processament de dades com Pandas i NumPy per analitzar i processar dades de forma eficient i automàtica."
+      },
+      {
+        "title": "Desplegament d'aplicacions al núvol",
+        "description": "He desplegat aplicacions en servidors remots propis fent servir Docker i serveis d'allotjament com DigitalOcean, Vercel i Heroku. També estic acostumat a fer servir eines de CI/CD com GitHub Actions per automatitzar el desplegament i la integració contínua de les meves aplicacions."
+      }
+    ]
+  },
   "stack": {
     "heading": "El meu Stack",
     "languages": "Llenguatges",
