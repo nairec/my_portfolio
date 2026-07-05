@@ -70,6 +70,12 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 
 **Scrollbar de página:** `scrollbar-gutter: stable` en `html` reserva espacio fijo para evitar saltos de layout al cambiar de modo en Projects (cuando aparece/desaparece overflow). Barra fina (4px) con thumb muted/cyan, alineada con `.custom-scrollbar` del chatbot.
 
+**Anti-FOUC (flash blanco en prod):** Con `output: "server"`, el CSS externo puede llegar después del HTML. Mitigaciones en [`astro.config.mjs`](astro.config.mjs) y [`Layout.astro`](src/layouts/Layout.astro):
+- `build.inlineStylesheets: "always"` — inyecta Tailwind y estilos en `<style>` del `<head>` en el primer byte.
+- Fondo negro inline en `<html>` y `<body>` + `color-scheme: dark` — pinta antes de que cargue la hoja global.
+- `html`/`body` en `global.css` repiten `#000` para consistencia tras hidratar.
+- **Sin prerender** de `/` y `/projects`: el middleware i18n resuelve idioma por cookie/`Accept-Language` en cada request; prerender congelaría solo el locale por defecto.
+
 ## Páginas
 
 ### `src/pages/index.astro`

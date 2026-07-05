@@ -20,6 +20,8 @@ html {
     scrollbar-color: color-mix(in srgb, var(--color-muted) 55%, var(--color-accent) 45%)
         transparent;
     overflow-x: clip;
+    background-color: #000;
+    color-scheme: dark;
 }
 
 html::-webkit-scrollbar {
@@ -44,6 +46,8 @@ body {
     padding: 0;
     min-height: 100vh;
     scrollbar-gutter: stable;
+    background-color: #000;
+    color: #fff;
 }
 
 .custom-scrollbar {
