@@ -394,6 +394,28 @@ const workIllustrations = [
         min-width: 0;
     }
 
+    @media (max-width: 767px) {
+        .work-header {
+            align-items: stretch;
+        }
+
+        .work-heading {
+            flex-direction: row;
+            align-items: baseline;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .work-number {
+            flex-shrink: 0;
+            min-width: 2.25rem;
+        }
+
+        .work-title {
+            text-align: left;
+        }
+    }
+
     @media (min-width: 768px) {
         .work-block--reverse .work-heading {
             align-items: flex-end;
