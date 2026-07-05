@@ -109,11 +109,9 @@ const langNames: Record<Locale, string> = {
         menu.querySelectorAll(".lang-option").forEach((btn) => {
             btn.addEventListener("click", async (e) => {
                 e.stopPropagation();
-                const next = btn.getAttribute("data-locale");
+                const next = btn.getAttribute("data-locale") ?? "en";
                 closeMenu();
-                if (isLocale(next) && next !== currentLocale) {
-                    await setLocale(next);
-                }
+                if (isLocale(next) && next !== currentLocale) await setLocale(next);
             });
         });
 
