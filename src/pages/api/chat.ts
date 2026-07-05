@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { Groq } from "groq-sdk";
-import { SYSTEM_PROMPT } from "../../lib/prompts";
+import { getSystemPrompt } from "../../lib/prompts";
+import { isLocale, defaultLocale } from "../../i18n";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
@@ -20,7 +21,9 @@ const ratelimit = new Ratelimit({
 });
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
-  const { messages } = await request.json();
+  const { messages, locale: rawLocale } = await request.json();
+  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
+  const systemPrompt = getSystemPrompt(locale);
   const identifier = clientAddress || "anonymous";
 
   const { success, limit, reset, remaining } =
@@ -39,7 +42,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   try {
     const completion = await groq.chat.completions.create({
-      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+      messages: [{ role: "system", content: systemPrompt }, ...messages],
       model: "llama-3.3-70b-versatile",
       temperature: 1,
       max_completion_tokens: 8192,

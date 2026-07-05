@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Eric Garcia"
+  },
+  "nav": {
+    "ariaLabel": "Main navigation",
+    "home": "Home",
+    "projects": "Projects",
+    "blog": "Blog"
+  },
+  "lang": {
+    "ariaLabel": "Language",
+    "en": "EN",
+    "es": "ES",
+    "ca": "CA"
+  },
+  "hero": {
+    "greeting": "Hi there! My name is",
+    "name": "Eric Garcia.",
+    "tagline": "I develop software solutions.",
+    "bioStart": "I'm a thoughtful junior programmer who is passionate about finding new things to ",
+    "learn": "learn",
+    "bioMid": " and ",
+    "apply": "apply",
+    "bioEnd": ", and perfecting the ones I already know. This is true whether I'm working on a project, learning about my hobbies, or just bored =).",
+    "contact": "Contact me"
+  },
+  "stack": {
+    "heading": "My Stack",
+    "languages": "Languages",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "devops": "DevOps",
+    "cloud": "Cloud & Hosting"
+  },
+  "projects": {
+    "titleSerious": "serious projects",
+    "titleFun": "fun projects",
+    "modeSerious": "01_Serious",
+    "modeFun": "02_Fun",
+    "descriptions": {
+      "aethertype": "A distraction-free, local-first writing environment that makes writing a pleasant experience. Step into the aether and write without limits.",
+      "latentspace": "A web application that allows you to explore the latent space representation of a set of words using an open-source embedding model and PCA analysis.",
+      "conwaylightsim": "A cellular automaton web simulator inspired by Conway's Game of Life, featuring interactive editing, real-time simulation, reactive audio and more."
+    }
+  },
+  "chat": {
+    "placeholder": "Ask iREC anything...",
+    "sendAria": "Send message",
+    "greeting": "Hi! I'm iREC, a digital representative of Eric. Feel free to ask me anything!",
+    "error": "Sorry, there was an error processing the request."
+  },
+  "footer": {
+    "copyright": "Eric Garcia, 2026 ©"
+  }
+}

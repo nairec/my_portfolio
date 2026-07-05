@@ -1,4 +1,10 @@
 ---
+export interface Props {
+    modeSerious: string;
+    modeFun: string;
+}
+
+const { modeSerious, modeFun } = Astro.props;
 ---
 
 <div
@@ -10,7 +16,7 @@
         type="button"
         class="mode-btn interactive-base pb-1 opacity-50 hover:opacity-100 cursor-pointer focus-ring active:scale-95"
     >
-        01_Serious
+        {modeSerious}
     </button>
 
     <span class="opacity-20 pointer-events-none" aria-hidden="true">/</span>
@@ -20,7 +26,7 @@
         type="button"
         class="mode-btn interactive-base pb-1 opacity-50 hover:opacity-100 cursor-pointer focus-ring active:scale-95"
     >
-        02_Fun
+        {modeFun}
     </button>
 
     <span

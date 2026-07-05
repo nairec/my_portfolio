@@ -15,9 +15,41 @@ src/
 ├── pages/                 # Rutas y API
 ├── styles/                # Estilos globales y design tokens
 ├── types/                 # Interfaces TypeScript compartidas
+├── i18n/                  # Internacionalización (en, es, ca)
+│   ├── locales/           # JSON de traducciones
+│   ├── index.ts           # getTranslations, parseAcceptLanguage
+│   └── locale.ts          # Store cliente + setLocale (cookie)
+├── middleware.ts          # Detección de idioma (cookie / Accept-Language)
+├── chatStore.ts           # Historial del chatbot (sessionStorage)
 ├── projectsList.json      # Datos estáticos de proyectos
 └── projects.js            # Store nanostores (modo serious/fun)
 ```
+
+## Internacionalización (i18n)
+
+Idiomas soportados: **inglés** (`en`), **español** (`es`), **catalán** (`ca`).
+
+### Detección automática
+1. Cookie `locale` (preferencia explícita del usuario)
+2. Cabecera `Accept-Language` del navegador
+3. Fallback: `en`
+
+Implementado en [`src/middleware.ts`](src/middleware.ts). El `<html lang>` se actualiza en [`Layout.astro`](src/layouts/Layout.astro).
+
+### Selector de idioma
+[`LanguageSwitcher.astro`](src/components/LanguageSwitcher.astro) en el Navbar (EN / ES / CA). Al cambiar, guarda cookie y recarga la página.
+
+### Traducciones
+Archivos JSON en `src/i18n/locales/`. Los componentes Astro leen `Astro.locals.locale` y usan `getTranslations(locale)`.
+
+- Textos de UI: nav, hero, stack, projects, chat, footer
+- Descripciones de proyectos: por `slug` en `t.projects.descriptions`
+- Prompts del chatbot: `getSystemPrompt(locale)` en [`src/lib/prompts.ts`](src/lib/prompts.ts)
+
+### Chatbot e idioma
+- Props traducidas desde `Welcome.astro`
+- API `/api/chat` recibe `locale` y selecciona el system prompt
+- Al cambiar idioma, el historial del chat se reinicia con el saludo traducido (`clearChatSession` + `key={locale}` en `Chatbot` fuerza remount)
 
 ## Design tokens (`src/styles/global.css`)
 
@@ -49,7 +81,10 @@ Grid de proyectos con filtro serious/fun. Ordena por `year` descendente. Integra
 Hero (mono + cyan), bio, CTA contacto, redes sociales y sección "My Stack" con iconos flotantes (`Tag.astro`). Contenedor `max-w-7xl` con espaciado vertical reducido (6–8rem entre secciones).
 
 ### `Navbar.astro`
-Navegación numerada (`01. Home`). Estado activo en cyan con subrayado. Clases `interactive-base` y `focus-ring`.
+Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con subrayado.
+
+### `LanguageSwitcher.astro`
+Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.
 
 ### `ProjectsTitle.astro`
 Cabecera de la página de proyectos: `02. serious projects` / `02. fun projects`. El color del span cambia según el modo (indigo = serious, cyan = fun), sincronizado con `nanostores`.
@@ -60,7 +95,7 @@ Botones `01_Serious` / `02_Fun`. Estado activo diferenciado cromáticamente (ind
 ### `ProjectTag.astro`
 Tarjeta de proyecto premium:
 - Enlace externo que envuelve toda la card (`group`)
-- Cabecera: nombre + año + icono `↗` en hover
+- Cabecera: nombre + año + icono ojo en hover
 - Imagen `aspect-video` con `object-cover` y zoom sutil
 - Descripción con `line-clamp-3`
 - Stack tags como pills con borde; corchetes `[Tag]` solo en modo fun
@@ -78,7 +113,7 @@ Pie con padding vertical y texto `gray-500`.
 ## Datos de proyectos
 
 ### `src/projectsList.json`
-Cada proyecto incluye: `name`, `slug` (preparado para futuras rutas `/projects/[slug]`), `year`, `description`, `link`, `type`, `imgPath`, `stack`, `width`, `height`.
+Cada proyecto incluye: `name`, `slug`, `year`, `link`, `type`, `imgPath`, `stack`, `width`, `height`. Las **descripciones** viven en los JSON de i18n (`t.projects.descriptions[slug]`), no en este archivo.
 
 - `width: 2` destaca un proyecto en `md:col-span-2` (actualmente AetherType).
 - Orden de render: por año descendente en `projects.astro`.

@@ -1,0 +1,137 @@
+---
+import { getTranslations, locales, type Locale } from "../i18n";
+
+const locale = Astro.locals.locale;
+const t = getTranslations(locale);
+
+const langNames: Record<Locale, string> = {
+    en: "English",
+    es: "Español",
+    ca: "Català",
+};
+---
+
+<div class="lang-dropdown relative font-mono text-xs" data-current-locale={locale}>
+    <button
+        type="button"
+        id="lang-trigger"
+        class="lang-trigger interactive-base focus-ring flex items-center gap-1.5 px-2 py-1 cursor-pointer uppercase tracking-wider text-cyan-300 border border-gray-600/80 backdrop-blur-sm hover:border-cyan-400/50 hover:bg-cyan-950/20"
+        aria-label={t.lang.ariaLabel}
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="lang-menu"
+    >
+        <span id="lang-current">{t.lang[locale]}</span>
+        <svg
+            class="lang-chevron w-3 h-3 text-accent transition-transform duration-base"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M6 9l6 6 6-6"></path>
+        </svg>
+    </button>
+
+    <ul
+        id="lang-menu"
+        class="lang-menu hidden absolute right-0 top-full z-50 mt-1 min-w-[7.5rem] py-1 border border-gray-600/80 backdrop-blur-lg bg-black/90 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.8)]"
+        role="listbox"
+        aria-label={t.lang.ariaLabel}
+    >
+        {
+            locales.map((code) => (
+                <li role="presentation">
+                    <button
+                        type="button"
+                        data-locale={code}
+                        class:list={[
+                            "lang-option interactive-base focus-ring w-full text-left px-3 py-1.5 cursor-pointer flex items-center justify-between gap-3",
+                            locale === code
+                                ? "text-cyan-300 bg-cyan-950/30"
+                                : "text-gray-300 hover:text-cyan-300 hover:bg-cyan-950/20",
+                        ]}
+                        role="option"
+                        aria-selected={locale === code ? "true" : "false"}
+                    >
+                        <span>{langNames[code]}</span>
+                        <span class="text-[10px] uppercase tracking-widest opacity-60">
+                            {t.lang[code]}
+                        </span>
+                    </button>
+                </li>
+            ))
+        }
+    </ul>
+</div>
+
+<style>
+    .lang-dropdown.is-open .lang-chevron {
+        transform: rotate(180deg);
+    }
+</style>
+
+<script>
+    import { setLocale } from "../i18n/locale";
+    import { isLocale, type Locale } from "../i18n";
+
+    document.addEventListener("astro:page-load", () => {
+        const dropdown = document.querySelector(".lang-dropdown");
+        const trigger = document.getElementById("lang-trigger");
+        const menu = document.getElementById("lang-menu");
+        if (!dropdown || !trigger || !menu) return;
+
+        const raw = dropdown.getAttribute("data-current-locale");
+        const currentLocale = isLocale(raw ?? "") ? raw : "en";
+
+        function closeMenu() {
+            dropdown!.classList.remove("is-open");
+            menu!.classList.add("hidden");
+            trigger!.setAttribute("aria-expanded", "false");
+        }
+
+        function openMenu() {
+            dropdown!.classList.add("is-open");
+            menu!.classList.remove("hidden");
+            trigger!.setAttribute("aria-expanded", "true");
+        }
+
+        trigger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = trigger.getAttribute("aria-expanded") === "true";
+            if (isOpen) closeMenu();
+            else openMenu();
+        });
+
+        menu.querySelectorAll(".lang-option").forEach((btn) => {
+            btn.addEventListener("click", async (e) => {
+                e.stopPropagation();
+                const next = btn.getAttribute("data-locale");
+                closeMenu();
+                if (isLocale(next) && next !== currentLocale) {
+                    await setLocale(next);
+                }
+            });
+        });
+
+        const onDocClick = () => closeMenu();
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") closeMenu();
+        };
+
+        document.addEventListener("click", onDocClick);
+        document.addEventListener("keydown", onKeyDown);
+
+        document.addEventListener(
+            "astro:before-swap",
+            () => {
+                document.removeEventListener("click", onDocClick);
+                document.removeEventListener("keydown", onKeyDown);
+            },
+            { once: true },
+        );
+    });
+</script>

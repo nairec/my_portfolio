@@ -1,10 +1,15 @@
 ---
+import { getTranslations } from "../i18n";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+
 const { pathname } = Astro.url;
+const locale = Astro.locals.locale;
+const t = getTranslations(locale);
 
 const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Projects", href: "/projects" },
-    { name: "Blog", href: "/blog" },
+    { name: t.nav.home, href: "/" },
+    { name: t.nav.projects, href: "/projects" },
+    { name: t.nav.blog, href: "/blog" },
 ];
 
 const isActive = (href: string) => {
@@ -16,8 +21,8 @@ const isActive = (href: string) => {
 
 <header>
     <nav
-        class="flex flex-row gap-5 md:pr-10 items-center font-mono justify-end text-white p-5 w-full"
-        aria-label="Main navigation"
+        class="flex flex-row flex-wrap gap-5 md:pr-10 items-center font-mono justify-end text-white p-5 w-full"
+        aria-label={t.nav.ariaLabel}
     >
         {
             navItems.map((item, i) => (
@@ -37,5 +42,6 @@ const isActive = (href: string) => {
                 </a>
             ))
         }
+        <LanguageSwitcher />
     </nav>
 </header>

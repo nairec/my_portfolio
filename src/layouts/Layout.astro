@@ -1,46 +1,55 @@
 ---
 import Background from "../components/Background.astro";
-import { ClientRouter } from 'astro:transitions';
+import { ClientRouter } from "astro:transitions";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
-import Analytics from '@vercel/analytics/astro';
+import Analytics from "@vercel/analytics/astro";
+import { getTranslations } from "../i18n";
 import "../styles/global.css";
-import '@fontsource-variable/plus-jakarta-sans'
+import "@fontsource-variable/plus-jakarta-sans";
+
+const locale = Astro.locals.locale;
+const t = getTranslations(locale);
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<ClientRouter />
-		<Analytics />
-		<title>Eric Garcia</title>
-	</head>
-	<body>
-		<Background mode="work" />
-		<Navbar />
-		<slot />
-		<Footer />
-	</body>
+<html lang={locale}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <ClientRouter />
+        <Analytics />
+        <title>{t.meta.title}</title>
+    </head>
+    <body>
+        <Background mode="work" />
+        <Navbar />
+        <slot />
+        <Footer />
+    </body>
 </html>
 
 <style is:global>
-	html,
-	body {
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		font-family: "plus-jakarta-sans";
-	}
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        font-family: "plus-jakarta-sans";
+    }
 
-	html {
-		height: auto;
-	}
+    html {
+        height: auto;
+    }
 
-	body {
-		min-height: 100vh;
-	}
+    body {
+        min-height: 100vh;
+    }
 </style>
+
+<script define:vars={{ locale }}>
+    import { locale as localeStore } from "../i18n/locale";
+    localeStore.set(locale);
+</script>

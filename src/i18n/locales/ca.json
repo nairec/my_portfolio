@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Eric Garcia"
+  },
+  "nav": {
+    "ariaLabel": "Navegació principal",
+    "home": "Inici",
+    "projects": "Projectes",
+    "blog": "Blog"
+  },
+  "lang": {
+    "ariaLabel": "Idioma",
+    "en": "EN",
+    "es": "ES",
+    "ca": "CA"
+  },
+  "hero": {
+    "greeting": "Hola! Em dic",
+    "name": "Eric Garcia.",
+    "tagline": "Desenvolupo solucions de software.",
+    "bioStart": "Sóc un programador júnior reflexiu, apassionat per trobar coses noves per ",
+    "learn": "aprendre",
+    "bioMid": " i ",
+    "apply": "aplicar",
+    "bioEnd": ", i per perfeccionar les que ja conec. Això és cert tant si estic treballant en un projecte, aprenent sobre les meves aficions o simplement avorrit =).",
+    "contact": "Contacta'm"
+  },
+  "stack": {
+    "heading": "El meu Stack",
+    "languages": "Llenguatges",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "devops": "DevOps",
+    "cloud": "Cloud i Hosting"
+  },
+  "projects": {
+    "titleSerious": "projectes seriosos",
+    "titleFun": "projectes divertits",
+    "modeSerious": "01_Seri",
+    "modeFun": "02_Divertit",
+    "descriptions": {
+      "aethertype": "Un entorn d'escriptura local-first i lliure de distraccions que fa que escriure sigui una experiència agradable. Endinsa't a l'èter i escriu sense límits.",
+      "latentspace": "Una aplicació web que permet explorar la representació de l'espai latent d'un conjunt de paraules usant un model d'embeddings open-source i anàlisi PCA.",
+      "conwaylightsim": "Un simulador web d'autòmats cel·lulars inspirat en el Joc de la Vida de Conway, amb edició interactiva, simulació en temps real, àudio reactiu i més."
+    }
+  },
+  "chat": {
+    "placeholder": "Pregunta-li el que vulguis a iREC...",
+    "sendAria": "Enviar missatge",
+    "greeting": "Hola! Sóc iREC, un representant digital d'en Eric. Pregunta'm el que vulguis!",
+    "error": "Ho sento, s'ha produït un error en processar la sol·licitud."
+  },
+  "footer": {
+    "copyright": "Eric Garcia, 2026 ©"
+  }
+}

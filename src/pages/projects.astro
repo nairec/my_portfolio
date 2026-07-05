@@ -3,7 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import ProjectsTitle from "../components/ProjectsTitle.astro";
 import ProjectTag from "../components/ProjectTag.astro";
 import projectsData from "../projectsList.json";
+import { getTranslations } from "../i18n";
 import type { Project } from "../types/types";
+
+const t = getTranslations(Astro.locals.locale);
 
 const projects = [...(projectsData as Project[])].sort(
     (a, b) => b.year - a.year,
@@ -41,7 +44,7 @@ const heightScales: Record<number, string> = {
                     >
                         <ProjectTag
                             name={project.name}
-                            desc={project.description}
+                            desc={t.projects.descriptions[project.slug]}
                             link={project.link}
                             imgPath={project.imgPath}
                             stack={project.stack}

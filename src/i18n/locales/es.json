@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Eric Garcia"
+  },
+  "nav": {
+    "ariaLabel": "Navegación principal",
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "blog": "Blog"
+  },
+  "lang": {
+    "ariaLabel": "Idioma",
+    "en": "EN",
+    "es": "ES",
+    "ca": "CA"
+  },
+  "hero": {
+    "greeting": "¡Hola! Me llamo",
+    "name": "Eric Garcia.",
+    "tagline": "Desarrollo soluciones de software.",
+    "bioStart": "Soy un programador junior reflexivo, apasionado por encontrar cosas nuevas que ",
+    "learn": "aprender",
+    "bioMid": " y ",
+    "apply": "aplicar",
+    "bioEnd": ", y perfeccionar las que ya conozco. Esto es cierto tanto si estoy trabajando en un proyecto, aprendiendo sobre mis aficiones o simplemente aburrido =).",
+    "contact": "Contáctame"
+  },
+  "stack": {
+    "heading": "Mi Stack",
+    "languages": "Lenguajes",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "devops": "DevOps",
+    "cloud": "Cloud y Hosting"
+  },
+  "projects": {
+    "titleSerious": "proyectos serios",
+    "titleFun": "proyectos divertidos",
+    "modeSerious": "01_Serio",
+    "modeFun": "02_Divertido",
+    "descriptions": {
+      "aethertype": "Un entorno de escritura local-first y libre de distracciones que hace que escribir sea una experiencia agradable. Adéntrate en el éter y escribe sin límites.",
+      "latentspace": "Una aplicación web que permite explorar la representación del espacio latente de un conjunto de palabras usando un modelo de embeddings open-source y análisis PCA.",
+      "conwaylightsim": "Un simulador web de autómatas celulares inspirado en el Juego de la Vida de Conway, con edición interactiva, simulación en tiempo real, audio reactivo y más."
+    }
+  },
+  "chat": {
+    "placeholder": "Pregúntale lo que quieras a iREC...",
+    "sendAria": "Enviar mensaje",
+    "greeting": "¡Hola! Soy iREC, un representante digital de Eric. ¡Pregúntame lo que quieras!",
+    "error": "Lo siento, ha ocurrido un error al procesar la solicitud."
+  },
+  "footer": {
+    "copyright": "Eric Garcia, 2026 ©"
+  }
+}

@@ -1,6 +1,11 @@
 ---
 import Tag from "./Tag.astro";
 import Chatbot from "./Chatbot.tsx";
+import { getTranslations } from "../i18n";
+import type { Locale } from "../i18n";
+
+const locale = Astro.locals.locale;
+const t = getTranslations(locale);
 ---
 
 <div id="container">
@@ -10,28 +15,25 @@ import Chatbot from "./Chatbot.tsx";
         >
             <section id="hero" class="mx-auto w-fit">
                 <div class="flex flex-col gap-2">
-                    <p class="text-[#BABABA]">Hi there! My name is</p>
+                    <p class="text-[#BABABA]">{t.hero.greeting}</p>
                     <h1 class="name leading-none text-4xl md:text-6xl">
-                        Eric Garcia.
+                        {t.hero.name}
                     </h1>
                     <h2 class="title leading-none text-3xl md:text-5xl">
-                        I develop software solutions.
+                        {t.hero.tagline}
                     </h2>
                 </div>
                 <p class="bio max-w-prose mt-8 leading-relaxed">
-                    I'm a thoughtful junior programmer who is passionate about
-                    finding new things to <span class="highlight">learn</span> and
-                    <span class="highlight">apply</span>, and perfectioning the
-                    ones that I already know. <br /> This is true wether I'm working
-                    on some project, getting new knowledge about my hobbies or just
-                    bored =).
+                    {t.hero.bioStart}<span class="highlight">{t.hero.learn}</span
+                    >{t.hero.bioMid}<span class="highlight">{t.hero.apply}</span
+                    >{t.hero.bioEnd}
                 </p>
                 <div class="flex flex-row gap-6 highlight text-xl mt-12">
                     <a
                         class="interactive-base focus-ring relative p-2 hover:cursor-pointer text-center inline-block border border-cyan-600/40 backdrop-blur-sm hover:bg-cyan-800/20 hover:border-cyan-400/60"
                         href="mailto:irecgc@gmail.com"
                     >
-                        Contact me
+                        {t.hero.contact}
                     </a>
                 </div>
                 <div
@@ -108,7 +110,15 @@ import Chatbot from "./Chatbot.tsx";
                 </div>
             </section>
             <section id="chatbot-box" class="xl:flex hidden">
-                <Chatbot client:load />
+                <Chatbot
+                    client:load
+                    key={locale}
+                    locale={locale}
+                    placeholder={t.chat.placeholder}
+                    sendAria={t.chat.sendAria}
+                    greeting={t.chat.greeting}
+                    errorMessage={t.chat.error}
+                />
             </section>
         </div>
         <section
@@ -119,13 +129,13 @@ import Chatbot from "./Chatbot.tsx";
                 id="stack-header"
                 class="relative place-self-center md:place-self-end text-5xl text-muted tracking-tight"
             >
-                My Stack
+                {t.stack.heading}
             </h2>
             <ul
                 class="flex flex-col items-end text-end gap-7 text-white p-4 w-full"
             >
                 <div class="flex flex-col gap-3">
-                    <li>Languages</li>
+                    <li>{t.stack.languages}</li>
                     <ul class="inline-flex gap-4">
                         <Tag
                             name="python"
@@ -152,7 +162,7 @@ import Chatbot from "./Chatbot.tsx";
                     </ul>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <li>Frontend</li>
+                    <li>{t.stack.frontend}</li>
                     <ul class="inline-flex gap-4">
                         <Tag name="react" class="w-8 h-8 text-sky-500" />
                         <Tag name="astroIcon" class="w-8 h-8 text-cyan-500" />
@@ -160,7 +170,7 @@ import Chatbot from "./Chatbot.tsx";
                     </ul>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <li>Backend</li>
+                    <li>{t.stack.backend}</li>
                     <ul class="inline-flex gap-4">
                         <Tag name="nodejs" class="w-8 h-8 text-green-600" />
                         <Tag name="mongodb" class="w-8 h-8 text-blue-500" />
@@ -169,14 +179,14 @@ import Chatbot from "./Chatbot.tsx";
                     </ul>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <li>DevOps</li>
+                    <li>{t.stack.devops}</li>
                     <ul class="inline-flex gap-4">
                         <Tag name="git" class="w-8 h-8 text-orange-600" />
                         <Tag name="docker" class="w-8 h-8 text-blue-800" />
                     </ul>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <li>Cloud & Hosting</li>
+                    <li>{t.stack.cloud}</li>
                     <ul class="inline-flex gap-4">
                         <Tag name="vercel" class="w-16 h-16 text-white-500" />
                         <Tag name="heroku" class="w-8 h-8 text-purple-600" />
