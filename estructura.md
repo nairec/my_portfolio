@@ -73,7 +73,7 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 ## Páginas
 
 ### `src/pages/index.astro`
-Home con `Welcome.astro`. Usa `transition:animate="fade"` para transiciones suaves entre rutas.
+Home con `Welcome.astro`. Navegación SPA vía `ClientRouter` sin animación de View Transitions (`transition:animate="none"` en `<html>`) para evitar flashes de snapshot en imágenes.
 
 ### `src/pages/projects.astro`
 Grid de proyectos con filtro serious/fun. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`.

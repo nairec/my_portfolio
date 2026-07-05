@@ -107,6 +107,13 @@ body {
     transform: translateY(0);
 }
 
+/* Evita snapshots de imágenes/SVG en View Transitions */
+img,
+picture,
+.work-illustration svg {
+    view-transition-name: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
