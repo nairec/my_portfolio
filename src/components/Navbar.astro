@@ -30,6 +30,7 @@ const isActive = (href: string) => {
             navItems.map((item, i) => (
                 <a
                     href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
                     class:list={[
                         "interactive-base focus-ring pb-0.5",
                         isActive(item.href)

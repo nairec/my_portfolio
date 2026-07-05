@@ -14,6 +14,14 @@
     "es": "ES",
     "ca": "CA"
   },
+  "a11y": {
+    "skipToContent": "Saltar al contenido principal",
+    "opensInNewTab": "se abre en una nueva pestaña",
+    "modeFilter": "Filtrar proyectos por tipo",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "x": "X"
+  },
   "hero": {
     "greeting": "¡Hola! Me llamo",
     "name": "Eric Garcia.",

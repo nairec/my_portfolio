@@ -42,14 +42,17 @@ Implementado en [`src/middleware.ts`](src/middleware.ts). El `<html lang>` se ac
 ### Traducciones
 Archivos JSON en `src/i18n/locales/`. Los componentes Astro leen `Astro.locals.locale` y usan `getTranslations(locale)`.
 
-- Textos de UI: nav, hero, works, stack, projects, chat, footer
+- Textos de UI: nav, hero, `a11y`, works, stack, projects, chat, footer
 - Descripciones de proyectos: por `slug` en `t.projects.descriptions`
 - Prompts del chatbot: `getSystemPrompt(locale)` en [`src/lib/prompts.ts`](src/lib/prompts.ts)
+
+### Accesibilidad (i18n `a11y`)
+Claves para skip link, enlaces externos, redes sociales y filtro de proyectos. Skip link en [`Layout.astro`](src/layouts/Layout.astro); estilos `.skip-link` en [`global.css`](src/styles/global.css).
 
 ### Chatbot e idioma
 - Props traducidas desde `Welcome.astro`
 - API `/api/chat` recibe `locale` y selecciona el system prompt
-- Al cambiar idioma, el historial del chat se reinicia con el saludo traducido (`clearChatSession` + `key={locale}` en `Chatbot` fuerza remount)
+- Al cambiar idioma, el historial del chat se reinicia con el saludo traducido
 
 ## Design tokens (`src/styles/global.css`)
 
@@ -87,7 +90,7 @@ Hero (mono + cyan), bio, CTA contacto, redes sociales, sección **"Especialidade
 Bloques apilados (`t.works.items[]`) con `title` y `description` por área. Cada bloque: cabecera horizontal (ilustración SVG grande + número/título) y párrafo descriptivo debajo. En desktop, los bloques impares alternan imagen a la derecha (`work-block--reverse`). Textos editables en `src/i18n/locales/es.json`; EN/CA con placeholders hasta traducción.
 
 ### `Navbar.astro`
-Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con subrayado. Header **sticky** (`top-0`, `z-50`) con fondo semitransparente y `backdrop-blur` para legibilidad al hacer scroll.
+Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con `aria-current="page"`. Header **sticky** con fondo semitransparente y `backdrop-blur`.
 
 ### `LanguageSwitcher.astro`
 Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.
@@ -96,7 +99,7 @@ Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al
 Cabecera de la página de proyectos: `02. serious projects` / `02. fun projects`. El color del span cambia según el modo (indigo = serious, cyan = fun), sincronizado con `nanostores`.
 
 ### `ModeToggle.astro`
-Botones `01_Serious` / `02_Fun`. Estado activo diferenciado cromáticamente (indigo vs cyan). Un **indicador deslizante** (`#mode-indicator`) se desplaza con `transform: translateX` bajo el botón activo y anima el color indigo ↔ cyan. Persiste en `localStorage` vía `projects.js`.
+Botones `01_Serious` / `02_Fun` con `role="group"`, `aria-label` y `aria-pressed`. Indicador deslizante bajo el botón activo. Persiste en `localStorage` vía `projects.js`.
 
 ### `ProjectTag.astro`
 Tarjeta de proyecto premium:

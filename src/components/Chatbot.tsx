@@ -132,7 +132,12 @@ export default function Chatbot({
 
   return (
     <div className="flex flex-col gap-4 border border-[#BABABA] p-4 mt-6 max-w-xl max-h-xl h-120 w-130 font-mono text-sm">
-      <div className="flex-1 overflow-y-auto flex flex-col gap-2 pr-2 custom-scrollbar text-clip">
+      <div
+        className="flex-1 overflow-y-auto flex flex-col gap-2 pr-2 custom-scrollbar text-clip"
+        role="log"
+        aria-live="polite"
+        aria-relevant="additions"
+      >
         {displayMessages.map((msg: Message, index: number) => (
           <p
             key={index}
@@ -150,6 +155,7 @@ export default function Chatbot({
           type="text"
           onChange={handleInputChange}
           value={input}
+          aria-label={placeholder}
           className="flex-1 px-3 py-2 text-[#41d3ff] bg-transparent outline-none placeholder:text-[#BABABA]/50 focus-visible:ring-2 focus-visible:ring-[#41d3ff]/50 focus-visible:ring-inset"
           placeholder={placeholder}
         />

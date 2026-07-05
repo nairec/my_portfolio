@@ -85,6 +85,28 @@ body {
         0 0 0 4px color-mix(in srgb, var(--color-accent) 50%, transparent);
 }
 
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 100;
+    padding: 0.5rem 0.75rem;
+    font-family:
+        "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+        "DejaVu Sans Mono", monospace;
+    font-size: 0.875rem;
+    color: #ffffff;
+    background: color-mix(in srgb, #000000 85%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+    text-decoration: none;
+    transform: translateY(-200%);
+    transition: transform var(--duration-fast) var(--ease-out-smooth);
+}
+
+.skip-link:focus-visible {
+    transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

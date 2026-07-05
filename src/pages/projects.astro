@@ -26,8 +26,9 @@ const heightScales: Record<number, string> = {
 ---
 
 <Layout>
-    <div transition:animate="fade">
-        <ProjectsTitle />
+    <main id="main-content">
+        <div transition:animate="fade">
+            <ProjectsTitle />
         <div
             id="projects-grid"
             class="grid grid-cols-1 md:grid-cols-3 py-8 px-4 md:py-12 md:px-10 grid-flow-dense max-w-6xl mx-auto gap-0"
@@ -55,7 +56,8 @@ const heightScales: Record<number, string> = {
                 ))
             }
         </div>
-    </div>
+        </div>
+    </main>
 </Layout>
 <script>
     import autoAnimate from "@formkit/auto-animate";
@@ -72,8 +74,10 @@ const heightScales: Record<number, string> = {
                 const projectType = el.getAttribute("data-type");
                 if (projectType === value) {
                     el.classList.remove("hidden");
+                    el.removeAttribute("aria-hidden");
                 } else {
                     el.classList.add("hidden");
+                    el.setAttribute("aria-hidden", "true");
                 }
             });
         }

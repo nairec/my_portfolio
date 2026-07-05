@@ -2,19 +2,23 @@
 export interface Props {
     modeSerious: string;
     modeFun: string;
+    ariaLabel: string;
 }
 
-const { modeSerious, modeFun } = Astro.props;
+const { modeSerious, modeFun, ariaLabel } = Astro.props;
 ---
 
 <div
     id="mode-toggle"
     class="relative flex gap-10 font-mono text-xs items-center justify-center my-8 uppercase tracking-widest text-white"
+    role="group"
+    aria-label={ariaLabel}
 >
     <button
         id="mode-serious"
         type="button"
         class="mode-btn interactive-base pb-1 opacity-50 hover:opacity-100 cursor-pointer focus-ring active:scale-95"
+        aria-pressed="true"
     >
         {modeSerious}
     </button>
@@ -25,6 +29,7 @@ const { modeSerious, modeFun } = Astro.props;
         id="mode-fun"
         type="button"
         class="mode-btn interactive-base pb-1 opacity-50 hover:opacity-100 cursor-pointer focus-ring active:scale-95"
+        aria-pressed="false"
     >
         {modeFun}
     </button>
@@ -112,7 +117,11 @@ const { modeSerious, modeFun } = Astro.props;
         }
 
         function updateUI(currentMode: string) {
-            if (currentMode === "serious") {
+            const isSerious = currentMode === "serious";
+            btnSerious.setAttribute("aria-pressed", String(isSerious));
+            btnFun.setAttribute("aria-pressed", String(!isSerious));
+
+            if (isSerious) {
                 setActive(btnSerious, seriousActive);
                 setInactive(btnFun, funActive);
                 moveIndicator(btnSerious, true);
