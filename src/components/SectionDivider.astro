@@ -7,7 +7,8 @@ const { class: className } = Astro.props;
 ---
 
 <div
-    class:list={["section-divider", className]}
+    class:list={["section-divider scroll-reveal", className]}
+    data-scroll-reveal
     role="separator"
     aria-hidden="true"
 >

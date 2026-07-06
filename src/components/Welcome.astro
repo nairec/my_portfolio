@@ -142,7 +142,8 @@ const workIllustrations = [
         >
             <h2
                 id="works-header"
-                class="relative place-self-center md:place-self-start text-5xl text-muted tracking-tight"
+                class="scroll-reveal relative place-self-center md:place-self-start text-5xl text-muted tracking-tight"
+                data-scroll-reveal
             >
                 {t.works.heading}
             </h2>
@@ -151,9 +152,13 @@ const workIllustrations = [
                     t.works.items.map((item, index) => (
                         <article
                             class:list={[
-                                "work-block",
+                                "work-block scroll-reveal",
+                                index % 2 === 0
+                                    ? "scroll-reveal--from-left"
+                                    : "scroll-reveal--from-right",
                                 index % 2 === 1 && "work-block--reverse",
                             ]}
+                            data-scroll-reveal
                         >
                             <div class="work-header">
                                 <div
@@ -182,14 +187,15 @@ const workIllustrations = [
         >
             <h2
                 id="stack-header"
-                class="relative place-self-center md:place-self-end text-5xl text-muted tracking-tight"
+                class="scroll-reveal relative place-self-center md:place-self-end text-5xl text-muted tracking-tight"
+                data-scroll-reveal
             >
                 {t.stack.heading}
             </h2>
             <ul
                 class="flex flex-col items-end text-end gap-7 text-white p-4 w-full"
             >
-                <li class="flex flex-col gap-3">
+                <li class="scroll-reveal scroll-reveal--from-right flex flex-col gap-3" data-scroll-reveal>
                     <span>{t.stack.languages}</span>
                     <ul class="inline-flex gap-4 list-none p-0 m-0">
                         <li>
@@ -230,7 +236,7 @@ const workIllustrations = [
                         </li>
                     </ul>
                 </li>
-                <li class="flex flex-col gap-3">
+                <li class="scroll-reveal scroll-reveal--from-right flex flex-col gap-3" data-scroll-reveal>
                     <span>{t.stack.frontend}</span>
                     <ul class="inline-flex gap-4 list-none p-0 m-0">
                         <li><Tag name="react" class="w-8 h-8 text-sky-500" /></li>
@@ -238,7 +244,7 @@ const workIllustrations = [
                         <li><Tag name="nextjs" class="w-8 h-8 text-white-500" /></li>
                     </ul>
                 </li>
-                <li class="flex flex-col gap-3">
+                <li class="scroll-reveal scroll-reveal--from-right flex flex-col gap-3" data-scroll-reveal>
                     <span>{t.stack.backend}</span>
                     <ul class="inline-flex gap-4 list-none p-0 m-0">
                         <li><Tag name="nodejs" class="w-8 h-8 text-green-600" /></li>
@@ -247,14 +253,14 @@ const workIllustrations = [
                         <li><Tag name="fastapi" class="w-8 h-8 text-green-700" /></li>
                     </ul>
                 </li>
-                <li class="flex flex-col gap-3">
+                <li class="scroll-reveal scroll-reveal--from-right flex flex-col gap-3" data-scroll-reveal>
                     <span>{t.stack.devops}</span>
                     <ul class="inline-flex gap-4 list-none p-0 m-0">
                         <li><Tag name="git" class="w-8 h-8 text-orange-600" /></li>
                         <li><Tag name="docker" class="w-8 h-8 text-blue-800" /></li>
                     </ul>
                 </li>
-                <li class="flex flex-col gap-3">
+                <li class="scroll-reveal scroll-reveal--from-right flex flex-col gap-3" data-scroll-reveal>
                     <span>{t.stack.cloud}</span>
                     <ul class="inline-flex gap-4 list-none p-0 m-0">
                         <li><Tag name="vercel" class="w-16 h-16 text-white-500" /></li>
@@ -561,3 +567,7 @@ const workIllustrations = [
         }
     }
 </style>
+
+<script>
+    import "../lib/scrollReveal.ts";
+</script>

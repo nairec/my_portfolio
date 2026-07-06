@@ -1,12 +1,17 @@
 import { atom } from "nanostores";
 
-const initialMode =
+export const ALL_CATEGORY = "all";
+export const PROJECT_CATEGORIES = ["ai", "web-app", "automation"];
+
+const STORAGE_KEY = "project-category-filter";
+
+const initialFilter =
   typeof window !== "undefined"
-    ? localStorage.getItem("project-mode") || "serious"
-    : "serious";
+    ? localStorage.getItem(STORAGE_KEY) || ALL_CATEGORY
+    : ALL_CATEGORY;
 
-export const mode = atom(initialMode);
+export const categoryFilter = atom(initialFilter);
 
-mode.listen((value) => {
-  localStorage.setItem("project-mode", value);
+categoryFilter.listen((value) => {
+  localStorage.setItem(STORAGE_KEY, value);
 });

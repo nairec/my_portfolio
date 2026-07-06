@@ -85,6 +85,38 @@ body {
         transform var(--duration-fast) var(--ease-out-smooth);
 }
 
+/* Scroll reveal: visible by default until JS activates the observer */
+.scroll-reveal {
+    transition:
+        opacity var(--duration-slow) var(--ease-out-smooth),
+        transform var(--duration-slow) var(--ease-out-smooth);
+}
+
+html.scroll-reveal-active .scroll-reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(1.5rem);
+}
+
+html.scroll-reveal-active .scroll-reveal--from-left:not(.is-visible) {
+    transform: translateY(1.5rem) translateX(-1.5rem);
+}
+
+html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
+    transform: translateY(1.5rem) translateX(1.5rem);
+}
+
+.scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.scroll-reveal-active .scroll-reveal:not(.is-visible) {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 .focus-ring:focus-visible {
     outline: none;
     box-shadow:

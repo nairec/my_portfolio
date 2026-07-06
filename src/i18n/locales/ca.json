@@ -17,7 +17,7 @@
   "a11y": {
     "skipToContent": "Saltar al contingut principal",
     "opensInNewTab": "s'obre en una pestanya nova",
-    "modeFilter": "Filtrar projectes per tipus",
+    "categoryFilter": "Filtrar projectes per categoria",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "x": "X"
@@ -63,10 +63,13 @@
     "cloud": "Cloud i Hosting"
   },
   "projects": {
-    "titleSerious": "projectes seriosos",
-    "titleFun": "projectes divertits",
-    "modeSerious": "01_Seri",
-    "modeFun": "02_Divertit",
+    "title": "projectes",
+    "categories": {
+      "all": "Tots",
+      "ai": "IA",
+      "web-app": "App web",
+      "automation": "Automatització"
+    },
     "descriptions": {
       "aethertype": "Un entorn d'escriptura local-first i lliure de distraccions que fa que escriure sigui una experiència agradable. Endinsa't a l'èter i escriu sense límits.",
       "latentspace": "Una aplicació web que permet explorar la representació de l'espai latent d'un conjunt de paraules usant un model d'embeddings open-source i anàlisi PCA.",

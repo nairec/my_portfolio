@@ -41,7 +41,7 @@ const heightScales: Record<number, string> = {
                             widthScales[project.width],
                             heightScales[project.height],
                         ]}
-                        data-type={project.type}
+                        data-categories={project.categories.join(",")}
                     >
                         <ProjectTag
                             name={project.name}
@@ -50,7 +50,6 @@ const heightScales: Record<number, string> = {
                             imgPath={project.imgPath}
                             stack={project.stack}
                             year={project.year}
-                            type={project.type}
                         />
                     </div>
                 ))
@@ -61,7 +60,7 @@ const heightScales: Record<number, string> = {
 </Layout>
 <script>
     import autoAnimate from "@formkit/auto-animate";
-    import { mode } from "../projects.js";
+    import { ALL_CATEGORY, categoryFilter } from "../projects.js";
 
     document.addEventListener("astro:page-load", () => {
         const grid = document.getElementById("projects-grid");
@@ -71,8 +70,12 @@ const heightScales: Record<number, string> = {
             const wrappers = document.querySelectorAll(".project-tag-wrapper");
             wrappers.forEach((wrapper) => {
                 const el = wrapper as HTMLElement;
-                const projectType = el.getAttribute("data-type");
-                if (projectType === value) {
+                const categories =
+                    el.getAttribute("data-categories")?.split(",") ?? [];
+                const isVisible =
+                    value === ALL_CATEGORY || categories.includes(value);
+
+                if (isVisible) {
                     el.classList.remove("hidden");
                     el.removeAttribute("aria-hidden");
                 } else {
@@ -82,7 +85,7 @@ const heightScales: Record<number, string> = {
             });
         }
 
-        mode.subscribe(applyFilter);
-        applyFilter(mode.get());
+        categoryFilter.subscribe(applyFilter);
+        applyFilter(categoryFilter.get());
     });
 </script>

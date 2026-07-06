@@ -22,7 +22,7 @@ src/
 ├── middleware.ts          # Detección de idioma (cookie / Accept-Language)
 ├── chatStore.ts           # Historial del chatbot (sessionStorage)
 ├── projectsList.json      # Datos estáticos de proyectos
-└── projects.js            # Store nanostores (modo serious/fun)
+└── projects.js            # Store nanostores (filtro por categoría de proyectos)
 ```
 
 ## Internacionalización (i18n)
@@ -83,18 +83,21 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 Home con `Welcome.astro`. Contenido con `transition:animate="fade"`; shell (navbar, footer, fondo) persiste sin parpadeo.
 
 ### `src/pages/projects.astro`
-Grid de proyectos con filtro serious/fun. Contenido envuelto en `transition:animate="fade"`. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`.
+Grid de proyectos con filtro por categoría (IA, app web, automatización). Muestra todos los proyectos por defecto. Contenido envuelto en `transition:animate="fade"`. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`.
 
 ## Componentes clave
 
 ### `SectionDivider.astro`
-Separador decorativo entre secciones principales de la home: líneas en gradiente muted/cyan con `//` estilizado en mono (skew + opacidad distinta por barra, glow sutil). `role="separator"` y `aria-hidden`. Usado entre hero → works → stack en `Welcome.astro`.
+Separador decorativo entre secciones principales de la home: líneas en gradiente muted/cyan con `//` estilizado en mono (skew + opacidad distinta por barra, glow sutil). `role="separator"` y `aria-hidden`. Usado entre hero → works → stack en `Welcome.astro`. Incluye animación scroll-reveal (fade-up) vía `data-scroll-reveal`.
 
 ### `Welcome.astro`
-Hero (mono + cyan), bio, CTA contacto, redes sociales, sección **"Especialidades"** (`#works`) con cuatro áreas de trabajo, y sección "My Stack" con iconos flotantes (`Tag.astro`). Contenedor `max-w-7xl` con espaciado vertical reducido (6–8rem entre secciones).
+Hero (mono + cyan), bio, CTA contacto, redes sociales, sección **"Especialidades"** (`#works`) con cuatro áreas de trabajo, y sección "My Stack" con iconos flotantes (`Tag.astro`). Contenedor `max-w-7xl` con espaciado vertical reducido (6–8rem entre secciones). La sección `#stack` usa scroll-reveal: cabecera con fade-up y cada fila de tecnologías con entrada desde la derecha (`scroll-reveal--from-right`).
 
 #### Sección `#works`
-Bloques apilados (`t.works.items[]`) con `title` y `description` por área. Cada bloque: cabecera horizontal (ilustración SVG grande + número/título) y párrafo descriptivo debajo. En desktop, los bloques impares alternan imagen a la derecha (`work-block--reverse`). Textos editables en `src/i18n/locales/es.json`; EN/CA con placeholders hasta traducción.
+Bloques apilados (`t.works.items[]`) con `title` y `description` por área. Cada bloque: cabecera horizontal (ilustración SVG grande + número/título) y párrafo descriptivo debajo. En desktop, los bloques impares alternan imagen a la derecha (`work-block--reverse`). Textos editables en `src/i18n/locales/es.json`; EN/CA con placeholders hasta traducción. Cabecera y bloques con scroll-reveal (fade-up; bloques pares desde la izquierda, impares desde la derecha).
+
+### `src/lib/scrollReveal.ts`
+Intersection Observer para elementos con `data-scroll-reveal`. Añade `scroll-reveal-active` en `<html>` al activarse; sin JS o con `prefers-reduced-motion` el contenido permanece visible (fallback en CSS + JS).
 
 ### `Navbar.astro`
 Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con `aria-current="page"`. Header **sticky** con fondo semitransparente y `backdrop-blur`.
@@ -103,10 +106,10 @@ Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cya
 Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.
 
 ### `ProjectsTitle.astro`
-Cabecera de la página de proyectos: `02. serious projects` / `02. fun projects`. El color del span cambia según el modo (indigo = serious, cyan = fun), sincronizado con `nanostores`.
+Cabecera de la página de proyectos: `02. proyectos` (estático, traducido). Incluye `CategoryFilter` para filtrar por categoría.
 
-### `ModeToggle.astro`
-Botones `01_Serious` / `02_Fun` con `role="group"`, `aria-label` y `aria-pressed`. Indicador deslizante bajo el botón activo. Persiste en `localStorage` vía `projects.js`.
+### `CategoryFilter.astro`
+Botones `Todos` / `IA` / `App web` / `Automatización` con `role="group"`, `aria-label` y `aria-pressed`. Indicador deslizante bajo el botón activo. Persiste en `localStorage` vía `projects.js` (`categoryFilter` nanostore).
 
 ### `ProjectTag.astro`
 Tarjeta de proyecto premium:
@@ -114,7 +117,7 @@ Tarjeta de proyecto premium:
 - Cabecera: nombre + año + icono ojo en hover
 - Imagen `aspect-video` con `object-cover` y zoom sutil
 - Descripción con `line-clamp-3`
-- Stack tags como pills con borde; corchetes `[Tag]` solo en modo fun
+- Stack tags como pills con borde
 - Hover: borde cyan, glow, título verde con `>`
 
 ### `Tag.astro`
@@ -129,7 +132,7 @@ Pie con padding vertical y texto `gray-500`.
 ## Datos de proyectos
 
 ### `src/projectsList.json`
-Cada proyecto incluye: `name`, `slug`, `year`, `link`, `type`, `imgPath`, `stack`, `width`, `height`. Las **descripciones** viven en los JSON de i18n (`t.projects.descriptions[slug]`), no en este archivo.
+Cada proyecto incluye: `name`, `slug`, `year`, `link`, `categories` (array: `ai`, `web-app`, `automation`), `imgPath`, `stack`, `width`, `height`. Las **descripciones** viven en los JSON de i18n (`t.projects.descriptions[slug]`), no en este archivo.
 
 - `width: 2` destaca un proyecto en `md:col-span-2` (actualmente AetherType).
 - Orden de render: por año descendente en `projects.astro`.
@@ -137,16 +140,14 @@ Cada proyecto incluye: `name`, `slug`, `year`, `link`, `type`, `imgPath`, `stack
 ### `src/types/types.ts`
 Interface `Project` tipada para JSON y futuras extensiones.
 
-## Flujo del filtro serious/fun
+## Flujo del filtro por categoría
 
 ```
-ModeToggle.astro  →  mode.set("serious"|"fun")  →  projects.js (nanostores)
+CategoryFilter.astro  →  categoryFilter.set("all"|"ai"|"web-app"|"automation")  →  projects.js (nanostores)
                               ↓
-              projects.astro script: toggle .hidden en .project-tag-wrapper
+              projects.astro script: toggle .hidden en .project-tag-wrapper según data-categories
                               ↓
               @formkit/auto-animate reordena el grid con transición suave
-                              ↓
-              ProjectsTitle.astro actualiza el label de cabecera
 ```
 
 ## Decisiones de diseño (mejoras UX/UI fases 1–4)

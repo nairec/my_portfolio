@@ -17,7 +17,7 @@
   "a11y": {
     "skipToContent": "Saltar al contenido principal",
     "opensInNewTab": "se abre en una nueva pestaña",
-    "modeFilter": "Filtrar proyectos por tipo",
+    "categoryFilter": "Filtrar proyectos por categoría",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "x": "X"
@@ -63,10 +63,13 @@
     "cloud": "Cloud y Hosting"
   },
   "projects": {
-    "titleSerious": "proyectos serios",
-    "titleFun": "proyectos divertidos",
-    "modeSerious": "01_Serio",
-    "modeFun": "02_Divertido",
+    "title": "proyectos",
+    "categories": {
+      "all": "Todos",
+      "ai": "IA",
+      "web-app": "App web",
+      "automation": "Automatización"
+    },
     "descriptions": {
       "aethertype": "Un entorno de escritura local-first y libre de distracciones que hace que escribir sea una experiencia agradable. Adéntrate en el éter y escribe sin límites.",
       "latentspace": "Una aplicación web que permite explorar la representación del espacio latente de un conjunto de palabras usando un modelo de embeddings open-source y análisis PCA.",

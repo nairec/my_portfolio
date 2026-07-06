@@ -1,0 +1,134 @@
+---
+import { ALL_CATEGORY, PROJECT_CATEGORIES } from "../projects.js";
+
+export interface Props {
+    labels: Record<string, string>;
+    ariaLabel: string;
+}
+
+const { labels, ariaLabel } = Astro.props;
+const filterOptions = [ALL_CATEGORY, ...PROJECT_CATEGORIES];
+---
+
+<div
+    id="category-filter"
+    class="relative flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs items-center justify-center my-8 uppercase tracking-widest text-white"
+    role="group"
+    aria-label={ariaLabel}
+>
+    {
+        filterOptions.map((category, index) => (
+            <>
+                {index > 0 && (
+                    <span class="opacity-20 pointer-events-none" aria-hidden="true">
+                        /
+                    </span>
+                )}
+                <button
+                    type="button"
+                    class="category-btn interactive-base pb-1 opacity-50 hover:opacity-100 cursor-pointer focus-ring active:scale-95"
+                    data-category={category}
+                    aria-pressed={category === ALL_CATEGORY ? "true" : "false"}
+                >
+                    {labels[category]}
+                </button>
+            </>
+        ))
+    }
+
+    <span
+        id="category-indicator"
+        class="category-indicator absolute bottom-0 left-0 h-0.5 rounded-full pointer-events-none bg-indigo-400"
+        aria-hidden="true"
+    ></span>
+</div>
+
+<style>
+    .category-indicator {
+        transition:
+            transform var(--duration-base) var(--ease-out-smooth),
+            width var(--duration-base) var(--ease-out-smooth),
+            background-color var(--duration-base) var(--ease-out-smooth);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .category-indicator {
+            transition: background-color var(--duration-base) var(--ease-out-smooth);
+        }
+    }
+</style>
+
+<script>
+    import {
+        ALL_CATEGORY,
+        categoryFilter,
+    } from "../projects.js";
+
+    document.addEventListener("astro:page-load", () => {
+        const container = document.getElementById("category-filter");
+        const indicator = document.getElementById("category-indicator");
+        const buttons = Array.from(
+            container?.querySelectorAll<HTMLButtonElement>(".category-btn") ?? [],
+        );
+
+        const activeClasses = ["text-indigo-400", "opacity-100"];
+        let skipTransition = true;
+
+        function moveIndicator(activeBtn: HTMLButtonElement) {
+            if (!container || !indicator) return;
+
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = activeBtn.getBoundingClientRect();
+
+            if (skipTransition) {
+                indicator.style.transition = "none";
+            }
+
+            indicator.style.width = `${btnRect.width}px`;
+            indicator.style.transform = `translateX(${btnRect.left - containerRect.left}px)`;
+
+            if (skipTransition) {
+                requestAnimationFrame(() => {
+                    indicator.style.transition = "";
+                    skipTransition = false;
+                });
+            }
+        }
+
+        function setActive(btn: HTMLButtonElement) {
+            btn.classList.add(...activeClasses);
+            btn.classList.remove("opacity-50");
+            btn.setAttribute("aria-pressed", "true");
+        }
+
+        function setInactive(btn: HTMLButtonElement) {
+            btn.classList.remove(...activeClasses);
+            btn.classList.add("opacity-50");
+            btn.setAttribute("aria-pressed", "false");
+        }
+
+        function updateUI(currentFilter: string) {
+            buttons.forEach((btn) => {
+                const isActive = btn.dataset.category === currentFilter;
+                if (isActive) {
+                    setActive(btn);
+                    moveIndicator(btn);
+                } else {
+                    setInactive(btn);
+                }
+            });
+        }
+
+        buttons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const category = btn.dataset.category ?? ALL_CATEGORY;
+                categoryFilter.set(category);
+                updateUI(category);
+            });
+        });
+
+        updateUI(categoryFilter.get());
+
+        window.addEventListener("resize", () => updateUI(categoryFilter.get()));
+    });
+</script>

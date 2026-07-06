@@ -1,6 +1,6 @@
 ---
 import { getTranslations } from "../i18n";
-import ModeToggle from "./ModeToggle.astro";
+import CategoryFilter from "./CategoryFilter.astro";
 
 const t = getTranslations(Astro.locals.locale);
 ---
@@ -8,47 +8,10 @@ const t = getTranslations(Astro.locals.locale);
 <div class="flex flex-col gap-6 items-center mt-10 w-full text-center px-6">
     <h1 class="font-mono text-2xl md:text-3xl text-white">
         <span class="text-accent">02.</span>
-        <span
-            id="projectsSpan"
-            class="text-indigo-400 transition-colors duration-300"
-            data-title-serious={t.projects.titleSerious}
-            data-title-fun={t.projects.titleFun}
-        >
-            {t.projects.titleSerious}
-        </span>
+        <span class="text-indigo-400">{t.projects.title}</span>
     </h1>
-    <ModeToggle
-        modeSerious={t.projects.modeSerious}
-        modeFun={t.projects.modeFun}
-        ariaLabel={t.a11y.modeFilter}
+    <CategoryFilter
+        labels={t.projects.categories}
+        ariaLabel={t.a11y.categoryFilter}
     />
 </div>
-
-<script>
-    import { mode } from "../projects.js";
-
-    document.addEventListener("astro:page-load", () => {
-        const projectsSpan = document.getElementById("projectsSpan");
-        if (!projectsSpan) return;
-
-        const span = projectsSpan;
-        const titleSerious =
-            span.dataset.titleSerious ?? "serious projects";
-        const titleFun = span.dataset.titleFun ?? "fun projects";
-
-        function updateTitle(value: string) {
-            if (value === "fun") {
-                span.textContent = titleFun;
-                span.classList.remove("text-indigo-400");
-                span.classList.add("text-cyan-300");
-            } else {
-                span.textContent = titleSerious;
-                span.classList.remove("text-cyan-300");
-                span.classList.add("text-indigo-400");
-            }
-        }
-
-        mode.subscribe(updateTitle);
-        updateTitle(mode.get());
-    });
-</script>

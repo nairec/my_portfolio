@@ -17,7 +17,7 @@
   "a11y": {
     "skipToContent": "Skip to main content",
     "opensInNewTab": "opens in a new tab",
-    "modeFilter": "Filter projects by type",
+    "categoryFilter": "Filter projects by category",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "x": "X"
@@ -63,10 +63,13 @@
     "cloud": "Cloud & Hosting"
   },
   "projects": {
-    "titleSerious": "serious projects",
-    "titleFun": "fun projects",
-    "modeSerious": "01_Serious",
-    "modeFun": "02_Fun",
+    "title": "projects",
+    "categories": {
+      "all": "All",
+      "ai": "AI",
+      "web-app": "Web app",
+      "automation": "Automation"
+    },
     "descriptions": {
       "aethertype": "A distraction-free, local-first writing environment that makes writing a pleasant experience. Step into the aether and write without limits.",
       "latentspace": "A web application that allows you to explore the latent space representation of a set of words using an open-source embedding model and PCA analysis.",
