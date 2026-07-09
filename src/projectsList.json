@@ -34,5 +34,18 @@
     "width": 1,
     "imgPath": "/src/assets/projectImages/conwaylightsim.png",
     "stack": ["Javascript", "HTML", "CSS"]
+  },
+  {
+    "name": "MacroWorth",
+    "slug": "macroworth",
+    "year": 2026,
+    "description": "A web application made for reviewing stocks and ETFs using AI-powered research and analysis.",
+    "link": "https://macro-worth.vercel.app",
+    "categories": ["web-app", "ai"],
+    "height": 1,
+    "width": 1,
+    "imgPath": "/src/assets/projectImages/macroWorth.png",
+    "stack": ["Next.js", "Typescript", "Python", "FastAPI", "Langgraph"]
   }
+
 ]
