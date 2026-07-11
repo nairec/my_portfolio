@@ -20,4 +20,5 @@ export interface Project {
   stack: string[];
   width: number;
   height: number;
+  imgObjectPosition?: string;
 }

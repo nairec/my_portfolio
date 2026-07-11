@@ -132,7 +132,7 @@ Pie con padding vertical y texto `gray-500`.
 ## Datos de proyectos
 
 ### `src/projectsList.json`
-Cada proyecto incluye: `name`, `slug`, `year`, `link`, `categories` (array: `ai`, `web-app`, `automation`), `imgPath`, `stack`, `width`, `height`. Las **descripciones** viven en los JSON de i18n (`t.projects.descriptions[slug]`), no en este archivo.
+Cada proyecto incluye: `name`, `slug`, `year`, `link`, `categories` (array: `ai`, `web-app`, `automation`), `imgPath`, `stack`, `width`, `height`. Opcionalmente `imgObjectPosition` para ajustar el encuadre de la miniatura (`object-position` en CSS). Las **descripciones** viven en los JSON de i18n (`t.projects.descriptions[slug]`), no en este archivo.
 
 - `width: 2` destaca un proyecto en `md:col-span-2` (actualmente AetherType).
 - Orden de render: por año descendente en `projects.astro`.

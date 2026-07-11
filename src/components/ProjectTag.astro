@@ -11,9 +11,11 @@ export interface Props {
     imgPath: string;
     stack: string[];
     year: number;
+    imgObjectPosition?: string;
 }
 
-const { name, desc, link, imgPath, stack, year } = Astro.props;
+const { name, desc, link, imgPath, stack, year, imgObjectPosition } =
+    Astro.props;
 const t = getTranslations(Astro.locals.locale);
 const linkLabel = `${name} (${t.a11y.opensInNewTab})`;
 
@@ -60,7 +62,15 @@ if (!images[imgPath])
             src={images[imgPath].default}
             alt={name}
             transition:animate="none"
-            class="w-full h-full object-cover object-top select-none transition-transform duration-500 group-hover:scale-[1.02]"
+            class:list={[
+                "w-full h-full object-cover select-none transition-transform duration-500 group-hover:scale-[1.02]",
+                !imgObjectPosition && "object-top",
+            ]}
+            style={
+                imgObjectPosition
+                    ? { objectPosition: imgObjectPosition }
+                    : undefined
+            }
         />
     </div>
 

@@ -74,7 +74,8 @@
       "aethertype": "Un entorn d'escriptura local-first i lliure de distraccions que fa que escriure sigui una experiència agradable. Endinsa't a l'èter i escriu sense límits.",
       "latentspace": "Una aplicació web que permet explorar la representació de l'espai latent d'un conjunt de paraules usant un model d'embeddings open-source i anàlisi PCA.",
       "conwaylightsim": "Un simulador web d'autòmats cel·lulars inspirat en el Joc de la Vida de Conway, amb edició interactiva, simulació en temps real, àudio reactiu i més.",
-      "macroworth": "Una aplicació web per analitzar accions i ETFs amb recerca i anàlisi impulsades per IA."
+      "macroworth": "Una aplicació web per analitzar accions i ETFs amb recerca i anàlisi impulsades per IA.",
+      "mailresolve": "Un sistema automatitzat de triatge de correus que classifica els correus entrants i executa accions automàticament segons el seu contingut."
     }
   },
   "chat": {

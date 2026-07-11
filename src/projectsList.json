@@ -46,6 +46,19 @@
     "width": 1,
     "imgPath": "/src/assets/projectImages/macroWorth.png",
     "stack": ["Next.js", "Typescript", "Python", "FastAPI", "Langgraph"]
+  },
+  {
+    "name": "MailResolve",
+    "slug": "mailresolve",
+    "year": 2026,
+    "description": "An automated email triage system that classifies incoming emails and performs actions automatically based on the email content.",
+    "link": "https://github.com/nairec/mailResolve",
+    "categories": ["ai", "automation"],
+    "height": 1,
+    "width": 1,
+    "imgPath": "/src/assets/projectImages/mailResolve.png",
+    "imgObjectPosition": "center calc(10% - 14px)",
+    "stack": ["Python", "FastAPI", "Google Cloud", "Celery", "PostgreSQL"]
   }
 
 ]
