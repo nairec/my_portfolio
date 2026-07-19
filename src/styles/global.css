@@ -24,6 +24,15 @@ html {
     color-scheme: dark;
 }
 
+@media (min-width: 1024px) {
+    html {
+        background-image:
+            linear-gradient(to right, #80808012 1px, transparent 1px),
+            linear-gradient(to bottom, #80808012 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+}
+
 html::-webkit-scrollbar {
     width: 4px;
 }
