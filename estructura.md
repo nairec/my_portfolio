@@ -103,7 +103,7 @@ Página placeholder con título y mensaje «próximamente» traducido (`t.blog`)
 ## Componentes clave
 
 ### `HomePortada.astro`
-Hero/portada: en móvil (&lt; 1280px) banda izquierda con ilustración, panel derecho editorial (Cormorant, bio, navegación a las cuatro rutas en grid 2×2, RRSS); pantalla fija sin scroll (`overflow: hidden` en `html`/`body` y panel). En `xl+` hero mono/cyan original con enlaces a todas las rutas y chatbot lateral (`Chatbot.tsx`). El footer no se renderiza en `/home`.
+Hero/portada: en móvil (&lt; 1280px) banda izquierda con ilustración, panel derecho editorial (Cormorant, bio, cuatro enlaces verticales a las rutas, RRSS); pantalla fija sin scroll (`overflow: hidden` en `html`/`body` y panel). En `xl+` hero mono/cyan original con los mismos enlaces en vertical y chatbot lateral (`Chatbot.tsx`). El footer no se renderiza en `/home`.
 
 ### `SpecialtiesSections.astro`
 Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Separador `SectionDivider.astro` entre ambas secciones.
