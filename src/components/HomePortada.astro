@@ -19,8 +19,9 @@ const routeLinks = [
             class="hero-layout flex flex-row gap-16 xl:gap-20 mt-0 xl:mt-15 min-h-100vh align-center justify-between max-w-7xl mx-auto w-full px-0 xl:px-6"
         >
             <section id="hero" class="hero">
-                <aside class="hero-portada__band" aria-hidden="true">
+                <aside class="hero-portada__band hero-portada__enter-band" aria-hidden="true">
                     <img
+                        class="hero-portada__enter-band-media"
                         src="/images/hero-cover-portada.png"
                         alt=""
                         width="1024"
@@ -30,7 +31,7 @@ const routeLinks = [
                     />
                 </aside>
                 <div class="hero-portada__panel">
-                    <div class="hero-portada__copy">
+                    <div class="hero-portada__copy hero-portada__enter-right hero-portada__enter-right--1">
                         <p class="hero-greeting hero-portada__desktop-only">
                             {t.hero.greeting}
                         </p>
@@ -48,7 +49,7 @@ const routeLinks = [
                             </span>
                         </p>
                     </div>
-                    <div class="hero-actions">
+                    <div class="hero-actions hero-portada__enter-right hero-portada__enter-right--2">
                         <nav class="hero-ctas" aria-label={t.nav.ariaLabel}>
                             {
                                 routeLinks.map((link) => (
@@ -203,6 +204,59 @@ const routeLinks = [
         min-height: 100dvh;
         height: 100dvh;
         overflow: hidden;
+    }
+
+    @keyframes hero-portada-enter-bottom {
+        from {
+            opacity: 0;
+            transform: translateY(14%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes hero-portada-enter-right {
+        from {
+            opacity: 0;
+            transform: translateX(1.75rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @media (max-width: 1279px) {
+        .hero-portada__enter-band-media {
+            opacity: 0;
+            animation: hero-portada-enter-bottom 900ms var(--ease-out-smooth) 80ms forwards;
+        }
+
+        .hero-portada__enter-right {
+            opacity: 0;
+            animation: hero-portada-enter-right 820ms var(--ease-out-smooth) forwards;
+        }
+
+        .hero-portada__enter-right--1 {
+            animation-delay: 180ms;
+        }
+
+        .hero-portada__enter-right--2 {
+            animation-delay: 320ms;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .hero-portada__enter-band-media,
+        .hero-portada__enter-right {
+            opacity: 1;
+            animation: none;
+            transform: none;
+        }
     }
 
     .hero-portada__band img {
