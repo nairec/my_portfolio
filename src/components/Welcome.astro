@@ -24,33 +24,44 @@ const workIllustrations = [
         <div
             class="flex flex-row gap-16 xl:gap-20 md:mt-15 min-h-100vh align-center justify-between max-w-7xl mx-auto px-6 w-full"
         >
-            <section id="hero" class="mx-auto w-fit">
-                <div class="flex flex-col gap-2">
-                    <p class="text-[#BABABA]">{t.hero.greeting}</p>
-                    <h1 class="name leading-none text-4xl md:text-6xl">
-                        {t.hero.name}
-                    </h1>
-                    <h2 class="title leading-none text-3xl md:text-5xl">
-                        {t.hero.tagline}
-                    </h2>
+            <section id="hero" class="hero mx-auto w-full max-w-xl xl:max-w-none xl:w-fit">
+                <div class="hero-cover">
+                    <div class="hero-cover__masthead">
+                        <figure class="hero-cover__art">
+                            <img
+                                src="/images/hero-cover-pixel-sky.png"
+                                alt=""
+                                width="1024"
+                                height="1536"
+                                decoding="async"
+                                fetchpriority="high"
+                            />
+                        </figure>
+                        <div class="hero-cover__identity">
+                            <p class="hero-greeting">{t.hero.greeting}</p>
+                            <h1 class="name hero-name">{t.hero.name}</h1>
+                        </div>
+                    </div>
+                    <h2 class="title hero-tagline">{t.hero.tagline}</h2>
                 </div>
-                <p class="bio max-w-prose mt-8 leading-relaxed">
+                <p class="bio max-w-prose leading-relaxed">
                     {t.hero.bioStart}<span class="highlight">{t.hero.learn}</span
                     >{t.hero.bioMid}<span class="highlight">{t.hero.apply}</span
                     >{t.hero.bioEnd}
                 </p>
-                <div class="flex flex-row gap-6 highlight text-xl mt-12">
-                    <a
-                        class="interactive-base focus-ring relative p-2 hover:cursor-pointer text-center inline-block border border-cyan-600/40 backdrop-blur-sm hover:bg-cyan-800/20 hover:border-cyan-400/60"
-                        href="mailto:irecgc@gmail.com"
+                <div class="hero-actions">
+                    <div class="flex flex-row gap-6 highlight text-xl">
+                        <a
+                            class="interactive-base focus-ring relative p-2 hover:cursor-pointer text-center inline-block border border-cyan-600/40 backdrop-blur-sm hover:bg-cyan-800/20 hover:border-cyan-400/60"
+                            href="mailto:irecgc@gmail.com"
+                        >
+                            {t.hero.contact}
+                        </a>
+                    </div>
+                    <div
+                        id="socialTags"
+                        class="relative flex flex-wrap gap-3 text-[#BABABA]"
                     >
-                        {t.hero.contact}
-                    </a>
-                </div>
-                <div
-                    id="socialTags"
-                    class="relative flex flex-wrap gap-3 text-[#BABABA] mt-12"
-                >
                     <a
                         href="https://github.com/nairec"
                         target="_blank"
@@ -121,6 +132,7 @@ const workIllustrations = [
                             ></path></svg
                         ></a
                     >
+                </div>
                 </div>
             </section>
             <section id="chatbot-box" class="xl:flex hidden">
@@ -300,7 +312,129 @@ const workIllustrations = [
         display: flex;
         align-items: start;
         flex-direction: column;
-        padding: 16px 16px 16px 16px;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .hero-cover {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .hero-cover__masthead {
+        display: grid;
+        grid-template-columns: minmax(0, 10.5rem) 1fr;
+        gap: 0.75rem 1rem;
+        align-items: end;
+    }
+
+    .hero-cover__art {
+        margin: 0;
+        align-self: stretch;
+    }
+
+    .hero-cover__art img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 11.5rem;
+        max-height: 15rem;
+        object-fit: cover;
+        object-position: top center;
+        image-rendering: pixelated;
+        border: 1px solid color-mix(in srgb, #41d3ff 22%, transparent);
+    }
+
+    .hero-cover__identity {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        min-width: 0;
+        padding-bottom: 0.15rem;
+    }
+
+    .hero-greeting {
+        margin: 0;
+        font-family:
+            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+            "DejaVu Sans Mono", monospace;
+        font-size: 0.8rem;
+        line-height: 1.35;
+        color: #bababa;
+    }
+
+    .hero-name {
+        font-size: clamp(1.65rem, 6.5vw, 2.15rem);
+        line-height: 1.05;
+    }
+
+    .hero-tagline {
+        font-size: clamp(1.15rem, 4.8vw, 1.45rem);
+        line-height: 1.15;
+        margin: 0;
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+    }
+
+    @media (min-width: 768px) {
+        .hero-cover__masthead {
+            grid-template-columns: minmax(0, 12rem) 1fr;
+        }
+
+        .hero-name {
+            font-size: 2.5rem;
+        }
+
+        .hero-tagline {
+            font-size: 1.75rem;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        #hero {
+            gap: 2rem;
+            padding: 16px;
+        }
+
+        .hero-cover {
+            gap: 0.5rem;
+        }
+
+        .hero-cover__masthead {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .hero-cover__art {
+            display: none;
+        }
+
+        .hero-name {
+            font-size: 3.75rem;
+            line-height: 1;
+        }
+
+        .hero-tagline {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .hero-greeting {
+            font-size: 1rem;
+        }
+
+        .bio {
+            margin-top: 2rem;
+        }
     }
 
     .name {
@@ -538,15 +672,27 @@ const workIllustrations = [
         filter: drop-shadow(1px 1px 2px rgb(172, 42, 19));
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 767px) {
         #container {
             display: flex;
             flex-direction: column;
         }
 
         #hero {
-            display: block;
-            padding-top: 10%;
+            min-height: calc(100dvh - 4.25rem);
+            justify-content: center;
+            padding: 1.25rem 1rem 2rem;
+            gap: 1.25rem;
+        }
+
+        .bio {
+            margin-top: 0;
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        #socialTags::after {
+            display: none;
         }
 
         #links {
@@ -555,10 +701,6 @@ const workIllustrations = [
 
         #links a.button {
             padding: 14px 18px;
-        }
-
-        h1 {
-            line-height: 1.5;
         }
 
         .link-icon {
