@@ -103,7 +103,7 @@ Página placeholder con título y mensaje «próximamente» traducido (`t.blog`)
 ## Componentes clave
 
 ### `HomePortada.astro`
-Hero/portada: en móvil (&lt; 1280px) banda izquierda con ilustración, panel derecho editorial (Cormorant, bio, CTAs a `/especialidades` y `/proyectos`, RRSS); sin navbar en la primera pantalla. En `xl+` hero mono/cyan original con chatbot lateral (`Chatbot.tsx`).
+Hero/portada: en móvil (&lt; 1280px) banda izquierda con ilustración, panel derecho editorial (Cormorant, bio, navegación a las cuatro rutas en grid 2×2, RRSS); pantalla fija sin scroll (`overflow: hidden` en `html`/`body` y panel). En `xl+` hero mono/cyan original con enlaces a todas las rutas y chatbot lateral (`Chatbot.tsx`). El footer no se renderiza en `/home`.
 
 ### `SpecialtiesSections.astro`
 Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Separador `SectionDivider.astro` entre ambas secciones.
@@ -118,7 +118,7 @@ Bloques apilados (`t.works.items[]`) con `title` y `description` por área. Cada
 Intersection Observer para elementos con `data-scroll-reveal`. Añade `scroll-reveal-active` en `<html>` al activarse; sin JS o con `prefers-reduced-motion` el contenido permanece visible (fallback en CSS + JS).
 
 ### `Navbar.astro`
-Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con `aria-current="page"`. Header **sticky** con fondo semitransparente y `backdrop-blur`.
+Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con `aria-current="page"`. Header **sticky** con fondo semitransparente y `backdrop-blur`. En móvil: tipografía compacta, scroll horizontal sin barra y numeración oculta en pantallas muy estrechas (&lt; 380px).
 
 ### `LanguageSwitcher.astro`
 Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.

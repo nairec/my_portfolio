@@ -169,6 +169,18 @@ picture,
 }
 
 @media (max-width: 1279px) {
+    html:has(body.is-home-screen) {
+        overflow: hidden;
+        height: 100dvh;
+        overscroll-behavior: none;
+    }
+
+    body.is-home-screen {
+        overflow: hidden;
+        height: 100dvh;
+        overscroll-behavior: none;
+    }
+
     body.is-home-screen .site-header {
         position: fixed;
         top: 0;
@@ -179,16 +191,5 @@ picture,
         visibility: hidden;
         pointer-events: none;
         transform: translateY(-100%);
-        transition:
-            opacity var(--duration-base) var(--ease-out-smooth),
-            transform var(--duration-base) var(--ease-out-smooth),
-            visibility var(--duration-base);
-    }
-
-    body.is-home-screen.is-scrolled .site-header {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transform: translateY(0);
     }
 }

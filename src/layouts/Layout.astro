@@ -51,7 +51,7 @@ const pageBackground = "background-color:#000;color-scheme:dark";
         <div class="relative z-10">
             <Navbar />
             <slot />
-            <Footer />
+            {!homeScreen && <Footer />}
         </div>
     </body>
 </html>

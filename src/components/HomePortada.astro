@@ -4,6 +4,13 @@ import { getTranslations } from "../i18n";
 
 const locale = Astro.locals.locale;
 const t = getTranslations(locale);
+
+const routeLinks = [
+    { name: t.nav.home, href: "/home" },
+    { name: t.nav.specialties, href: "/especialidades" },
+    { name: t.nav.projects, href: "/proyectos" },
+    { name: t.nav.blog, href: "/blog" },
+];
 ---
 
 <div id="container">
@@ -42,20 +49,36 @@ const t = getTranslations(locale);
                         </p>
                     </div>
                     <div class="hero-actions">
-                        <div class="hero-ctas hero-portada__mobile-only">
-                            <a
-                                href="/especialidades"
-                                class="hero-cta interactive-base focus-ring"
-                            >
-                                {t.hero.viewSpecialties}
-                            </a>
-                            <a
-                                href="/proyectos"
-                                class="hero-cta interactive-base focus-ring"
-                            >
-                                {t.hero.viewProjects}
-                            </a>
-                        </div>
+                        <nav
+                            class="hero-ctas hero-portada__mobile-only"
+                            aria-label={t.nav.ariaLabel}
+                        >
+                            {
+                                routeLinks.map((link) => (
+                                    <a
+                                        href={link.href}
+                                        class="hero-cta interactive-base focus-ring"
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))
+                            }
+                        </nav>
+                        <nav
+                            class="hero-ctas hero-portada__desktop-only"
+                            aria-label={t.nav.ariaLabel}
+                        >
+                            {
+                                routeLinks.map((link) => (
+                                    <a
+                                        href={link.href}
+                                        class="hero-cta interactive-base focus-ring"
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))
+                            }
+                        </nav>
                         <a
                             href="mailto:irecgc@gmail.com"
                             class="hero-cta hero-cta--contact hero-portada__desktop-only interactive-base focus-ring"
@@ -167,14 +190,8 @@ const t = getTranslations(locale);
         flex-direction: column;
         justify-content: start;
         align-items: center;
-        gap: 6rem;
-        padding-bottom: 50px;
-    }
-
-    @media (min-width: 768px) {
-        main {
-            gap: 8rem;
-        }
+        gap: 0;
+        padding-bottom: 0;
     }
 
     .hero-layout {
@@ -218,11 +235,12 @@ const t = getTranslations(locale);
     .hero-portada__panel {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        gap: 1.75rem;
+        justify-content: space-between;
+        gap: 1.25rem;
         min-height: 100dvh;
-        padding: max(1rem, env(safe-area-inset-top)) 1.35rem 2rem 1rem;
-        overflow-y: auto;
+        max-height: 100dvh;
+        padding: max(1rem, env(safe-area-inset-top)) 1.35rem max(1rem, env(safe-area-inset-bottom)) 1rem;
+        overflow: hidden;
     }
 
     .hero-portada__copy {
@@ -240,7 +258,10 @@ const t = getTranslations(locale);
     }
 
     .hero-ctas.hero-portada__mobile-only {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem 1rem;
+        width: 100%;
     }
 
     .hero-name {
@@ -283,7 +304,7 @@ const t = getTranslations(locale);
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.9rem;
+        gap: 0.75rem;
     }
 
     .hero-cta {
@@ -327,8 +348,8 @@ const t = getTranslations(locale);
 
     @media (min-width: 768px) and (max-width: 1279px) {
         .hero-portada__panel {
-            padding: max(1.25rem, env(safe-area-inset-top)) 2rem 2.5rem 1.5rem;
-            gap: 2rem;
+            padding: max(1.25rem, env(safe-area-inset-top)) 2rem max(1rem, env(safe-area-inset-bottom)) 1.5rem;
+            gap: 1.5rem;
         }
 
         .hero-name {
@@ -372,6 +393,13 @@ const t = getTranslations(locale);
 
         .hero-portada__mobile-only {
             display: none;
+        }
+
+        .hero-ctas.hero-portada__desktop-only {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.25rem;
         }
 
         .hero-portada__copy {
@@ -545,10 +573,19 @@ const t = getTranslations(locale);
         filter: drop-shadow(1px 1px 2px rgb(172, 42, 19));
     }
 
-    @media screen and (max-width: 1279px) {
+    @media (max-width: 1279px) {
         #container {
             display: flex;
             flex-direction: column;
+            height: 100dvh;
+            max-height: 100dvh;
+            overflow: hidden;
+        }
+
+        main {
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
         }
 
         #socialTags::after {
@@ -561,31 +598,3 @@ const t = getTranslations(locale);
         }
     }
 </style>
-
-<script>
-    function initHomeScreenNav() {
-        if (!document.body.classList.contains("is-home-screen")) return;
-
-        const mq = window.matchMedia("(max-width: 1279px)");
-        const update = () => {
-            if (!mq.matches) {
-                document.body.classList.remove("is-scrolled");
-                return;
-            }
-            document.body.classList.toggle(
-                "is-scrolled",
-                window.scrollY > window.innerHeight * 0.35,
-            );
-        };
-
-        update();
-        window.addEventListener("scroll", update, { passive: true });
-        mq.addEventListener("change", update);
-    }
-
-    initHomeScreenNav();
-    document.addEventListener("astro:page-load", initHomeScreenNav);
-</script>
-
-<script>
-</script>
