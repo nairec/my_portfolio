@@ -4,6 +4,8 @@
   },
   "nav": {
     "ariaLabel": "Navegación principal",
+    "menuOpen": "Abrir menú de navegación",
+    "menuClose": "Cerrar menú de navegación",
     "home": "Inicio",
     "specialties": "Especialidades",
     "projects": "Proyectos",

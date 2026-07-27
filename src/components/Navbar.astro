@@ -27,74 +27,185 @@ const isActive = (href: string) => {
         class="site-nav flex flex-row flex-nowrap items-center font-mono justify-end text-white w-full gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:gap-5 md:p-5 md:pr-10"
         aria-label={t.nav.ariaLabel}
     >
-        {
-            navItems.map((item, i) => (
-                <a
-                    href={item.href}
-                    aria-current={isActive(item.href) ? "page" : undefined}
-                    class:list={[
-                        "site-nav__link interactive-base focus-ring shrink-0 pb-0.5",
-                        isActive(item.href)
-                            ? "text-cyan-300 border-b border-cyan-400/60"
-                            : "text-white border-b border-transparent hover:text-cyan-300",
-                    ]}
+        <div class="site-nav__mobile relative md:hidden">
+            <button
+                type="button"
+                id="nav-menu-trigger"
+                class="site-nav__menu-trigger interactive-base focus-ring flex items-center justify-center p-2 text-cyan-300 border border-gray-600/80 backdrop-blur-sm hover:border-cyan-400/50 hover:bg-cyan-950/20"
+                aria-label={t.nav.menuOpen}
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-controls="nav-menu"
+            >
+                <svg
+                    class="site-nav__menu-icon h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    aria-hidden="true"
                 >
-                    <span class="site-nav__index text-accent">
-                        {String(i + 1).padStart(2, "0")}.{" "}
-                    </span>
-                    {item.name}
-                </a>
-            ))
-        }
+                    <path d="M4 7h16"></path>
+                    <path d="M4 12h16"></path>
+                    <path d="M4 17h16"></path>
+                </svg>
+            </button>
+
+            <ul
+                id="nav-menu"
+                class="site-nav__dropdown hidden absolute right-0 top-full z-50 mt-1 min-w-[11rem] py-1 border border-gray-600/80 backdrop-blur-lg bg-black/90 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.8)]"
+                role="menu"
+                aria-label={t.nav.ariaLabel}
+            >
+                {
+                    navItems.map((item, i) => (
+                        <li role="none">
+                            <a
+                                href={item.href}
+                                role="menuitem"
+                                aria-current={isActive(item.href) ? "page" : undefined}
+                                class:list={[
+                                    "site-nav__dropdown-link interactive-base focus-ring block w-full px-3 py-2 text-left",
+                                    isActive(item.href)
+                                        ? "text-cyan-300 bg-cyan-950/30"
+                                        : "text-gray-200 hover:text-cyan-300 hover:bg-cyan-950/20",
+                                ]}
+                            >
+                                <span class="text-accent">
+                                    {String(i + 1).padStart(2, "0")}.{" "}
+                                </span>
+                                {item.name}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+
+        <div class="site-nav__desktop hidden md:flex md:flex-row md:items-center md:gap-5">
+            {
+                navItems.map((item, i) => (
+                    <a
+                        href={item.href}
+                        aria-current={isActive(item.href) ? "page" : undefined}
+                        class:list={[
+                            "site-nav__link interactive-base focus-ring shrink-0 pb-0.5",
+                            isActive(item.href)
+                                ? "text-cyan-300 border-b border-cyan-400/60"
+                                : "text-white border-b border-transparent hover:text-cyan-300",
+                        ]}
+                    >
+                        <span class="site-nav__index text-accent">
+                            {String(i + 1).padStart(2, "0")}.{" "}
+                        </span>
+                        {item.name}
+                    </a>
+                ))
+            }
+        </div>
+
         <LanguageSwitcher class="shrink-0" />
     </nav>
 </header>
 
 <style>
-    .site-nav {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-
-    .site-nav::-webkit-scrollbar {
-        display: none;
-    }
-
     .site-nav__link {
-        font-size: 0.68rem;
+        font-size: 1rem;
+        letter-spacing: 0;
+        white-space: nowrap;
+    }
+
+    .site-nav__dropdown-link {
+        font-size: 0.8rem;
         letter-spacing: 0.02em;
         white-space: nowrap;
     }
 
-    .site-nav__index {
-        display: none;
+    .site-nav__menu-trigger {
+        cursor: pointer;
     }
 
-    @media (min-width: 380px) {
-        .site-nav__link {
-            font-size: 0.72rem;
+    .site-nav__mobile.is-open .site-nav__menu-icon {
+        opacity: 0.85;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .site-nav__dropdown {
+            transform-origin: top right;
+            transition:
+                opacity var(--duration-base) var(--ease-out-smooth),
+                transform var(--duration-base) var(--ease-out-smooth);
         }
 
-        .site-nav__index {
-            display: inline;
+        .site-nav__mobile.is-open .site-nav__dropdown:not(.hidden) {
+            animation: site-nav-dropdown-in var(--duration-base) var(--ease-out-smooth);
         }
     }
 
-    @media (min-width: 640px) {
-        .site-nav__link {
-            font-size: 0.8rem;
-        }
-    }
-
-    @media (min-width: 768px) {
-        .site-nav {
-            overflow-x: visible;
+    @keyframes site-nav-dropdown-in {
+        from {
+            opacity: 0;
+            transform: translateY(-0.35rem);
         }
 
-        .site-nav__link {
-            font-size: 1rem;
-            letter-spacing: 0;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 </style>
+
+<script define:vars={{ menuOpen: t.nav.menuOpen, menuClose: t.nav.menuClose }}>
+    function initMobileNav() {
+        const mobileNav = document.querySelector(".site-nav__mobile");
+        const trigger = document.getElementById("nav-menu-trigger");
+        const menu = document.getElementById("nav-menu");
+        if (!mobileNav || !trigger || !menu) return;
+
+        function closeMenu() {
+            mobileNav.classList.remove("is-open");
+            menu.classList.add("hidden");
+            trigger.setAttribute("aria-expanded", "false");
+            trigger.setAttribute("aria-label", menuOpen);
+        }
+
+        function openMenu() {
+            mobileNav.classList.add("is-open");
+            menu.classList.remove("hidden");
+            trigger.setAttribute("aria-expanded", "true");
+            trigger.setAttribute("aria-label", menuClose);
+        }
+
+        trigger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = trigger.getAttribute("aria-expanded") === "true";
+            if (isOpen) closeMenu();
+            else openMenu();
+        });
+
+        menu.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => closeMenu());
+        });
+
+        const onDocClick = () => closeMenu();
+        const onKeyDown = (e) => {
+            if (e.key === "Escape") closeMenu();
+        };
+
+        document.addEventListener("click", onDocClick);
+        document.addEventListener("keydown", onKeyDown);
+
+        document.addEventListener(
+            "astro:before-swap",
+            () => {
+                document.removeEventListener("click", onDocClick);
+                document.removeEventListener("keydown", onKeyDown);
+            },
+            { once: true },
+        );
+    }
+
+    initMobileNav();
+    document.addEventListener("astro:page-load", initMobileNav);
+</script>

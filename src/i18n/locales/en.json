@@ -4,6 +4,8 @@
   },
   "nav": {
     "ariaLabel": "Main navigation",
+    "menuOpen": "Open navigation menu",
+    "menuClose": "Close navigation menu",
     "home": "Home",
     "specialties": "Specialties",
     "projects": "Projects",

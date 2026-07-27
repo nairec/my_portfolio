@@ -118,7 +118,7 @@ Bloques apilados (`t.works.items[]`) con `title` y `description` por área. Cada
 Intersection Observer para elementos con `data-scroll-reveal`. Añade `scroll-reveal-active` en `<html>` al activarse; sin JS o con `prefers-reduced-motion` el contenido permanece visible (fallback en CSS + JS).
 
 ### `Navbar.astro`
-Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con `aria-current="page"`. Header **sticky** con fondo semitransparente y `backdrop-blur`. En móvil: tipografía compacta, scroll horizontal sin barra y numeración oculta en pantallas muy estrechas (&lt; 380px).
+Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con `aria-current="page"`. Header **sticky** con fondo semitransparente y `backdrop-blur`. En móvil (&lt; 768px): icono de tres barras que abre un menú desplegable con las rutas; en desktop los enlaces se muestran en línea.
 
 ### `LanguageSwitcher.astro`
 Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.
