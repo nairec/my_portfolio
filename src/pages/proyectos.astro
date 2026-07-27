@@ -1,0 +1,92 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectsTitle from "../components/ProjectsTitle.astro";
+import ProjectTag from "../components/ProjectTag.astro";
+import projectsData from "../projectsList.json";
+import { getTranslations } from "../i18n";
+import type { Project } from "../types/types";
+
+const t = getTranslations(Astro.locals.locale);
+
+const projects: Project[] = [...(projectsData as Project[])].sort(
+    (a, b) => b.year - a.year,
+);
+
+const widthScales: Record<number, string> = {
+    1: "",
+    2: "md:col-span-2",
+    3: "md:col-span-3",
+};
+
+const heightScales: Record<number, string> = {
+    1: "",
+    2: "md:row-span-2",
+    3: "md:row-span-3",
+};
+---
+
+<Layout>
+    <main id="main-content">
+        <div transition:animate="fade">
+            <ProjectsTitle />
+            <div
+                id="projects-grid"
+                class="grid grid-cols-1 md:grid-cols-3 py-8 px-4 md:py-12 md:px-10 grid-flow-dense max-w-6xl mx-auto gap-0"
+            >
+                {
+                    projects.map((project) => (
+                        <div
+                            class:list={[
+                                "project-tag-wrapper p-3 transition-opacity duration-base",
+                                widthScales[project.width],
+                                heightScales[project.height],
+                            ]}
+                            data-categories={project.categories.join(",")}
+                        >
+                            <ProjectTag
+                                name={project.name}
+                                desc={t.projects.descriptions[project.slug]}
+                                link={project.link}
+                                imgPath={project.imgPath}
+                                imgObjectPosition={project.imgObjectPosition}
+                                stack={project.stack}
+                                year={project.year}
+                            />
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </main>
+</Layout>
+<script>
+    import autoAnimate from "@formkit/auto-animate";
+    import { ALL_CATEGORY, categoryFilter } from "../projects.js";
+
+    document.addEventListener("astro:page-load", () => {
+        const grid = document.getElementById("projects-grid");
+        if (grid) autoAnimate(grid, { duration: 250 });
+
+        function applyFilter(value: string) {
+            const wrappers = document.querySelectorAll(".project-tag-wrapper");
+            wrappers.forEach((wrapper) => {
+                const el = wrapper as HTMLElement;
+                const categories =
+                    el.getAttribute("data-categories")?.split(",") ?? [];
+                const isVisible =
+                    value === ALL_CATEGORY || categories.includes(value);
+
+                if (isVisible) {
+                    el.classList.remove("hidden");
+                    el.removeAttribute("aria-hidden");
+                } else {
+                    el.classList.add("hidden");
+                    el.setAttribute("aria-hidden", "true");
+                }
+            });
+        }
+
+        categoryFilter.subscribe(applyFilter);
+        applyFilter(categoryFilter.get());
+    });
+</script>
