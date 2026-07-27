@@ -22,29 +22,26 @@ const workIllustrations = [
 <div id="container">
     <main id="main-content">
         <div
-            class="flex flex-row gap-16 xl:gap-20 md:mt-15 min-h-100vh align-center justify-between max-w-7xl mx-auto px-6 w-full"
+            class="hero-layout flex flex-row gap-16 xl:gap-20 md:mt-15 min-h-100vh align-center justify-between max-w-7xl mx-auto w-full px-0 xl:px-6"
         >
-            <section id="hero" class="hero mx-auto w-full max-w-xl xl:max-w-none xl:w-fit">
-                <div class="hero-cover">
-                    <div class="hero-cover__masthead">
-                        <figure class="hero-cover__art">
-                            <img
-                                src="/images/hero-cover-pixel-sky.png"
-                                alt=""
-                                width="1024"
-                                height="1536"
-                                decoding="async"
-                                fetchpriority="high"
-                            />
-                        </figure>
-                        <div class="hero-cover__identity">
-                            <p class="hero-greeting">{t.hero.greeting}</p>
-                            <h1 class="name hero-name">{t.hero.name}</h1>
-                        </div>
+            <section id="hero" class="hero">
+                <aside class="hero-portada__band" aria-hidden="true">
+                    <img
+                        src="/images/hero-cover-portada.png"
+                        alt=""
+                        width="1024"
+                        height="1536"
+                        decoding="async"
+                        fetchpriority="high"
+                    />
+                </aside>
+                <div class="hero-portada__panel">
+                    <div class="hero-portada__intro">
+                        <p class="hero-greeting">{t.hero.greeting}</p>
+                        <h1 class="name hero-name">{t.hero.name}</h1>
+                        <h2 class="title hero-tagline">{t.hero.tagline}</h2>
                     </div>
-                    <h2 class="title hero-tagline">{t.hero.tagline}</h2>
-                </div>
-                <p class="bio max-w-prose leading-relaxed">
+                    <p class="bio hero-bio">
                     {t.hero.bioStart}<span class="highlight">{t.hero.learn}</span
                     >{t.hero.bioMid}<span class="highlight">{t.hero.apply}</span
                     >{t.hero.bioEnd}
@@ -132,6 +129,7 @@ const workIllustrations = [
                             ></path></svg
                         ></a
                     >
+                </div>
                 </div>
                 </div>
             </section>
@@ -308,51 +306,58 @@ const workIllustrations = [
         }
     }
 
-    #hero {
-        display: flex;
-        align-items: start;
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 1rem;
-    }
-
-    .hero-cover {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
+    .hero-layout {
         width: 100%;
     }
 
-    .hero-cover__masthead {
+    @media (max-width: 1279px) {
+        .hero-layout {
+            max-width: none;
+        }
+    }
+
+    #hero {
         display: grid;
-        grid-template-columns: minmax(0, 10.5rem) 1fr;
-        gap: 0.75rem 1rem;
-        align-items: end;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
+        min-height: 100dvh;
+        padding: 0;
+        gap: 0;
+        align-items: stretch;
     }
 
-    .hero-cover__art {
+    .hero-portada__band {
         margin: 0;
-        align-self: stretch;
+        min-height: 100dvh;
+        height: 100dvh;
+        overflow: hidden;
     }
 
-    .hero-cover__art img {
+    .hero-portada__band img {
         display: block;
         width: 100%;
         height: 100%;
-        min-height: 11.5rem;
-        max-height: 15rem;
         object-fit: cover;
         object-position: top center;
         image-rendering: pixelated;
-        border: 1px solid color-mix(in srgb, #41d3ff 22%, transparent);
     }
 
-    .hero-cover__identity {
+    .hero-portada__panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.85rem;
+        min-height: 100dvh;
+        padding: 1rem 0.9rem 1.25rem 0.75rem;
+        overflow-y: auto;
+    }
+
+    .hero-portada__intro {
         display: flex;
         flex-direction: column;
         gap: 0.35rem;
-        min-width: 0;
-        padding-bottom: 0.15rem;
     }
 
     .hero-greeting {
@@ -360,62 +365,87 @@ const workIllustrations = [
         font-family:
             "Cascadia Code", "Source Code Pro", Menlo, Consolas,
             "DejaVu Sans Mono", monospace;
-        font-size: 0.8rem;
+        font-size: 0.72rem;
         line-height: 1.35;
         color: #bababa;
     }
 
     .hero-name {
-        font-size: clamp(1.65rem, 6.5vw, 2.15rem);
+        font-size: clamp(1.35rem, 5.8vw, 1.85rem);
         line-height: 1.05;
     }
 
     .hero-tagline {
-        font-size: clamp(1.15rem, 4.8vw, 1.45rem);
-        line-height: 1.15;
+        font-size: clamp(0.95rem, 4.2vw, 1.2rem);
+        line-height: 1.2;
         margin: 0;
+    }
+
+    .hero-bio {
+        margin: 0;
+        font-size: 0.78rem;
+        line-height: 1.55;
+        max-width: none;
     }
 
     .hero-actions {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
         width: 100%;
+        margin-top: 0.25rem;
     }
 
-    @media (min-width: 768px) {
-        .hero-cover__masthead {
-            grid-template-columns: minmax(0, 12rem) 1fr;
+    @media (min-width: 768px) and (max-width: 1279px) {
+        .hero-greeting {
+            font-size: 0.85rem;
         }
 
         .hero-name {
-            font-size: 2.5rem;
+            font-size: clamp(1.75rem, 4vw, 2.35rem);
         }
 
         .hero-tagline {
-            font-size: 1.75rem;
+            font-size: clamp(1.15rem, 2.8vw, 1.55rem);
+        }
+
+        .hero-bio {
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        .hero-portada__panel {
+            padding: 1.5rem 1.25rem 1.75rem 1rem;
+            gap: 1rem;
         }
     }
 
     @media (min-width: 1280px) {
         #hero {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: auto;
+            max-width: none;
+            margin-left: 0;
+            min-height: auto;
             gap: 2rem;
             padding: 16px;
         }
 
-        .hero-cover {
-            gap: 0.5rem;
-        }
-
-        .hero-cover__masthead {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.5rem;
-        }
-
-        .hero-cover__art {
+        .hero-portada__band {
             display: none;
+        }
+
+        .hero-portada__panel {
+            min-height: auto;
+            padding: 0;
+            overflow: visible;
+            gap: 2rem;
+        }
+
+        .hero-portada__intro {
+            gap: 0.5rem;
         }
 
         .hero-name {
@@ -432,8 +462,11 @@ const workIllustrations = [
             font-size: 1rem;
         }
 
-        .bio {
-            margin-top: 2rem;
+        .hero-bio {
+            font-size: 1em;
+            line-height: 1.625;
+            max-width: 65ch;
+            margin-top: 0;
         }
     }
 
@@ -672,40 +705,19 @@ const workIllustrations = [
         filter: drop-shadow(1px 1px 2px rgb(172, 42, 19));
     }
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 1279px) {
         #container {
             display: flex;
             flex-direction: column;
-        }
-
-        #hero {
-            min-height: calc(100dvh - 4.25rem);
-            justify-content: center;
-            padding: 1.25rem 1rem 2rem;
-            gap: 1.25rem;
-        }
-
-        .bio {
-            margin-top: 0;
-            font-size: 0.95rem;
-            line-height: 1.65;
         }
 
         #socialTags::after {
             display: none;
         }
 
-        #links {
-            flex-wrap: wrap;
-        }
-
-        #links a.button {
-            padding: 14px 18px;
-        }
-
         .link-icon {
-            width: 2rem;
-            height: 2rem;
+            width: 1.75rem;
+            height: 1.75rem;
         }
     }
 </style>
