@@ -31,14 +31,14 @@ const isActive = (href: string) => {
             <button
                 type="button"
                 id="nav-menu-trigger"
-                class="site-nav__menu-trigger interactive-base focus-ring flex items-center justify-center p-2 text-cyan-300 border border-gray-600/80 backdrop-blur-sm hover:border-cyan-400/50 hover:bg-cyan-950/20"
+                class="site-nav__menu-trigger interactive-base focus-ring flex items-center justify-center px-2 py-1 text-cyan-300 border border-gray-600/80 backdrop-blur-sm hover:border-cyan-400/50 hover:bg-cyan-950/20"
                 aria-label={t.nav.menuOpen}
                 aria-haspopup="menu"
                 aria-expanded="false"
                 aria-controls="nav-menu"
             >
                 <svg
-                    class="site-nav__menu-icon h-5 w-5"
+                    class="site-nav__menu-icon h-3.5 w-3.5"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -122,8 +122,11 @@ const isActive = (href: string) => {
         white-space: nowrap;
     }
 
-    .site-nav__menu-trigger {
+    .site-nav__menu-trigger,
+    .site-nav :global(.lang-trigger) {
         cursor: pointer;
+        min-height: 1.625rem;
+        box-sizing: border-box;
     }
 
     .site-nav__mobile.is-open .site-nav__menu-icon {
