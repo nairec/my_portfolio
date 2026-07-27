@@ -7,7 +7,13 @@ import Analytics from "@vercel/analytics/astro";
 import { getTranslations } from "../i18n";
 import "../styles/global.css";
 import "@fontsource-variable/plus-jakarta-sans";
+import "@fontsource-variable/cormorant";
 
+interface Props {
+    homeScreen?: boolean;
+}
+
+const { homeScreen = false } = Astro.props;
 const locale = Astro.locals.locale;
 const t = getTranslations(locale);
 
@@ -36,7 +42,10 @@ const pageBackground = "background-color:#000;color-scheme:dark";
         <Analytics />
         <title>{t.meta.title}</title>
     </head>
-    <body style="margin:0;color:#fff">
+    <body
+        class:list={[{ "is-home-screen": homeScreen }]}
+        style="margin:0;color:#fff"
+    >
         <a href="#main-content" class="skip-link focus-ring">{t.a11y.skipToContent}</a>
         <Background mode="work" />
         <div class="relative z-10">

@@ -167,3 +167,23 @@ picture,
         transition-duration: 0.01ms !important;
     }
 }
+
+@media (max-width: 1279px) {
+    body.is-home-screen .site-header {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-100%);
+        transition:
+            opacity var(--duration-base) var(--ease-out-smooth),
+            transform var(--duration-base) var(--ease-out-smooth),
+            visibility var(--duration-base);
+    }
+
+    body.is-home-screen.is-scrolled .site-header {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+}

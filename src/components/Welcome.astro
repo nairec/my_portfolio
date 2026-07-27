@@ -36,29 +36,41 @@ const workIllustrations = [
                     />
                 </aside>
                 <div class="hero-portada__panel">
-                    <div class="hero-portada__intro">
-                        <p class="hero-greeting">{t.hero.greeting}</p>
-                        <h1 class="name hero-name">{t.hero.name}</h1>
-                        <h2 class="title hero-tagline">{t.hero.tagline}</h2>
+                    <div class="hero-portada__copy">
+                        <p class="hero-greeting hero-portada__desktop-only">
+                            {t.hero.greeting}
+                        </p>
+                        <h1 class="hero-name">{t.hero.name}</h1>
+                        <h2 class="title hero-tagline hero-portada__desktop-only">
+                            {t.hero.tagline}
+                        </h2>
+                        <p class="bio hero-bio">
+                            <span class="hero-bio__text">
+                                {t.hero.bioStart}<span class="highlight hero-bio__highlight"
+                                    >{t.hero.learn}</span
+                                >{t.hero.bioMid}<span class="highlight hero-bio__highlight"
+                                    >{t.hero.apply}</span
+                                >{t.hero.bioEnd}
+                            </span>
+                        </p>
                     </div>
-                    <p class="bio hero-bio">
-                    {t.hero.bioStart}<span class="highlight">{t.hero.learn}</span
-                    >{t.hero.bioMid}<span class="highlight">{t.hero.apply}</span
-                    >{t.hero.bioEnd}
-                </p>
-                <div class="hero-actions">
-                    <div class="flex flex-row gap-6 highlight text-xl">
+                    <div class="hero-actions">
                         <a
-                            class="interactive-base focus-ring relative p-2 hover:cursor-pointer text-center inline-block border border-cyan-600/40 backdrop-blur-sm hover:bg-cyan-800/20 hover:border-cyan-400/60"
+                            href="/projects"
+                            class="hero-cta hero-portada__mobile-only interactive-base focus-ring"
+                        >
+                            {t.hero.viewProjects}
+                        </a>
+                        <a
                             href="mailto:irecgc@gmail.com"
+                            class="hero-cta hero-cta--contact hero-portada__desktop-only interactive-base focus-ring"
                         >
                             {t.hero.contact}
                         </a>
-                    </div>
-                    <div
-                        id="socialTags"
-                        class="relative flex flex-wrap gap-3 text-[#BABABA]"
-                    >
+                        <div
+                            id="socialTags"
+                            class="hero-social relative flex flex-wrap gap-4 text-[#BABABA]"
+                        >
                     <a
                         href="https://github.com/nairec"
                         target="_blank"
@@ -347,76 +359,115 @@ const workIllustrations = [
     .hero-portada__panel {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        gap: 0.85rem;
+        justify-content: flex-end;
+        gap: 2.5rem;
         min-height: 100dvh;
-        padding: 1rem 0.9rem 1.25rem 0.75rem;
+        padding: 2.5rem 1.35rem 2.75rem 1rem;
         overflow-y: auto;
     }
 
-    .hero-portada__intro {
+    .hero-portada__copy {
         display: flex;
         flex-direction: column;
-        gap: 0.35rem;
+        gap: 1.25rem;
     }
 
-    .hero-greeting {
-        margin: 0;
-        font-family:
-            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
-            "DejaVu Sans Mono", monospace;
-        font-size: 0.72rem;
-        line-height: 1.35;
-        color: #bababa;
+    .hero-portada__desktop-only {
+        display: none;
+    }
+
+    .hero-portada__mobile-only {
+        display: inline-block;
     }
 
     .hero-name {
-        font-size: clamp(1.35rem, 5.8vw, 1.85rem);
-        line-height: 1.05;
-    }
-
-    .hero-tagline {
-        font-size: clamp(0.95rem, 4.2vw, 1.2rem);
-        line-height: 1.2;
         margin: 0;
+        font-family: "Cormorant Variable", "Times New Roman", serif;
+        font-weight: 300;
+        font-size: clamp(2.1rem, 10vw, 2.85rem);
+        line-height: 0.98;
+        letter-spacing: -0.03em;
+        color: #f4f4f5;
     }
 
     .hero-bio {
         margin: 0;
-        font-size: 0.78rem;
-        line-height: 1.55;
-        max-width: none;
+        max-width: 19ch;
+    }
+
+    .hero-bio__text {
+        font-family: "plus-jakarta-sans", system-ui, sans-serif;
+        font-weight: 300;
+        font-size: 0.68rem;
+        line-height: 1.75;
+        color: #8f8f95;
+        letter-spacing: 0.01em;
+    }
+
+    .hero-bio__highlight {
+        color: inherit;
     }
 
     .hero-actions {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        align-items: flex-start;
+        gap: 1.75rem;
         width: 100%;
-        margin-top: 0.25rem;
+    }
+
+    .hero-cta {
+        font-family: "plus-jakarta-sans", system-ui, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 400;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #e4e4e7;
+        text-decoration: none;
+        padding-bottom: 0.2rem;
+        border-bottom: 1px solid color-mix(in srgb, #e4e4e7 35%, transparent);
+    }
+
+    .hero-cta:hover {
+        color: #ffffff;
+        border-bottom-color: #ffffff;
+    }
+
+    .hero-social {
+        gap: 1.1rem;
+    }
+
+    .hero-social .link-icon {
+        width: 1.35rem;
+        height: 1.35rem;
+        color: #7a7a82;
+    }
+
+    .hero-social .link-icon:hover {
+        color: #d4d4d8;
+        filter: none;
+    }
+
+    .hero-social #git-logo:hover,
+    .hero-social #linkedIn-logo:hover,
+    .hero-social #twitter-logo:hover {
+        color: #d4d4d8;
+        filter: none;
     }
 
     @media (min-width: 768px) and (max-width: 1279px) {
-        .hero-greeting {
-            font-size: 0.85rem;
+        .hero-portada__panel {
+            padding: 3rem 2rem 3.25rem 1.5rem;
+            gap: 3rem;
         }
 
         .hero-name {
-            font-size: clamp(1.75rem, 4vw, 2.35rem);
+            font-size: clamp(2.6rem, 7vw, 3.4rem);
         }
 
-        .hero-tagline {
-            font-size: clamp(1.15rem, 2.8vw, 1.55rem);
-        }
-
-        .hero-bio {
-            font-size: 0.92rem;
-            line-height: 1.65;
-        }
-
-        .hero-portada__panel {
-            padding: 1.5rem 1.25rem 1.75rem 1rem;
-            gap: 1rem;
+        .hero-bio__text {
+            font-size: 0.76rem;
+            max-width: 24ch;
         }
     }
 
@@ -442,31 +493,90 @@ const workIllustrations = [
             padding: 0;
             overflow: visible;
             gap: 2rem;
+            justify-content: flex-start;
         }
 
-        .hero-portada__intro {
+        .hero-portada__desktop-only {
+            display: block;
+        }
+
+        .hero-portada__mobile-only {
+            display: none;
+        }
+
+        .hero-portada__copy {
             gap: 0.5rem;
         }
 
         .hero-name {
+            font-family:
+                "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+                "DejaVu Sans Mono", monospace;
+            font-weight: 500;
             font-size: 3.75rem;
             line-height: 1;
+            letter-spacing: 0;
+            color: #41d3ff;
+            margin: 0;
+        }
+
+        .hero-greeting {
+            margin: 0;
+            font-family:
+                "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+                "DejaVu Sans Mono", monospace;
+            font-size: 1rem;
+            line-height: 1.35;
+            color: #bababa;
         }
 
         .hero-tagline {
             font-size: 3rem;
             line-height: 1;
-        }
-
-        .hero-greeting {
-            font-size: 1rem;
+            margin: 0;
         }
 
         .hero-bio {
             font-size: 1em;
             line-height: 1.625;
             max-width: 65ch;
-            margin-top: 0;
+        }
+
+        .hero-bio__text {
+            font-family:
+                "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+                "DejaVu Sans Mono", monospace;
+            font-size: inherit;
+            line-height: inherit;
+            color: var(--color-bio);
+            letter-spacing: 0;
+        }
+
+        .hero-bio__highlight {
+            color: #41d3ff;
+        }
+
+        .hero-actions {
+            gap: 1.5rem;
+        }
+
+        .hero-cta {
+            font-family: inherit;
+            font-size: 1.25rem;
+            letter-spacing: 0;
+            text-transform: none;
+            color: #41d3ff;
+            border: 1px solid color-mix(in srgb, #0891b2 40%, transparent);
+            padding: 0.5rem;
+        }
+
+        .hero-cta--contact {
+            display: inline-block;
+        }
+
+        .hero-social .link-icon {
+            width: 2rem;
+            height: 2rem;
         }
     }
 
@@ -721,6 +831,31 @@ const workIllustrations = [
         }
     }
 </style>
+
+<script>
+    function initHomeScreenNav() {
+        if (!document.body.classList.contains("is-home-screen")) return;
+
+        const mq = window.matchMedia("(max-width: 1279px)");
+        const update = () => {
+            if (!mq.matches) {
+                document.body.classList.remove("is-scrolled");
+                return;
+            }
+            document.body.classList.toggle(
+                "is-scrolled",
+                window.scrollY > window.innerHeight * 0.35,
+            );
+        };
+
+        update();
+        window.addEventListener("scroll", update, { passive: true });
+        mq.addEventListener("change", update);
+    }
+
+    initHomeScreenNav();
+    document.addEventListener("astro:page-load", initHomeScreenNav);
+</script>
 
 <script>
     import "../lib/scrollReveal.ts";

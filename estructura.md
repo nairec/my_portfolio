@@ -93,7 +93,7 @@ Separador decorativo entre secciones principales de la home: líneas en gradient
 ### `Welcome.astro`
 Hero (mono + cyan), bio, CTA contacto, redes sociales, sección **"Especialidades"** (`#works`) con cuatro áreas de trabajo, y sección "My Stack" con iconos flotantes (`Tag.astro`). Contenedor `max-w-7xl` con espaciado vertical reducido (6–8rem entre secciones). La sección `#stack` usa scroll-reveal: cabecera con fade-up y cada fila de tecnologías con entrada desde la derecha (`scroll-reveal--from-right`).
 
-**Portada móvil (`#hero`, &lt; 1280px):** split a pantalla completa con banda izquierda (`hero-portada__band`) al 33% del ancho y `100dvh` de alto mostrando `public/images/hero-cover-portada.png`; panel derecho (`hero-portada__panel`) con nombre, tagline, bio y acciones. En `xl` se oculta la banda y el hero recupera el layout editorial original (texto + chatbot lateral).
+**Portada móvil (`#hero`, &lt; 1280px):** home screen a pantalla completa sin navbar (reaparece al hacer scroll). Banda izquierda al 33% con `hero-cover-portada.png`; panel derecho editorial con nombre en Cormorant, bio en cuerpo pequeño, CTA `Ver proyectos` y RRSS. Layout con mucho espacio negativo. En `xl` se oculta la banda y recupera el hero mono/cyan original con chatbot.
 
 #### Sección `#works`
 Bloques apilados (`t.works.items[]`) con `title` y `description` por área. Cada bloque: cabecera horizontal (ilustración SVG grande + número/título) y párrafo descriptivo debajo. En desktop, los bloques impares alternan imagen a la derecha (`work-block--reverse`). Textos editables en `src/i18n/locales/es.json`; EN/CA con placeholders hasta traducción. Cabecera y bloques con scroll-reveal (fade-up; bloques pares desde la izquierda, impares desde la derecha).
