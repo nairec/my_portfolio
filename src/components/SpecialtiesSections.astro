@@ -26,8 +26,7 @@ const workIllustrations = [
         >
             <h2
                 id="works-header"
-                class="scroll-reveal relative place-self-center md:place-self-start text-5xl text-muted tracking-tight"
-                data-scroll-reveal
+                class="specialties-page__title specialties-page__enter specialties-page__enter--title relative place-self-center md:place-self-start text-5xl text-muted tracking-tight"
             >
                 {t.works.heading}
             </h2>
@@ -36,13 +35,17 @@ const workIllustrations = [
                     t.works.items.map((item, index) => (
                         <article
                             class:list={[
-                                "work-block scroll-reveal",
-                                index % 2 === 0
-                                    ? "scroll-reveal--from-left"
-                                    : "scroll-reveal--from-right",
+                                "work-block",
+                                index === 0 &&
+                                    "specialties-page__enter specialties-page__enter--first",
+                                index > 0 && "scroll-reveal",
+                                index > 0 &&
+                                    (index % 2 === 0
+                                        ? "scroll-reveal--from-left"
+                                        : "scroll-reveal--from-right"),
                                 index % 2 === 1 && "work-block--reverse",
                             ]}
-                            data-scroll-reveal
+                            data-scroll-reveal={index > 0 ? true : undefined}
                         >
                             <div class="work-header">
                                 <div
@@ -174,6 +177,49 @@ const workIllustrations = [
 
     .specialties-page {
         padding-top: 2.5rem;
+    }
+
+    @keyframes specialties-enter-title {
+        from {
+            opacity: 0;
+            transform: translateY(1.25rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes specialties-enter-first {
+        from {
+            opacity: 0;
+            transform: translateX(-1.75rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .specialties-page__enter--title {
+        opacity: 0;
+        animation: specialties-enter-title 820ms var(--ease-out-smooth) 80ms forwards;
+    }
+
+    .specialties-page__enter--first {
+        opacity: 0;
+        animation: specialties-enter-first 820ms var(--ease-out-smooth) 240ms forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .specialties-page__enter--title,
+        .specialties-page__enter--first {
+            opacity: 1;
+            animation: none;
+            transform: none;
+        }
     }
 
     .works-list {

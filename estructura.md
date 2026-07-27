@@ -106,7 +106,7 @@ Página placeholder con título y mensaje «próximamente» traducido (`t.blog`)
 Hero/portada: en móvil (&lt; 1280px) banda izquierda con ilustración (entrada desde abajo), panel derecho editorial (Cormorant, bio, cuatro enlaces verticales, RRSS; entrada desde la derecha con stagger); pantalla fija sin scroll. En `xl+` hero mono/cyan original con enlaces en vertical y chatbot lateral.
 
 ### `SpecialtiesSections.astro`
-Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Separador `SectionDivider.astro` entre ambas secciones.
+Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Separador `SectionDivider.astro` entre ambas secciones. El título y el primer bloque de works tienen animación de entrada al cargar la página; el resto usa scroll-reveal.
 
 ### `SectionDivider.astro`
 Separador decorativo entre secciones principales: líneas en gradiente muted/cyan con `//` estilizado en mono (skew + opacidad distinta por barra, glow sutil). `role="separator"` y `aria-hidden`. Usado entre works → stack en `SpecialtiesSections.astro`. Incluye animación scroll-reveal (fade-up) vía `data-scroll-reveal`.
@@ -124,7 +124,7 @@ Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cya
 Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.
 
 ### `ProjectsTitle.astro`
-Cabecera de la página de proyectos: `02. proyectos` (estático, traducido). Incluye `CategoryFilter` para filtrar por categoría.
+Cabecera de la página de proyectos: título en gris (`text-5xl text-muted tracking-tight`, mismo estilo que especialidades) e incluye `CategoryFilter` para filtrar por categoría.
 
 ### `CategoryFilter.astro`
 Botones `Todos` / `IA` / `App web` / `Automatización` con `role="group"`, `aria-label` y `aria-pressed`. Indicador deslizante bajo el botón activo. Persiste en `localStorage` vía `projects.js` (`categoryFilter` nanostore).
