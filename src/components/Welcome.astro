@@ -22,7 +22,7 @@ const workIllustrations = [
 <div id="container">
     <main id="main-content">
         <div
-            class="hero-layout flex flex-row gap-16 xl:gap-20 md:mt-15 min-h-100vh align-center justify-between max-w-7xl mx-auto w-full px-0 xl:px-6"
+            class="hero-layout flex flex-row gap-16 xl:gap-20 mt-0 xl:mt-15 min-h-100vh align-center justify-between max-w-7xl mx-auto w-full px-0 xl:px-6"
         >
             <section id="hero" class="hero">
                 <aside class="hero-portada__band" aria-hidden="true">
@@ -359,10 +359,10 @@ const workIllustrations = [
     .hero-portada__panel {
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
-        gap: 2.5rem;
+        justify-content: flex-start;
+        gap: 1.75rem;
         min-height: 100dvh;
-        padding: 2.5rem 1.35rem 2.75rem 1rem;
+        padding: max(1rem, env(safe-area-inset-top)) 1.35rem 2rem 1rem;
         overflow-y: auto;
     }
 
@@ -457,8 +457,8 @@ const workIllustrations = [
 
     @media (min-width: 768px) and (max-width: 1279px) {
         .hero-portada__panel {
-            padding: 3rem 2rem 3.25rem 1.5rem;
-            gap: 3rem;
+            padding: max(1.25rem, env(safe-area-inset-top)) 2rem 2.5rem 1.5rem;
+            gap: 2rem;
         }
 
         .hero-name {
