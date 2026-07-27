@@ -55,12 +55,20 @@ const workIllustrations = [
                         </p>
                     </div>
                     <div class="hero-actions">
-                        <a
-                            href="/projects"
-                            class="hero-cta hero-portada__mobile-only interactive-base focus-ring"
-                        >
-                            {t.hero.viewProjects}
-                        </a>
+                        <div class="hero-ctas hero-portada__mobile-only">
+                            <a
+                                href="#works"
+                                class="hero-cta interactive-base focus-ring"
+                            >
+                                {t.hero.viewSpecialties}
+                            </a>
+                            <a
+                                href="/projects"
+                                class="hero-cta interactive-base focus-ring"
+                            >
+                                {t.hero.viewProjects}
+                            </a>
+                        </div>
                         <a
                             href="mailto:irecgc@gmail.com"
                             class="hero-cta hero-cta--contact hero-portada__desktop-only interactive-base focus-ring"
@@ -380,11 +388,15 @@ const workIllustrations = [
         display: inline-block;
     }
 
+    .hero-ctas.hero-portada__mobile-only {
+        display: flex;
+    }
+
     .hero-name {
         margin: 0;
         font-family: "Cormorant Variable", "Times New Roman", serif;
         font-weight: 300;
-        font-size: clamp(2.1rem, 10vw, 2.85rem);
+        font-size: clamp(2.35rem, 11vw, 3.15rem);
         line-height: 0.98;
         letter-spacing: -0.03em;
         color: #f4f4f5;
@@ -392,13 +404,13 @@ const workIllustrations = [
 
     .hero-bio {
         margin: 0;
-        max-width: 19ch;
+        max-width: 21ch;
     }
 
     .hero-bio__text {
         font-family: "plus-jakarta-sans", system-ui, sans-serif;
         font-weight: 300;
-        font-size: 0.68rem;
+        font-size: 0.76rem;
         line-height: 1.75;
         color: #8f8f95;
         letter-spacing: 0.01em;
@@ -416,9 +428,16 @@ const workIllustrations = [
         width: 100%;
     }
 
+    .hero-ctas {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.9rem;
+    }
+
     .hero-cta {
         font-family: "plus-jakarta-sans", system-ui, sans-serif;
-        font-size: 0.72rem;
+        font-size: 0.78rem;
         font-weight: 400;
         letter-spacing: 0.14em;
         text-transform: uppercase;
@@ -462,12 +481,12 @@ const workIllustrations = [
         }
 
         .hero-name {
-            font-size: clamp(2.6rem, 7vw, 3.4rem);
+            font-size: clamp(2.75rem, 7.5vw, 3.55rem);
         }
 
         .hero-bio__text {
-            font-size: 0.76rem;
-            max-width: 24ch;
+            font-size: 0.84rem;
+            max-width: 26ch;
         }
     }
 
