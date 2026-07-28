@@ -4,7 +4,10 @@
   },
   "nav": {
     "ariaLabel": "Main navigation",
+    "menuOpen": "Open navigation menu",
+    "menuClose": "Close navigation menu",
     "home": "Home",
+    "specialties": "Specialties",
     "projects": "Projects",
     "blog": "Blog"
   },
@@ -86,5 +89,9 @@
   },
   "footer": {
     "copyright": "Eric Garcia, 2026 ©"
+  },
+  "blog": {
+    "heading": "Blog",
+    "comingSoon": "Articles on development, AI, and automation are coming soon."
   }
 }

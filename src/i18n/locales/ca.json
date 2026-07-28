@@ -4,7 +4,10 @@
   },
   "nav": {
     "ariaLabel": "Navegació principal",
+    "menuOpen": "Obrir menú de navegació",
+    "menuClose": "Tancar menú de navegació",
     "home": "Inici",
+    "specialties": "Especialitats",
     "projects": "Projectes",
     "blog": "Blog"
   },
@@ -86,5 +89,9 @@
   },
   "footer": {
     "copyright": "Eric Garcia, 2026 ©"
+  },
+  "blog": {
+    "heading": "Blog",
+    "comingSoon": "Aviat publicaré articles sobre desenvolupament, IA i automatització."
   }
 }

@@ -21,11 +21,16 @@ html {
         transparent;
     overflow-x: clip;
     background-color: #000;
-    background-image:
-        linear-gradient(to right, #80808012 1px, transparent 1px),
-        linear-gradient(to bottom, #80808012 1px, transparent 1px);
-    background-size: 24px 24px;
     color-scheme: dark;
+}
+
+@media (min-width: 1024px) {
+    html {
+        background-image:
+            linear-gradient(to right, #80808012 1px, transparent 1px),
+            linear-gradient(to bottom, #80808012 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
 }
 
 html::-webkit-scrollbar {
@@ -160,5 +165,31 @@ picture,
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+@media (max-width: 1279px) {
+    html:has(body.is-home-screen) {
+        overflow: hidden;
+        height: 100dvh;
+        overscroll-behavior: none;
+    }
+
+    body.is-home-screen {
+        overflow: hidden;
+        height: 100dvh;
+        overscroll-behavior: none;
+    }
+
+    body.is-home-screen .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-100%);
     }
 }

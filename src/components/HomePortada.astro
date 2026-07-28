@@ -1,0 +1,735 @@
+---
+import Chatbot from "./Chatbot.tsx";
+import { getTranslations } from "../i18n";
+
+const locale = Astro.locals.locale;
+const t = getTranslations(locale);
+
+const routeLinks = [
+    { name: t.nav.home, href: "/home" },
+    { name: t.nav.specialties, href: "/especialidades" },
+    { name: t.nav.projects, href: "/proyectos" },
+    { name: t.nav.blog, href: "/blog" },
+];
+---
+
+<div id="container">
+    <main id="main-content">
+        <div
+            class="hero-layout flex flex-row gap-16 xl:gap-20 mt-0 xl:mt-15 min-h-100vh align-center justify-between max-w-7xl mx-auto w-full px-0 xl:px-6"
+        >
+            <section id="hero" class="hero">
+                <aside class="hero-portada__band hero-portada__enter-band" aria-hidden="true">
+                    <img
+                        class="hero-portada__enter-band-media"
+                        src="/images/hero-cover-portada.png"
+                        alt=""
+                        width="1024"
+                        height="1536"
+                        decoding="async"
+                        fetchpriority="high"
+                    />
+                </aside>
+                <div class="hero-portada__panel">
+                    <div class="hero-portada__copy hero-portada__enter-right hero-portada__enter-right--1">
+                        <p class="hero-greeting hero-portada__desktop-only">
+                            {t.hero.greeting}
+                        </p>
+                        <h1 class="hero-name">{t.hero.name}</h1>
+                        <h2 class="title hero-tagline hero-portada__desktop-only">
+                            {t.hero.tagline}
+                        </h2>
+                        <p class="bio hero-bio">
+                            <span class="hero-bio__text">
+                                {t.hero.bioStart}<span class="highlight hero-bio__highlight"
+                                    >{t.hero.learn}</span
+                                >{t.hero.bioMid}<span class="highlight hero-bio__highlight"
+                                    >{t.hero.apply}</span
+                                >{t.hero.bioEnd}
+                            </span>
+                        </p>
+                    </div>
+                    <a
+                        href="mailto:irecgc@gmail.com"
+                        class="hero-contact-cta hero-portada__enter-right hero-portada__enter-right--cta interactive-base focus-ring"
+                    >
+                        <span class="hero-contact-cta__label">{t.hero.contact}</span>
+                        <svg
+                            class="hero-contact-cta__border"
+                            viewBox="0 0 200 40"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                        >
+                            <rect
+                                class="hero-contact-cta__rect"
+                                x="0.75"
+                                y="0.75"
+                                width="198.5"
+                                height="38.5"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1"
+                                pathLength="1"
+                                vector-effect="non-scaling-stroke"
+                            />
+                        </svg>
+                    </a>
+                    <div class="hero-actions hero-portada__enter-right hero-portada__enter-right--2">
+                        <nav class="hero-ctas" aria-label={t.nav.ariaLabel}>
+                            {
+                                routeLinks.map((link) => (
+                                    <a
+                                        href={link.href}
+                                        class="hero-cta interactive-base focus-ring"
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))
+                            }
+                        </nav>
+                        <div
+                            id="socialTags"
+                            class="hero-social relative flex flex-wrap gap-4 text-[#BABABA]"
+                        >
+                    <a
+                        href="https://github.com/nairec"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${t.a11y.github} (${t.a11y.opensInNewTab})`}
+                        class="interactive-base focus-ring rounded-sm"
+                        ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            id="git-logo"
+                            class="link-icon"
+                            fill="currentColor"
+                            viewBox="0 0 256 256"
+                            aria-hidden="true"
+                            ><path
+                                d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"
+                            ></path></svg
+                        ></a
+                    >
+                    <a
+                        href="https://linkedin.com/in/eric-garcia-cano"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${t.a11y.linkedin} (${t.a11y.opensInNewTab})`}
+                        class="interactive-base focus-ring rounded-sm"
+                        ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            id="linkedIn-logo"
+                            class="link-icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"
+                            aria-hidden="true"
+                            ><path stroke="none" d="M0 0h24v24H0z" fill="none"
+                            ></path><path d="M8 11v5"></path><path d="M8 8v.01"
+                            ></path><path d="M12 16v-5"></path><path
+                                d="M16 16v-3a2 2 0 1 0 -4 0"></path><path
+                                d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10"
+                            ></path></svg
+                        ></a
+                    >
+                    <a
+                        href="https://x.com/PyNair"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${t.a11y.x} (${t.a11y.opensInNewTab})`}
+                        class="interactive-base focus-ring rounded-sm"
+                        ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="link-icon"
+                            id="twitter-logo"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"
+                            aria-hidden="true"
+                            ><path stroke="none" d="M0 0h24v24H0z" fill="none"
+                            ></path><path
+                                d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0"
+                            ></path><path
+                                d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"
+                            ></path></svg
+                        ></a
+                    >
+                </div>
+                </div>
+                </div>
+            </section>
+            <section id="chatbot-box" class="xl:flex hidden">
+                <Chatbot
+                    client:load
+                    locale={locale}
+                    placeholder={t.chat.placeholder}
+                    sendAria={t.chat.sendAria}
+                    greeting={t.chat.greeting}
+                    errorMessage={t.chat.error}
+                />
+            </section>
+        </div>
+    </main>
+</div>
+
+<style>
+    #container {
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        gap: 0;
+        padding-bottom: 0;
+    }
+
+    .hero-layout {
+        width: 100%;
+    }
+
+    @media (max-width: 1279px) {
+        .hero-layout {
+            max-width: none;
+        }
+    }
+
+    #hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
+        min-height: 100dvh;
+        padding: 0;
+        gap: 0;
+        align-items: stretch;
+    }
+
+    .hero-portada__band {
+        margin: 0;
+        min-height: 100dvh;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    @keyframes hero-portada-enter-bottom {
+        from {
+            opacity: 0;
+            transform: translateY(14%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes hero-portada-enter-right {
+        from {
+            opacity: 0;
+            transform: translateX(1.75rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @media (max-width: 1279px) {
+        .hero-portada__enter-band-media {
+            opacity: 0;
+            animation: hero-portada-enter-bottom 900ms var(--ease-out-smooth) 80ms forwards;
+        }
+
+        .hero-portada__enter-right {
+            opacity: 0;
+            animation: hero-portada-enter-right 820ms var(--ease-out-smooth) forwards;
+        }
+
+        .hero-portada__enter-right--1 {
+            animation-delay: 180ms;
+        }
+
+        .hero-portada__enter-right--cta {
+            animation-delay: 280ms;
+        }
+
+        .hero-portada__enter-right--2 {
+            animation-delay: 420ms;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .hero-portada__enter-band-media,
+        .hero-portada__enter-right {
+            opacity: 1;
+            animation: none;
+            transform: none;
+        }
+    }
+
+    .hero-portada__band img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        image-rendering: pixelated;
+    }
+
+    .hero-portada__panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1.25rem;
+        min-height: 100dvh;
+        max-height: 100dvh;
+        padding: max(1rem, env(safe-area-inset-top)) 1.35rem max(1rem, env(safe-area-inset-bottom)) 1rem;
+        overflow: hidden;
+    }
+
+    .hero-portada__copy {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .hero-portada__desktop-only {
+        display: none;
+    }
+
+    .hero-portada__mobile-only {
+        display: inline-block;
+    }
+
+    .hero-name {
+        margin: 0;
+        font-family: "Cormorant Variable", "Times New Roman", serif;
+        font-weight: 300;
+        font-size: clamp(2.35rem, 11vw, 3.15rem);
+        line-height: 0.98;
+        letter-spacing: -0.03em;
+        color: #f4f4f5;
+    }
+
+    .hero-bio {
+        margin: 0;
+        max-width: 21ch;
+    }
+
+    .hero-bio__text {
+        font-family: "plus-jakarta-sans", system-ui, sans-serif;
+        font-weight: 300;
+        font-size: 0.76rem;
+        line-height: 1.75;
+        color: #8f8f95;
+        letter-spacing: 0.01em;
+    }
+
+    .hero-bio__highlight {
+        color: inherit;
+    }
+
+    .hero-contact-cta {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-start;
+        padding: 0.55rem 1.15rem;
+        text-decoration: none;
+        color: #d4d4d8;
+        font-family: "plus-jakarta-sans", system-ui, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 400;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        background: transparent;
+        transition: color var(--duration-base) var(--ease-out-smooth);
+    }
+
+    .hero-contact-cta:hover {
+        color: #ffffff;
+    }
+
+    .hero-contact-cta__label {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-contact-cta__border {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        color: color-mix(in srgb, #e4e4e7 42%, transparent);
+        pointer-events: none;
+        overflow: visible;
+    }
+
+    .hero-contact-cta__rect {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: hero-contact-border-trace 4.8s var(--ease-out-smooth) infinite;
+    }
+
+    .hero-contact-cta:hover .hero-contact-cta__border {
+        color: color-mix(in srgb, #ffffff 70%, transparent);
+    }
+
+    @keyframes hero-contact-border-trace {
+        0% {
+            stroke-dashoffset: 1;
+        }
+
+        38% {
+            stroke-dashoffset: 0;
+        }
+
+        62% {
+            stroke-dashoffset: 0;
+        }
+
+        100% {
+            stroke-dashoffset: 1;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .hero-contact-cta__rect {
+            stroke-dashoffset: 0;
+            animation: none;
+        }
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.75rem;
+        width: 100%;
+    }
+
+    .hero-ctas {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .hero-cta {
+        font-family: "plus-jakarta-sans", system-ui, sans-serif;
+        font-size: 0.78rem;
+        font-weight: 400;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #e4e4e7;
+        text-decoration: none;
+        padding-bottom: 0.2rem;
+        border-bottom: 1px solid color-mix(in srgb, #e4e4e7 35%, transparent);
+    }
+
+    .hero-cta:hover {
+        color: #ffffff;
+        border-bottom-color: #ffffff;
+    }
+
+    .hero-social {
+        gap: 1.1rem;
+    }
+
+    .hero-social .link-icon {
+        width: 1.35rem;
+        height: 1.35rem;
+        color: #7a7a82;
+    }
+
+    .hero-social .link-icon:hover {
+        color: #d4d4d8;
+        filter: none;
+    }
+
+    .hero-social #git-logo:hover,
+    .hero-social #linkedIn-logo:hover,
+    .hero-social #twitter-logo:hover {
+        color: #d4d4d8;
+        filter: none;
+    }
+
+    @media (min-width: 768px) and (max-width: 1279px) {
+        .hero-portada__panel {
+            padding: max(1.25rem, env(safe-area-inset-top)) 2rem max(1rem, env(safe-area-inset-bottom)) 1.5rem;
+            gap: 1.5rem;
+        }
+
+        .hero-name {
+            font-size: clamp(2.75rem, 7.5vw, 3.55rem);
+        }
+
+        .hero-bio__text {
+            font-size: 0.84rem;
+            max-width: 26ch;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        #hero {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: auto;
+            max-width: none;
+            margin-left: 0;
+            min-height: auto;
+            gap: 2rem;
+            padding: 16px;
+        }
+
+        .hero-portada__band {
+            display: none;
+        }
+
+        .hero-portada__panel {
+            min-height: auto;
+            padding: 0;
+            overflow: visible;
+            gap: 2rem;
+            justify-content: flex-start;
+        }
+
+        .hero-portada__desktop-only {
+            display: block;
+        }
+
+        .hero-portada__mobile-only {
+            display: none;
+        }
+
+        .hero-portada__copy {
+            gap: 0.5rem;
+        }
+
+        .hero-name {
+            font-family:
+                "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+                "DejaVu Sans Mono", monospace;
+            font-weight: 500;
+            font-size: 3.75rem;
+            line-height: 1;
+            letter-spacing: 0;
+            color: #41d3ff;
+            margin: 0;
+        }
+
+        .hero-greeting {
+            margin: 0;
+            font-family:
+                "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+                "DejaVu Sans Mono", monospace;
+            font-size: 1rem;
+            line-height: 1.35;
+            color: #bababa;
+        }
+
+        .hero-tagline {
+            font-size: 3rem;
+            line-height: 1;
+            margin: 0;
+        }
+
+        .hero-bio {
+            font-size: 1em;
+            line-height: 1.625;
+            max-width: 65ch;
+        }
+
+        .hero-bio__text {
+            font-family:
+                "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+                "DejaVu Sans Mono", monospace;
+            font-size: inherit;
+            line-height: inherit;
+            color: var(--color-bio);
+            letter-spacing: 0;
+        }
+
+        .hero-bio__highlight {
+            color: #41d3ff;
+        }
+
+        .hero-actions {
+            gap: 1.5rem;
+        }
+
+        .hero-contact-cta {
+            font-family:
+                "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+                "DejaVu Sans Mono", monospace;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            color: #41d3ff;
+            padding: 0.6rem 1.35rem;
+        }
+
+        .hero-contact-cta__border {
+            color: color-mix(in srgb, #41d3ff 50%, transparent);
+        }
+
+        .hero-contact-cta:hover {
+            color: #7ee8ff;
+        }
+
+        .hero-contact-cta:hover .hero-contact-cta__border {
+            color: color-mix(in srgb, #7ee8ff 75%, transparent);
+        }
+
+        .hero-cta {
+            font-family: inherit;
+            font-size: 1.25rem;
+            letter-spacing: 0;
+            text-transform: none;
+            color: #41d3ff;
+            border: 1px solid color-mix(in srgb, #0891b2 40%, transparent);
+            padding: 0.5rem;
+        }
+
+        .hero-social .link-icon {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    .name {
+        font-family:
+            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+            "DejaVu Sans Mono", monospace;
+        font-weight: 500;
+        color: #41d3ff;
+        margin: 0;
+    }
+
+    .title {
+        font-family:
+            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+            "DejaVu Sans Mono", monospace;
+        font-weight: 500;
+        color: #bababa;
+        margin: 0;
+    }
+
+    .bio {
+        font-family:
+            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+            "DejaVu Sans Mono", monospace;
+        color: var(--color-bio);
+        margin: 0;
+        font-size: 1em;
+        margin-top: 2rem;
+    }
+
+    #socialTags::after {
+        content: "";
+        position: absolute;
+        bottom: 1rem;
+        left: 120%;
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: #bababa;
+    }
+
+
+    /*#stack-header::after {
+        content: "";
+        position: absolute;
+        bottom: 1rem;
+        right: 105%;
+        display: block;
+        width: 38rem;
+        height: 1px;
+        background: #bababa;
+        }*/
+
+    .box {
+        padding: 16px;
+        background: rgba(255, 255, 255, 1);
+        border-radius: 16px;
+        border: 1px solid white;
+    }
+
+    #bio {
+        width: 0;
+        min-width: 100%;
+    }
+
+    .highlight {
+        color: #41d3ff;
+    }
+
+    .link-icon {
+        width: 2rem;
+        height: 2rem;
+        transition:
+            color var(--duration-base) var(--ease-out-smooth),
+            filter var(--duration-base) var(--ease-out-smooth);
+    }
+
+    #git-logo:hover {
+        color: rgb(188, 82, 238);
+        filter: drop-shadow(2px 4px 2px rgb(131, 57, 165));
+    }
+
+    #linkedIn-logo:hover {
+        color: rgb(10, 102, 194);
+        filter: drop-shadow(2px 4px 2px rgb(7, 75, 143));
+    }
+
+    #twitter-logo:hover {
+        color: rgb(29, 161, 242);
+        filter: drop-shadow(2px 4px 2px rgb(19, 107, 161));
+    }
+
+    #email-logo:hover {
+        color: rgb(172, 42, 19);
+        filter: drop-shadow(1px 1px 2px rgb(172, 42, 19));
+    }
+
+    @media (max-width: 1279px) {
+        #container {
+            display: flex;
+            flex-direction: column;
+            height: 100dvh;
+            max-height: 100dvh;
+            overflow: hidden;
+        }
+
+        main {
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        #socialTags::after {
+            display: none;
+        }
+
+        .link-icon {
+            width: 1.75rem;
+            height: 1.75rem;
+        }
+    }
+</style>

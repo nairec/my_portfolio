@@ -1,6 +1,5 @@
 ---
 import Tag from "./Tag.astro";
-import Chatbot from "./Chatbot.tsx";
 import SectionDivider from "./SectionDivider.astro";
 import { getTranslations } from "../i18n";
 import webDevIllustration from "../assets/SVGs/web-developer.svg?raw";
@@ -19,122 +18,7 @@ const workIllustrations = [
 ];
 ---
 
-<div id="container">
-    <main id="main-content">
-        <div
-            class="flex flex-row gap-16 xl:gap-20 md:mt-15 min-h-100vh align-center justify-between max-w-7xl mx-auto px-6 w-full"
-        >
-            <section id="hero" class="mx-auto w-fit">
-                <div class="flex flex-col gap-2">
-                    <p class="text-[#BABABA]">{t.hero.greeting}</p>
-                    <h1 class="name leading-none text-4xl md:text-6xl">
-                        {t.hero.name}
-                    </h1>
-                    <h2 class="title leading-none text-3xl md:text-5xl">
-                        {t.hero.tagline}
-                    </h2>
-                </div>
-                <p class="bio max-w-prose mt-8 leading-relaxed">
-                    {t.hero.bioStart}<span class="highlight">{t.hero.learn}</span
-                    >{t.hero.bioMid}<span class="highlight">{t.hero.apply}</span
-                    >{t.hero.bioEnd}
-                </p>
-                <div class="flex flex-row gap-6 highlight text-xl mt-12">
-                    <a
-                        class="interactive-base focus-ring relative p-2 hover:cursor-pointer text-center inline-block border border-cyan-600/40 backdrop-blur-sm hover:bg-cyan-800/20 hover:border-cyan-400/60"
-                        href="mailto:irecgc@gmail.com"
-                    >
-                        {t.hero.contact}
-                    </a>
-                </div>
-                <div
-                    id="socialTags"
-                    class="relative flex flex-wrap gap-3 text-[#BABABA] mt-12"
-                >
-                    <a
-                        href="https://github.com/nairec"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${t.a11y.github} (${t.a11y.opensInNewTab})`}
-                        class="interactive-base focus-ring rounded-sm"
-                        ><svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            id="git-logo"
-                            class="link-icon"
-                            fill="currentColor"
-                            viewBox="0 0 256 256"
-                            aria-hidden="true"
-                            ><path
-                                d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"
-                            ></path></svg
-                        ></a
-                    >
-                    <a
-                        href="https://linkedin.com/in/eric-garcia-cano"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${t.a11y.linkedin} (${t.a11y.opensInNewTab})`}
-                        class="interactive-base focus-ring rounded-sm"
-                        ><svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            id="linkedIn-logo"
-                            class="link-icon"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"
-                            aria-hidden="true"
-                            ><path stroke="none" d="M0 0h24v24H0z" fill="none"
-                            ></path><path d="M8 11v5"></path><path d="M8 8v.01"
-                            ></path><path d="M12 16v-5"></path><path
-                                d="M16 16v-3a2 2 0 1 0 -4 0"></path><path
-                                d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10"
-                            ></path></svg
-                        ></a
-                    >
-                    <a
-                        href="https://x.com/PyNair"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${t.a11y.x} (${t.a11y.opensInNewTab})`}
-                        class="interactive-base focus-ring rounded-sm"
-                        ><svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="link-icon"
-                            id="twitter-logo"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"
-                            aria-hidden="true"
-                            ><path stroke="none" d="M0 0h24v24H0z" fill="none"
-                            ></path><path
-                                d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0"
-                            ></path><path
-                                d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"
-                            ></path></svg
-                        ></a
-                    >
-                </div>
-            </section>
-            <section id="chatbot-box" class="xl:flex hidden">
-                <Chatbot
-                    client:load
-                    locale={locale}
-                    placeholder={t.chat.placeholder}
-                    sendAria={t.chat.sendAria}
-                    greeting={t.chat.greeting}
-                    errorMessage={t.chat.error}
-                />
-            </section>
-        </div>
-        <SectionDivider class="px-6" />
+<main id="main-content" class="specialties-page">
         <section
             id="works"
             class="mx-auto flex flex-col max-w-5xl w-full px-6 gap-16"
@@ -142,8 +26,7 @@ const workIllustrations = [
         >
             <h2
                 id="works-header"
-                class="scroll-reveal relative place-self-center md:place-self-start text-5xl text-muted tracking-tight"
-                data-scroll-reveal
+                class="specialties-page__title specialties-page__enter specialties-page__enter--title relative place-self-center md:place-self-start text-5xl text-muted tracking-tight"
             >
                 {t.works.heading}
             </h2>
@@ -152,13 +35,17 @@ const workIllustrations = [
                     t.works.items.map((item, index) => (
                         <article
                             class:list={[
-                                "work-block scroll-reveal",
-                                index % 2 === 0
-                                    ? "scroll-reveal--from-left"
-                                    : "scroll-reveal--from-right",
+                                "work-block",
+                                index === 0 &&
+                                    "specialties-page__enter specialties-page__enter--first",
+                                index > 0 && "scroll-reveal",
+                                index > 0 &&
+                                    (index % 2 === 0
+                                        ? "scroll-reveal--from-left"
+                                        : "scroll-reveal--from-right"),
                                 index % 2 === 1 && "work-block--reverse",
                             ]}
-                            data-scroll-reveal
+                            data-scroll-reveal={index > 0 ? true : undefined}
                         >
                             <div class="work-header">
                                 <div
@@ -270,17 +157,9 @@ const workIllustrations = [
                 </li>
             </ul>
         </section>
-    </main>
-</div>
+</main>
 
 <style>
-    #container {
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        overflow-y: hidden;
-    }
-
     main {
         display: flex;
         flex-direction: column;
@@ -296,50 +175,51 @@ const workIllustrations = [
         }
     }
 
-    #hero {
-        display: flex;
-        align-items: start;
-        flex-direction: column;
-        padding: 16px 16px 16px 16px;
+    .specialties-page {
+        padding-top: 2.5rem;
     }
 
-    .name {
-        font-family:
-            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
-            "DejaVu Sans Mono", monospace;
-        font-weight: 500;
-        color: #41d3ff;
-        margin: 0;
+    @keyframes specialties-enter-title {
+        from {
+            opacity: 0;
+            transform: translateY(1.25rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
-    .title {
-        font-family:
-            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
-            "DejaVu Sans Mono", monospace;
-        font-weight: 500;
-        color: #bababa;
-        margin: 0;
+    @keyframes specialties-enter-first {
+        from {
+            opacity: 0;
+            transform: translateX(-1.75rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 
-    .bio {
-        font-family:
-            "Cascadia Code", "Source Code Pro", Menlo, Consolas,
-            "DejaVu Sans Mono", monospace;
-        color: var(--color-bio);
-        margin: 0;
-        font-size: 1em;
-        margin-top: 2rem;
+    .specialties-page__enter--title {
+        opacity: 0;
+        animation: specialties-enter-title 820ms var(--ease-out-smooth) 80ms forwards;
     }
 
-    #socialTags::after {
-        content: "";
-        position: absolute;
-        bottom: 1rem;
-        left: 120%;
-        display: block;
-        width: 100%;
-        height: 1px;
-        background: #bababa;
+    .specialties-page__enter--first {
+        opacity: 0;
+        animation: specialties-enter-first 820ms var(--ease-out-smooth) 240ms forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .specialties-page__enter--title,
+        .specialties-page__enter--first {
+            opacity: 1;
+            animation: none;
+            transform: none;
+        }
     }
 
     .works-list {
@@ -483,89 +363,6 @@ const workIllustrations = [
         max-width: 65ch;
     }
 
-    /*#stack-header::after {
-        content: "";
-        position: absolute;
-        bottom: 1rem;
-        right: 105%;
-        display: block;
-        width: 38rem;
-        height: 1px;
-        background: #bababa;
-        }*/
-
-    .box {
-        padding: 16px;
-        background: rgba(255, 255, 255, 1);
-        border-radius: 16px;
-        border: 1px solid white;
-    }
-
-    #bio {
-        width: 0;
-        min-width: 100%;
-    }
-
-    .highlight {
-        color: #41d3ff;
-    }
-
-    .link-icon {
-        width: 2rem;
-        height: 2rem;
-        transition:
-            color var(--duration-base) var(--ease-out-smooth),
-            filter var(--duration-base) var(--ease-out-smooth);
-    }
-
-    #git-logo:hover {
-        color: rgb(188, 82, 238);
-        filter: drop-shadow(2px 4px 2px rgb(131, 57, 165));
-    }
-
-    #linkedIn-logo:hover {
-        color: rgb(10, 102, 194);
-        filter: drop-shadow(2px 4px 2px rgb(7, 75, 143));
-    }
-
-    #twitter-logo:hover {
-        color: rgb(29, 161, 242);
-        filter: drop-shadow(2px 4px 2px rgb(19, 107, 161));
-    }
-
-    #email-logo:hover {
-        color: rgb(172, 42, 19);
-        filter: drop-shadow(1px 1px 2px rgb(172, 42, 19));
-    }
-
-    @media screen and (max-width: 768px) {
-        #container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #hero {
-            display: block;
-            padding-top: 10%;
-        }
-
-        #links {
-            flex-wrap: wrap;
-        }
-
-        #links a.button {
-            padding: 14px 18px;
-        }
-
-        h1 {
-            line-height: 1.5;
-        }
-
-        .link-icon {
-            width: 2rem;
-            height: 2rem;
-        }
-    }
 </style>
 
 <script>

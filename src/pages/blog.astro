@@ -1,0 +1,13 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getTranslations } from "../i18n";
+
+const t = getTranslations(Astro.locals.locale);
+---
+
+<Layout>
+    <main id="main-content" class="mx-auto max-w-3xl px-6 py-24">
+        <h1 class="text-4xl text-muted tracking-tight font-mono">{t.blog.heading}</h1>
+        <p class="mt-6 text-[var(--color-bio)] font-mono leading-relaxed">{t.blog.comingSoon}</p>
+    </main>
+</Layout>

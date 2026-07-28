@@ -50,7 +50,7 @@ Archivos JSON en `src/i18n/locales/`. Los componentes Astro leen `Astro.locals.l
 Claves para skip link, enlaces externos, redes sociales y filtro de proyectos. Skip link en [`Layout.astro`](src/layouts/Layout.astro); estilos `.skip-link` en [`global.css`](src/styles/global.css).
 
 ### Chatbot e idioma
-- Props traducidas desde `Welcome.astro`
+- Props traducidas desde `HomePortada.astro`
 - API `/api/chat` recibe `locale` y selecciona el system prompt
 - Al cambiar idioma, el historial del chat se reinicia con el saludo traducido
 
@@ -72,41 +72,59 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 
 **Anti-FOUC (flash blanco en prod):** Con `output: "server"`, el CSS externo puede llegar después del HTML. Mitigaciones en [`astro.config.mjs`](astro.config.mjs) y [`Layout.astro`](src/layouts/Layout.astro):
 - `build.inlineStylesheets: "always"` — inyecta Tailwind y estilos en `<style>` del `<head>` en el primer byte.
-- Cuadrícula + fondo negro inline en `<html>` — visible desde el primer paint, sin quedar oculta detrás del `background` del `body`.
-- `Background.astro` con `z-0` (no `-z-50`) y `transition:persist="site-background"` — cuadrícula estable en navegación SPA.
+- Fondo negro sólido (`#000`) inline en `<html>` — visible desde el primer paint en móvil; en `lg` (≥1024px) se añade cuadrícula vía CSS crítico inline y `global.css`.
+- `Background.astro` con `hidden lg:block`, `z-0` y `transition:persist="site-background"` — gradiente radial solo en pantallas grandes; fondo estable en navegación SPA.
 - Imágenes/SVG con `view-transition-name: none` y `transition:animate="none"` en miniaturas de proyecto — evitan snapshots en View Transitions.
-- **Sin prerender** de `/` y `/projects`: el middleware i18n resuelve idioma por cookie/`Accept-Language` en cada request.
+- **Sin prerender** de rutas con i18n dinámico: el middleware resuelve idioma por cookie/`Accept-Language` en cada request.
 
 ## Páginas
 
-### `src/pages/index.astro`
-Home con `Welcome.astro`. Contenido con `transition:animate="fade"`; shell (navbar, footer, fondo) persiste sin parpadeo.
+| Ruta | Archivo | Contenido |
+|------|---------|-----------|
+| `/` | `index.astro` | Redirige a `/home` |
+| `/home` | `home.astro` | Portada (`HomePortada.astro`), `homeScreen` en Layout (navbar oculta al inicio en móvil) |
+| `/especialidades` | `especialidades.astro` | Especialidades + stack (`SpecialtiesSections.astro`) |
+| `/proyectos` | `proyectos.astro` | Grid de proyectos con filtro por categoría |
+| `/projects` | `projects.astro` | Redirige a `/proyectos` (compatibilidad) |
+| `/blog` | `blog.astro` | Placeholder del blog (próximamente) |
 
-### `src/pages/projects.astro`
-Grid de proyectos con filtro por categoría (IA, app web, automatización). Muestra todos los proyectos por defecto. Contenido envuelto en `transition:animate="fade"`. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`.
+### `src/pages/home.astro`
+Portada con `Layout homeScreen` y `HomePortada.astro`. Contenido con `transition:animate="fade"`; shell (navbar, footer, fondo) persiste sin parpadeo.
+
+### `src/pages/especialidades.astro`
+Secciones **Especialidades** (`#works`) y **My Stack** (`#stack`), extraídas del antiguo monolito `Welcome.astro`. Usa `SpecialtiesSections.astro` con scroll-reveal.
+
+### `src/pages/proyectos.astro`
+Grid de proyectos con filtro por categoría (IA, app web, automatización). Muestra todos los proyectos por defecto. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`.
+
+### `src/pages/blog.astro`
+Página placeholder con título y mensaje «próximamente» traducido (`t.blog`).
 
 ## Componentes clave
 
+### `HomePortada.astro`
+Hero/portada: en móvil (&lt; 1280px) banda izquierda con ilustración (entrada desde abajo), panel derecho editorial (Cormorant, bio, CTA de contacto con borde animado, cuatro enlaces verticales, RRSS; entrada desde la derecha con stagger); pantalla fija sin scroll. En `xl+` hero mono/cyan original con el mismo CTA y chatbot lateral.
+
+### `SpecialtiesSections.astro`
+Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Separador `SectionDivider.astro` entre ambas secciones. El título y el primer bloque de works tienen animación de entrada al cargar la página; el resto usa scroll-reveal.
+
 ### `SectionDivider.astro`
-Separador decorativo entre secciones principales de la home: líneas en gradiente muted/cyan con `//` estilizado en mono (skew + opacidad distinta por barra, glow sutil). `role="separator"` y `aria-hidden`. Usado entre hero → works → stack en `Welcome.astro`. Incluye animación scroll-reveal (fade-up) vía `data-scroll-reveal`.
+Separador decorativo entre secciones principales: líneas en gradiente muted/cyan con `//` estilizado en mono (skew + opacidad distinta por barra, glow sutil). `role="separator"` y `aria-hidden`. Usado entre works → stack en `SpecialtiesSections.astro`. Incluye animación scroll-reveal (fade-up) vía `data-scroll-reveal`.
 
-### `Welcome.astro`
-Hero (mono + cyan), bio, CTA contacto, redes sociales, sección **"Especialidades"** (`#works`) con cuatro áreas de trabajo, y sección "My Stack" con iconos flotantes (`Tag.astro`). Contenedor `max-w-7xl` con espaciado vertical reducido (6–8rem entre secciones). La sección `#stack` usa scroll-reveal: cabecera con fade-up y cada fila de tecnologías con entrada desde la derecha (`scroll-reveal--from-right`).
-
-#### Sección `#works`
+#### Sección `#works` (en `/especialidades`)
 Bloques apilados (`t.works.items[]`) con `title` y `description` por área. Cada bloque: cabecera horizontal (ilustración SVG grande + número/título) y párrafo descriptivo debajo. En desktop, los bloques impares alternan imagen a la derecha (`work-block--reverse`). Textos editables en `src/i18n/locales/es.json`; EN/CA con placeholders hasta traducción. Cabecera y bloques con scroll-reveal (fade-up; bloques pares desde la izquierda, impares desde la derecha).
 
 ### `src/lib/scrollReveal.ts`
 Intersection Observer para elementos con `data-scroll-reveal`. Añade `scroll-reveal-active` en `<html>` al activarse; sin JS o con `prefers-reduced-motion` el contenido permanece visible (fallback en CSS + JS).
 
 ### `Navbar.astro`
-Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con `aria-current="page"`. Header **sticky** con fondo semitransparente y `backdrop-blur`.
+Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con `aria-current="page"`. Header **sticky** con fondo semitransparente y `backdrop-blur`. En móvil (&lt; 768px): icono de tres barras que abre un menú desplegable con las rutas; en desktop los enlaces se muestran en línea.
 
 ### `LanguageSwitcher.astro`
 Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.
 
 ### `ProjectsTitle.astro`
-Cabecera de la página de proyectos: `02. proyectos` (estático, traducido). Incluye `CategoryFilter` para filtrar por categoría.
+Cabecera de la página de proyectos: título en gris (`text-5xl text-muted tracking-tight`, mismo estilo que especialidades) e incluye `CategoryFilter` para filtrar por categoría.
 
 ### `CategoryFilter.astro`
 Botones `Todos` / `IA` / `App web` / `Automatización` con `role="group"`, `aria-label` y `aria-pressed`. Indicador deslizante bajo el botón activo. Persiste en `localStorage` vía `projects.js` (`categoryFilter` nanostore).
@@ -124,7 +142,7 @@ Tarjeta de proyecto premium:
 Iconos SVG del stack con animación `float`. Respeta `prefers-reduced-motion`.
 
 ### `Chatbot.tsx`
-Isla React exclusiva de la home (visible en `xl+`). Consume `/api/chat`.
+Isla React de la portada `/home` (visible en `xl+`). Consume `/api/chat`.
 
 ### `Footer.astro`
 Pie con padding vertical y texto `gray-500`.
@@ -135,7 +153,7 @@ Pie con padding vertical y texto `gray-500`.
 Cada proyecto incluye: `name`, `slug`, `year`, `link`, `categories` (array: `ai`, `web-app`, `automation`), `imgPath`, `stack`, `width`, `height`. Opcionalmente `imgObjectPosition` para ajustar el encuadre de la miniatura (`object-position` en CSS). Las **descripciones** viven en los JSON de i18n (`t.projects.descriptions[slug]`), no en este archivo.
 
 - `width: 2` destaca un proyecto en `md:col-span-2` (actualmente AetherType).
-- Orden de render: por año descendente en `projects.astro`.
+- Orden de render: por año descendente en `proyectos.astro`.
 
 ### `src/types/types.ts`
 Interface `Project` tipada para JSON y futuras extensiones.
@@ -145,7 +163,7 @@ Interface `Project` tipada para JSON y futuras extensiones.
 ```
 CategoryFilter.astro  →  categoryFilter.set("all"|"ai"|"web-app"|"automation")  →  projects.js (nanostores)
                               ↓
-              projects.astro script: toggle .hidden en .project-tag-wrapper según data-categories
+              proyectos.astro script: toggle .hidden en .project-tag-wrapper según data-categories
                               ↓
               @formkit/auto-animate reordena el grid con transición suave
 ```
