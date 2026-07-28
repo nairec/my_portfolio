@@ -24,7 +24,17 @@ const routeLinks = [
                 <aside
                     class="hero-portada__band hero-portada__enter-band"
                     aria-hidden="true"
-                ></aside>
+                >
+                    <img
+                        class="hero-portada__enter-band-media"
+                        src="/images/hero-cover-portada.png"
+                        alt=""
+                        width="1024"
+                        height="1536"
+                        decoding="async"
+                        fetchpriority="high"
+                    />
+                </aside>
                 <div class="hero-portada__panel">
                     <div class="hero-portada__copy hero-portada__enter-right hero-portada__enter-right--1">
                         <p class="hero-greeting hero-portada__desktop-only">
@@ -213,6 +223,8 @@ const routeLinks = [
         padding: 0;
         gap: 0;
         align-items: stretch;
+        position: relative;
+        z-index: 1;
     }
 
     .hero-portada__band {
@@ -220,7 +232,21 @@ const routeLinks = [
         min-height: 100dvh;
         height: 100dvh;
         overflow: hidden;
-        background: transparent;
+        position: relative;
+        z-index: 1;
+        background: #000;
+    }
+
+    @keyframes hero-portada-enter-bottom {
+        from {
+            opacity: 0;
+            transform: translateY(14%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     @keyframes hero-portada-enter-right {
@@ -236,6 +262,11 @@ const routeLinks = [
     }
 
     @media (max-width: 1279px) {
+        .hero-portada__enter-band-media {
+            opacity: 0;
+            animation: hero-portada-enter-bottom 900ms var(--ease-out-smooth) 80ms forwards;
+        }
+
         .hero-portada__enter-right {
             opacity: 0;
             animation: hero-portada-enter-right 820ms var(--ease-out-smooth) forwards;
@@ -255,11 +286,21 @@ const routeLinks = [
     }
 
     @media (prefers-reduced-motion: reduce) {
+        .hero-portada__enter-band-media,
         .hero-portada__enter-right {
             opacity: 1;
             animation: none;
             transform: none;
         }
+    }
+
+    .hero-portada__band img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        image-rendering: pixelated;
     }
 
     .hero-portada__panel {
