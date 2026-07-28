@@ -72,7 +72,7 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 
 **Anti-FOUC (flash blanco en prod):** Con `output: "server"`, el CSS externo puede llegar después del HTML. Mitigaciones en [`astro.config.mjs`](astro.config.mjs) y [`Layout.astro`](src/layouts/Layout.astro):
 - `build.inlineStylesheets: "always"` — inyecta Tailwind y estilos en `<style>` del `<head>` en el primer byte.
-- Fondo negro sólido (`#000`) inline en `<html>` — visible desde el primer paint en móvil; en `lg` (≥1024px) se añade cuadrícula vía CSS crítico inline y `global.css`.
+- Fondo negro (`#000`) con textura aterciopelada muy suave (ruido SVG + brillos radiales sutiles) inline en `<html>` y en `global.css`; en `lg` (≥1024px) se superpone la cuadrícula.
 - `Background.astro` con `hidden lg:block`, `z-0` y `transition:persist="site-background"` — gradiente radial solo en pantallas grandes; fondo estable en navegación SPA.
 - Imágenes/SVG con `view-transition-name: none` y `transition:animate="none"` en miniaturas de proyecto — evitan snapshots en View Transitions.
 - **Sin prerender** de rutas con i18n dinámico: el middleware resuelve idioma por cookie/`Accept-Language` en cada request.

@@ -27,12 +27,45 @@ const pageBackground = "background-color:#000;color-scheme:dark";
         <meta name="viewport" content="width=device-width" />
         <meta name="color-scheme" content="dark" />
         <style is:inline>
+            html {
+                background-color: #000;
+                background-image:
+                    radial-gradient(
+                        ellipse 130% 85% at 12% -8%,
+                        rgba(255, 255, 255, 0.034),
+                        transparent 58%
+                    ),
+                    radial-gradient(
+                        ellipse 115% 75% at 100% 102%,
+                        rgba(255, 255, 255, 0.02),
+                        transparent 52%
+                    ),
+                    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+                background-size: 100% 100%, 100% 100%, 200px 200px;
+            }
+
             @media (min-width: 1024px) {
                 html {
                     background-image:
                         linear-gradient(to right, #80808012 1px, transparent 1px),
-                        linear-gradient(to bottom, #80808012 1px, transparent 1px);
-                    background-size: 24px 24px;
+                        linear-gradient(to bottom, #80808012 1px, transparent 1px),
+                        radial-gradient(
+                            ellipse 130% 85% at 12% -8%,
+                            rgba(255, 255, 255, 0.034),
+                            transparent 58%
+                        ),
+                        radial-gradient(
+                            ellipse 115% 75% at 100% 102%,
+                            rgba(255, 255, 255, 0.02),
+                            transparent 52%
+                        ),
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+                    background-size:
+                        24px 24px,
+                        24px 24px,
+                        100% 100%,
+                        100% 100%,
+                        200px 200px;
                 }
             }
         </style>
