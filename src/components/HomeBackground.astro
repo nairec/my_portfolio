@@ -1,0 +1,133 @@
+---
+---
+
+<div class="home-atmosphere" aria-hidden="true">
+    <div class="home-atmosphere__base"></div>
+    <img
+        class="home-atmosphere__image"
+        src="/images/home-sky-atmosphere.jpg"
+        alt=""
+        width="736"
+        height="1308"
+        decoding="async"
+        fetchpriority="high"
+    />
+    <div class="home-atmosphere__veil"></div>
+    <div class="home-atmosphere__grain"></div>
+</div>
+
+<style>
+    .home-atmosphere {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+        background: #000;
+    }
+
+    .home-atmosphere__base {
+        position: absolute;
+        inset: 0;
+        background: #000;
+    }
+
+    .home-atmosphere__image {
+        position: absolute;
+        inset: -8%;
+        width: 116%;
+        height: 116%;
+        object-fit: cover;
+        object-position: 42% 28%;
+        filter: grayscale(0.45) brightness(0.24) contrast(1.15) saturate(0.55);
+        opacity: 0;
+        transform: scale(1.02) translateY(8%);
+        animation: home-atmosphere-enter 1s var(--ease-out-smooth) 80ms forwards;
+    }
+
+    @keyframes home-atmosphere-enter {
+        from {
+            opacity: 0;
+            transform: scale(1.04) translateY(8%);
+        }
+
+        to {
+            opacity: 0.92;
+            transform: scale(1.02) translateY(0);
+        }
+    }
+
+    .home-atmosphere__veil {
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(
+                ellipse 95% 75% at 78% 42%,
+                rgba(0, 0, 0, 0.72),
+                transparent 68%
+            ),
+            radial-gradient(
+                ellipse 120% 90% at 50% 100%,
+                rgba(0, 0, 0, 0.88),
+                transparent 58%
+            ),
+            linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.08) 0%,
+                rgba(0, 0, 0, 0.42) 34%,
+                #000 68%
+            );
+    }
+
+    .home-atmosphere__grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.1;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+        background-size: 200px 200px;
+        mix-blend-mode: soft-light;
+    }
+
+    @media (min-width: 1280px) {
+        .home-atmosphere__image {
+            object-position: center 24%;
+            filter: grayscale(0.5) brightness(0.18) contrast(1.1) saturate(0.45);
+            animation-name: home-atmosphere-enter-desktop;
+        }
+
+        @keyframes home-atmosphere-enter-desktop {
+            from {
+                opacity: 0;
+                transform: scale(1.03) translateY(5%);
+            }
+
+            to {
+                opacity: 0.78;
+                transform: scale(1.02) translateY(0);
+            }
+        }
+
+        .home-atmosphere__veil {
+            background:
+                radial-gradient(
+                    ellipse 80% 60% at 72% 35%,
+                    rgba(0, 0, 0, 0.55),
+                    transparent 70%
+                ),
+                radial-gradient(
+                    ellipse 100% 80% at 50% 100%,
+                    rgba(0, 0, 0, 0.92),
+                    transparent 55%
+                ),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.25), #000 85%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .home-atmosphere__image {
+            opacity: 0.92;
+            transform: none;
+            animation: none;
+        }
+    }
+</style>

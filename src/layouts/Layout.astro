@@ -27,8 +27,12 @@ const pageBackground = "background-color:#000;color-scheme:dark";
         <meta name="viewport" content="width=device-width" />
         <meta name="color-scheme" content="dark" />
         <style is:inline>
+            html:has(body.is-home-screen) {
+                background-image: none;
+            }
+
             @media (min-width: 1024px) {
-                html {
+                html:not(:has(body.is-home-screen)) {
                     background-image:
                         linear-gradient(to right, #80808012 1px, transparent 1px),
                         linear-gradient(to bottom, #80808012 1px, transparent 1px);
@@ -47,7 +51,7 @@ const pageBackground = "background-color:#000;color-scheme:dark";
         style="margin:0;color:#fff"
     >
         <a href="#main-content" class="skip-link focus-ring">{t.a11y.skipToContent}</a>
-        <Background mode="work" />
+        {!homeScreen && <Background mode="work" />}
         <div class="relative z-10">
             <Navbar />
             <slot />

@@ -102,8 +102,11 @@ Página placeholder con título y mensaje «próximamente» traducido (`t.blog`)
 
 ## Componentes clave
 
+### `HomeBackground.astro`
+Fondo atmosférico exclusivo de `/home`: imagen de referencia (cielo/nubes) tratada en negro con filtros, velos en gradiente y grano suave. Sustituye la ilustración pixel de la banda izquierda.
+
 ### `HomePortada.astro`
-Hero/portada: en móvil (&lt; 1280px) banda izquierda con ilustración (entrada desde abajo), panel derecho editorial (Cormorant, bio, CTA de contacto con borde animado, cuatro enlaces verticales, RRSS; entrada desde la derecha con stagger); pantalla fija sin scroll. En `xl+` hero mono/cyan original con el mismo CTA y chatbot lateral.
+Hero/portada: en móvil (&lt; 1280px) fondo atmosférico a pantalla completa (referencia Pinterest, base negra), columna izquierda transparente, panel derecho editorial (Cormorant, bio, CTA de contacto, enlaces verticales, RRSS). En `xl+` mismo fondo más tenue detrás del hero mono/cyan y chatbot lateral.
 
 ### `SpecialtiesSections.astro`
 Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Separador `SectionDivider.astro` entre ambas secciones. El título y el primer bloque de works tienen animación de entrada al cargar la página; el resto usa scroll-reveal.

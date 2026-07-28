@@ -193,3 +193,9 @@ picture,
         transform: translateY(-100%);
     }
 }
+
+@media (min-width: 1024px) {
+    html:has(body.is-home-screen) {
+        background-image: none;
+    }
+}
