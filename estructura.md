@@ -104,7 +104,7 @@ Página placeholder con título y mensaje «próximamente» traducido (`t.blog`)
 ## Componentes clave
 
 ### `HomePortada.astro`
-Hero/portada: en móvil, banda izquierda con `hero-cover-portada-2.jpg` + navegación vertical en el panel; en desktop fondo fijo con `pc-hero-cover-generated.jpg` (Layout) y solo navbar superior.
+Hero/portada: en móvil, banda izquierda con `hero-cover-portada-2.jpg` + navegación vertical en el panel; en desktop fondo fijo con `pc-hero-cover-generated.jpg` (Layout) y solo navbar superior. Animaciones de entrada escalonadas (copy, CTA, redes, chatbot) en móvil y desktop; chatbot entra desde la derecha en `xl+`.
 
 ### `SpecialtiesSections.astro`
 Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Prop opcional `embedded` para uso en `/home` (sin `padding-top` de página independiente). Separador `SectionDivider.astro` entre ambas secciones. El título y el primer bloque de works tienen animación de entrada al cargar la página; el resto usa scroll-reveal.

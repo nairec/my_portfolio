@@ -173,7 +173,7 @@ const routeLinks = [
                 </div>
                 </div>
             </section>
-            <section id="chatbot-box" class="xl:flex hidden">
+            <section id="chatbot-box" class="hero-portada__enter-chatbot xl:flex hidden">
                 <Chatbot
                     client:load
                     locale={locale}
@@ -258,7 +258,19 @@ const routeLinks = [
         }
     }
 
-    @keyframes hero-portada-enter-right {
+    @keyframes hero-portada-enter-from-left {
+        from {
+            opacity: 0;
+            transform: translateX(-1.75rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes hero-portada-enter-from-right {
         from {
             opacity: 0;
             transform: translateX(1.75rem);
@@ -275,28 +287,29 @@ const routeLinks = [
             opacity: 0;
             animation: hero-portada-enter-bottom 900ms var(--ease-out-smooth) 80ms forwards;
         }
+    }
 
-        .hero-portada__enter-right {
-            opacity: 0;
-            animation: hero-portada-enter-right 820ms var(--ease-out-smooth) forwards;
-        }
+    .hero-portada__enter-right {
+        opacity: 0;
+        animation: hero-portada-enter-from-left 820ms var(--ease-out-smooth) forwards;
+    }
 
-        .hero-portada__enter-right--1 {
-            animation-delay: 180ms;
-        }
+    .hero-portada__enter-right--1 {
+        animation-delay: 180ms;
+    }
 
-        .hero-portada__enter-right--cta {
-            animation-delay: 280ms;
-        }
+    .hero-portada__enter-right--cta {
+        animation-delay: 280ms;
+    }
 
-        .hero-portada__enter-right--2 {
-            animation-delay: 420ms;
-        }
+    .hero-portada__enter-right--2 {
+        animation-delay: 420ms;
     }
 
     @media (prefers-reduced-motion: reduce) {
         .hero-portada__enter-band-media,
-        .hero-portada__enter-right {
+        .hero-portada__enter-right,
+        .hero-portada__enter-chatbot {
             opacity: 1;
             animation: none;
             transform: none;
@@ -515,6 +528,23 @@ const routeLinks = [
             margin-top: 0;
             min-height: calc(100vh - var(--site-header-offset, 4.75rem));
             padding-top: calc(var(--site-header-offset, 4.75rem) + 1.5rem);
+        }
+
+        .hero-portada__enter-right--1 {
+            animation-delay: 120ms;
+        }
+
+        .hero-portada__enter-right--cta {
+            animation-delay: 240ms;
+        }
+
+        .hero-portada__enter-right--2 {
+            animation-delay: 360ms;
+        }
+
+        .hero-portada__enter-chatbot {
+            opacity: 0;
+            animation: hero-portada-enter-from-right 920ms var(--ease-out-smooth) 320ms forwards;
         }
 
         #hero {
