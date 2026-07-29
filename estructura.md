@@ -7,8 +7,7 @@ Portfolio personal de Eric Garcia. Stack: **Astro 6**, **Tailwind CSS v4**, **Re
 ```
 src/
 ├── assets/
-│   ├── hero-cover-portada-2.jpg  # Ilustración banda izquierda de /home (móvil)
-│   ├── pc-hero-cover-generated.jpg # Cabecera hero de /home en desktop (xl+), generada para la paleta del sitio
+│   ├── pc-hero-cover-generated.jpg # Fondo de /home (Layout.astro)
 │   ├── projectImages/     # Miniaturas de proyectos (PNG)
 │   └── SVGs/              # Iconos del stack tecnológico
 ├── components/            # Componentes Astro y React
