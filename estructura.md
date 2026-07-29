@@ -7,6 +7,8 @@ Portfolio personal de Eric Garcia. Stack: **Astro 6**, **Tailwind CSS v4**, **Re
 ```
 src/
 ├── assets/
+│   ├── hero-cover-portada-2.jpg  # Ilustración banda izquierda de /home (móvil)
+│   ├── pc-hero-cover-generated.jpg # Cabecera hero de /home en desktop (xl+), generada para la paleta del sitio
 │   ├── projectImages/     # Miniaturas de proyectos (PNG)
 │   └── SVGs/              # Iconos del stack tecnológico
 ├── components/            # Componentes Astro y React
@@ -72,8 +74,7 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 
 **Anti-FOUC (flash blanco en prod):** Con `output: "server"`, el CSS externo puede llegar después del HTML. Mitigaciones en [`astro.config.mjs`](astro.config.mjs) y [`Layout.astro`](src/layouts/Layout.astro):
 - `build.inlineStylesheets: "always"` — inyecta Tailwind y estilos en `<style>` del `<head>` en el primer byte.
-- Fondo negro sólido (`#000`) inline en `<html>` — visible desde el primer paint en móvil; en `lg` (≥1024px) se añade cuadrícula vía CSS crítico inline y `global.css`.
-- `Background.astro` con `hidden lg:block`, `z-0` y `transition:persist="site-background"` — gradiente radial solo en pantallas grandes; fondo estable en navegación SPA.
+- Fondo negro sólido (`#000`) en todo el sitio; sin cuadrícula decorativa. En `/home` también se oculta el gradiente radial de `Background.astro`.
 - Imágenes/SVG con `view-transition-name: none` y `transition:animate="none"` en miniaturas de proyecto — evitan snapshots en View Transitions.
 - **Sin prerender** de rutas con i18n dinámico: el middleware resuelve idioma por cookie/`Accept-Language` en cada request.
 
@@ -82,14 +83,14 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 | Ruta | Archivo | Contenido |
 |------|---------|-----------|
 | `/` | `index.astro` | Redirige a `/home` |
-| `/home` | `home.astro` | Portada (`HomePortada.astro`), `homeScreen` en Layout (navbar oculta al inicio en móvil) |
+| `/home` | `home.astro` | Portada (`HomePortada.astro`) en móvil; en desktop (`xl+`) incluye también `SpecialtiesSections` embebidas. `homeScreen` en Layout. |
 | `/especialidades` | `especialidades.astro` | Especialidades + stack (`SpecialtiesSections.astro`) |
 | `/proyectos` | `proyectos.astro` | Grid de proyectos con filtro por categoría |
 | `/projects` | `projects.astro` | Redirige a `/proyectos` (compatibilidad) |
 | `/blog` | `blog.astro` | Placeholder del blog (próximamente) |
 
 ### `src/pages/home.astro`
-Portada con `Layout homeScreen` y `HomePortada.astro`. Contenido con `transition:animate="fade"`; shell (navbar, footer, fondo) persiste sin parpadeo.
+Portada con `Layout homeScreen`, `HomePortada.astro` y bloque `.home-page__specialties` (solo visible en `xl+`) con `SpecialtiesSections embedded`. En móvil la página es solo la portada a pantalla completa; en desktop se puede hacer scroll para ver especialidades y stack. Footer visible en desktop home.
 
 ### `src/pages/especialidades.astro`
 Secciones **Especialidades** (`#works`) y **My Stack** (`#stack`), extraídas del antiguo monolito `Welcome.astro`. Usa `SpecialtiesSections.astro` con scroll-reveal.
@@ -103,10 +104,10 @@ Página placeholder con título y mensaje «próximamente» traducido (`t.blog`)
 ## Componentes clave
 
 ### `HomePortada.astro`
-Hero/portada: en móvil (&lt; 1280px) banda izquierda con ilustración (entrada desde abajo), panel derecho editorial (Cormorant, bio, CTA de contacto con borde animado, cuatro enlaces verticales, RRSS; entrada desde la derecha con stagger); pantalla fija sin scroll. En `xl+` hero mono/cyan original con el mismo CTA y chatbot lateral.
+Hero/portada: fondo fijo a pantalla completa con `pc-hero-cover-generated.jpg`, renderizado en `Layout.astro` (`#home-screen-bg`) para que persista correctamente entre rutas con View Transitions. Script `syncRouteLayout` en Layout actualiza `is-home-screen`, footer, fondo de trabajo e imagen al navegar. Contenido en `HomePortada.astro` encima del fondo.
 
 ### `SpecialtiesSections.astro`
-Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Separador `SectionDivider.astro` entre ambas secciones. El título y el primer bloque de works tienen animación de entrada al cargar la página; el resto usa scroll-reveal.
+Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Prop opcional `embedded` para uso en `/home` (sin `padding-top` de página independiente). Separador `SectionDivider.astro` entre ambas secciones. El título y el primer bloque de works tienen animación de entrada al cargar la página; el resto usa scroll-reveal.
 
 ### `SectionDivider.astro`
 Separador decorativo entre secciones principales: líneas en gradiente muted/cyan con `//` estilizado en mono (skew + opacidad distinta por barra, glow sutil). `role="separator"` y `aria-hidden`. Usado entre works → stack en `SpecialtiesSections.astro`. Incluye animación scroll-reveal (fade-up) vía `data-scroll-reveal`.

@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import Analytics from "@vercel/analytics/astro";
 import { getTranslations } from "../i18n";
+import pcHeroCover from "../assets/pc-hero-cover-generated.jpg";
 import "../styles/global.css";
 import "@fontsource-variable/plus-jakarta-sans";
 import "@fontsource-variable/cormorant";
@@ -26,16 +27,6 @@ const pageBackground = "background-color:#000;color-scheme:dark";
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="color-scheme" content="dark" />
-        <style is:inline>
-            @media (min-width: 1024px) {
-                html {
-                    background-image:
-                        linear-gradient(to right, #80808012 1px, transparent 1px),
-                        linear-gradient(to bottom, #80808012 1px, transparent 1px);
-                    background-size: 24px 24px;
-                }
-            }
-        </style>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
         <ClientRouter />
@@ -47,11 +38,38 @@ const pageBackground = "background-color:#000;color-scheme:dark";
         style="margin:0;color:#fff"
     >
         <a href="#main-content" class="skip-link focus-ring">{t.a11y.skipToContent}</a>
-        <Background mode="work" />
+        <div
+            id="home-screen-bg"
+            class="home-screen-bg"
+            aria-hidden="true"
+            hidden={!homeScreen}
+        >
+            <img
+                class="home-screen-bg__img"
+                src={pcHeroCover.src}
+                alt=""
+                width={pcHeroCover.width}
+                height={pcHeroCover.height}
+                decoding="async"
+                fetchpriority="high"
+                draggable="false"
+            />
+            <div class="home-screen-bg__veil"></div>
+        </div>
+        <div id="site-work-background" hidden={homeScreen}>
+            <Background mode="work" />
+        </div>
         <div class="relative z-10">
             <Navbar />
-            <slot />
-            {!homeScreen && <Footer />}
+            <div
+                id="site-page-body"
+                class:list={[{ "home-page-body": homeScreen }]}
+            >
+                <slot />
+            </div>
+            <div id="site-footer">
+                <Footer />
+            </div>
         </div>
     </body>
 </html>
@@ -71,8 +89,53 @@ const pageBackground = "background-color:#000;color-scheme:dark";
 
     body {
         min-height: 100vh;
+        background-color: #000;
     }
 </style>
+
+<script>
+    function normalizePath(pathname: string) {
+        const path = pathname.replace(/\/$/, "");
+        return path || "/";
+    }
+
+    function isHomePath(pathname: string) {
+        return normalizePath(pathname) === "/home";
+    }
+
+    function syncRouteLayout() {
+        const isHome = isHomePath(window.location.pathname);
+
+        document.body.classList.toggle("is-home-screen", isHome);
+
+        document.getElementById("site-page-body")?.classList.toggle("home-page-body", isHome);
+
+        const homeBg = document.getElementById("home-screen-bg");
+        if (homeBg) homeBg.hidden = !isHome;
+
+        const workBg = document.getElementById("site-work-background");
+        if (workBg) workBg.hidden = isHome;
+
+        const footer = document.getElementById("site-footer");
+        if (footer) {
+            footer.hidden = isHome && window.matchMedia("(max-width: 1279px)").matches;
+        }
+
+        if (!isHome) {
+            document.documentElement.style.removeProperty("overflow");
+            document.documentElement.style.removeProperty("height");
+            document.documentElement.style.removeProperty("overscroll-behavior");
+            document.body.style.removeProperty("overflow");
+            document.body.style.removeProperty("height");
+            document.body.style.removeProperty("overscroll-behavior");
+        }
+    }
+
+    syncRouteLayout();
+    document.addEventListener("astro:page-load", syncRouteLayout);
+    document.addEventListener("astro:after-swap", syncRouteLayout);
+    window.matchMedia("(max-width: 1279px)").addEventListener("change", syncRouteLayout);
+</script>
 
 <script define:vars={{ locale }}>
     import { locale as localeStore } from "../i18n/locale";

@@ -7,6 +7,9 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "dev:home-cinema": "PUBLIC_DESKTOP_HERO=cinema astro dev --port 4331",
+    "dev:home-panorama": "PUBLIC_DESKTOP_HERO=panorama astro dev --port 4332",
+    "dev:home-spotlight": "PUBLIC_DESKTOP_HERO=spotlight astro dev --port 4333",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

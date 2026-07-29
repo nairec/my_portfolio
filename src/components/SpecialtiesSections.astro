@@ -7,6 +7,11 @@ import aiIllustration from "../assets/SVGs/artificial-intelligence.svg?raw";
 import automationIllustration from "../assets/SVGs/task-automation.svg?raw";
 import cloudIllustration from "../assets/SVGs/cloud-dev.svg?raw";
 
+interface Props {
+    embedded?: boolean;
+}
+
+const { embedded = false } = Astro.props;
 const locale = Astro.locals.locale;
 const t = getTranslations(locale);
 
@@ -18,7 +23,7 @@ const workIllustrations = [
 ];
 ---
 
-<main id="main-content" class="specialties-page">
+<div class:list={["specialties-page", { "specialties-page--embedded": embedded }]}>
         <section
             id="works"
             class="mx-auto flex flex-col max-w-5xl w-full px-6 gap-16"
@@ -157,10 +162,10 @@ const workIllustrations = [
                 </li>
             </ul>
         </section>
-</main>
+</div>
 
 <style>
-    main {
+    .specialties-page {
         display: flex;
         flex-direction: column;
         justify-content: start;
@@ -170,13 +175,17 @@ const workIllustrations = [
     }
 
     @media (min-width: 768px) {
-        main {
+        .specialties-page {
             gap: 8rem;
         }
     }
 
-    .specialties-page {
+    .specialties-page:not(.specialties-page--embedded) {
         padding-top: 2.5rem;
+    }
+
+    .specialties-page--embedded {
+        padding-top: 4rem;
     }
 
     @keyframes specialties-enter-title {

@@ -1,10 +1,32 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HomePortada from "../components/HomePortada.astro";
+import SpecialtiesSections from "../components/SpecialtiesSections.astro";
+import { isDesktopHeroMode } from "../types/homeHero";
+
+const raw = import.meta.env.PUBLIC_DESKTOP_HERO;
+const desktopHero = isDesktopHeroMode(raw) ? raw : "panorama";
 ---
 
 <Layout homeScreen>
-    <div transition:animate="fade">
-        <HomePortada />
+    <div class="home-page">
+        <HomePortada desktopHero={desktopHero} />
+        <div class="home-page__specialties">
+            <SpecialtiesSections embedded />
+        </div>
     </div>
 </Layout>
+
+<style>
+    .home-page__specialties {
+        display: none;
+    }
+
+    @media (min-width: 1280px) {
+        .home-page__specialties {
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+    }
+</style>
