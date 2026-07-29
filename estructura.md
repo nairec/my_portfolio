@@ -7,7 +7,8 @@ Portfolio personal de Eric Garcia. Stack: **Astro 6**, **Tailwind CSS v4**, **Re
 ```
 src/
 ├── assets/
-│   ├── pc-hero-cover-generated.jpg # Fondo de /home (Layout.astro)
+│   ├── hero-cover-portada-2.jpg  # Banda izquierda de /home en móvil
+│   ├── pc-hero-cover-generated.jpg # Fondo de /home en desktop (Layout.astro)
 │   ├── projectImages/     # Miniaturas de proyectos (PNG)
 │   └── SVGs/              # Iconos del stack tecnológico
 ├── components/            # Componentes Astro y React
@@ -103,7 +104,7 @@ Página placeholder con título y mensaje «próximamente» traducido (`t.blog`)
 ## Componentes clave
 
 ### `HomePortada.astro`
-Hero/portada: fondo fijo a pantalla completa con `pc-hero-cover-generated.jpg`, renderizado en `Layout.astro` (`#home-screen-bg`) para que persista correctamente entre rutas con View Transitions. Script `syncRouteLayout` en Layout actualiza `is-home-screen`, footer, fondo de trabajo e imagen al navegar. Contenido en `HomePortada.astro` encima del fondo.
+Hero/portada: en móvil, banda izquierda con `hero-cover-portada-2.jpg` + navegación vertical en el panel; en desktop fondo fijo con `pc-hero-cover-generated.jpg` (Layout) y solo navbar superior.
 
 ### `SpecialtiesSections.astro`
 Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Prop opcional `embedded` para uso en `/home` (sin `padding-top` de página independiente). Separador `SectionDivider.astro` entre ambas secciones. El título y el primer bloque de works tienen animación de entrada al cargar la página; el resto usa scroll-reveal.

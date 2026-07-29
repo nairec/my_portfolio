@@ -1,5 +1,6 @@
 ---
 import Chatbot from "./Chatbot.tsx";
+import heroCoverPortada from "../assets/hero-cover-portada-2.jpg";
 import { getTranslations } from "../i18n";
 import type { DesktopHeroMode } from "../types/homeHero";
 
@@ -10,6 +11,13 @@ interface Props {
 const { desktopHero = "panorama" } = Astro.props;
 const locale = Astro.locals.locale;
 const t = getTranslations(locale);
+
+const routeLinks = [
+    { name: t.nav.home, href: "/home" },
+    { name: t.nav.specialties, href: "/especialidades" },
+    { name: t.nav.projects, href: "/proyectos" },
+    { name: t.nav.blog, href: "/blog" },
+];
 ---
 
 <div id="container" class:list={[`hero-portada--${desktopHero}`]}>
@@ -18,6 +26,18 @@ const t = getTranslations(locale);
             class="hero-layout flex flex-row gap-16 xl:gap-20 mt-0 min-h-100vh align-center justify-between max-w-7xl mx-auto w-full px-0 xl:px-6"
         >
             <section id="hero" class="hero">
+                <aside class="hero-portada__band hero-portada__enter-band" aria-hidden="true">
+                    <img
+                        class="hero-portada__enter-band-media"
+                        src={heroCoverPortada.src}
+                        alt=""
+                        width={heroCoverPortada.width}
+                        height={heroCoverPortada.height}
+                        decoding="async"
+                        fetchpriority="high"
+                        draggable="false"
+                    />
+                </aside>
                 <div class="hero-portada__panel">
                     <div class="hero-portada__copy hero-portada__enter-right hero-portada__enter-right--1">
                         <p class="hero-greeting hero-portada__desktop-only">
@@ -63,6 +83,18 @@ const t = getTranslations(locale);
                         </svg>
                     </a>
                     <div class="hero-actions hero-portada__enter-right hero-portada__enter-right--2">
+                        <nav class="hero-ctas hero-portada__mobile-nav" aria-label={t.nav.ariaLabel}>
+                            {
+                                routeLinks.map((link) => (
+                                    <a
+                                        href={link.href}
+                                        class="hero-cta interactive-base focus-ring"
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))
+                            }
+                        </nav>
                         <div
                             id="socialTags"
                             class="hero-social relative flex flex-wrap gap-4 text-[#BABABA]"
@@ -196,14 +228,34 @@ const t = getTranslations(locale);
     }
 
     #hero {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        max-width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
         min-height: 100dvh;
         padding: 0;
         gap: 0;
         align-items: stretch;
+    }
+
+    .hero-portada__band {
+        margin: 0;
+        min-height: 100dvh;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    @keyframes hero-portada-enter-bottom {
+        from {
+            opacity: 0;
+            transform: translateY(14%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     @keyframes hero-portada-enter-right {
@@ -219,6 +271,11 @@ const t = getTranslations(locale);
     }
 
     @media (max-width: 1279px) {
+        .hero-portada__enter-band-media {
+            opacity: 0;
+            animation: hero-portada-enter-bottom 900ms var(--ease-out-smooth) 80ms forwards;
+        }
+
         .hero-portada__enter-right {
             opacity: 0;
             animation: hero-portada-enter-right 820ms var(--ease-out-smooth) forwards;
@@ -238,11 +295,23 @@ const t = getTranslations(locale);
     }
 
     @media (prefers-reduced-motion: reduce) {
+        .hero-portada__enter-band-media,
         .hero-portada__enter-right {
             opacity: 1;
             animation: none;
             transform: none;
         }
+    }
+
+    .hero-portada__band img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-user-drag: none;
     }
 
     .hero-portada__panel {
@@ -254,12 +323,31 @@ const t = getTranslations(locale);
         max-height: 100dvh;
         padding: max(1rem, env(safe-area-inset-top)) 1.35rem max(1rem, env(safe-area-inset-bottom)) 1rem;
         overflow: hidden;
-        background: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.25) 0%,
-            rgba(0, 0, 0, 0.55) 55%,
-            rgba(0, 0, 0, 0.72) 100%
-        );
+        background: transparent;
+    }
+
+    .hero-portada__mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .hero-cta {
+        font-family: "plus-jakarta-sans", system-ui, sans-serif;
+        font-size: 0.78rem;
+        font-weight: 400;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #e4e4e7;
+        text-decoration: none;
+        padding-bottom: 0.2rem;
+        border-bottom: 1px solid color-mix(in srgb, #e4e4e7 35%, transparent);
+    }
+
+    .hero-cta:hover {
+        color: #ffffff;
+        border-bottom-color: #ffffff;
     }
 
     .hero-portada__copy {
@@ -435,9 +523,18 @@ const t = getTranslations(locale);
             align-items: flex-start;
             width: auto;
             max-width: none;
+            margin-left: 0;
             min-height: auto;
             gap: 2rem;
             padding: 16px;
+        }
+
+        .hero-portada__band {
+            display: none;
+        }
+
+        .hero-portada__mobile-nav {
+            display: none;
         }
 
         .hero-portada__panel {

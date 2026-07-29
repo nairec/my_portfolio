@@ -164,7 +164,11 @@ picture,
 @media (max-width: 1279px) {
     html:has(body.is-home-screen),
     body.is-home-screen {
-        background: #050810;
+        background: #000;
+    }
+
+    body.is-home-screen #home-screen-bg {
+        display: none !important;
     }
 
     html:has(body.is-home-screen) {
