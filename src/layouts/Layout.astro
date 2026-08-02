@@ -1,11 +1,10 @@
 ---
-import Background from "../components/Background.astro";
 import { ClientRouter } from "astro:transitions";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import BackgroundPixelStars from "../components/ui/background-pixel-stars";
 import Analytics from "@vercel/analytics/astro";
 import { getTranslations } from "../i18n";
-import pcHeroCover from "../assets/pc-hero-cover-generated.jpg";
 import "../styles/global.css";
 import "@fontsource-variable/plus-jakarta-sans";
 import "@fontsource-variable/cormorant";
@@ -19,6 +18,9 @@ const locale = Astro.locals.locale;
 const t = getTranslations(locale);
 
 const pageBackground = "background-color:#000;color-scheme:dark";
+
+const pixelDither =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAIElEQVR42mIUEhJiwAbevXuHVZyJgUQwqmEUDB0AEGAADd8DEPTX6ksAAAAASUVORK5CYII=";
 ---
 
 <!doctype html>
@@ -39,25 +41,13 @@ const pageBackground = "background-color:#000;color-scheme:dark";
     >
         <a href="#main-content" class="skip-link focus-ring">{t.a11y.skipToContent}</a>
         <div
-            id="home-screen-bg"
-            class="home-screen-bg"
+            id="site-pixel-stars"
+            class="pointer-events-none fixed inset-0 z-0 bg-black bg-[size:10px]"
+            style={`background-image: url('${pixelDither}')`}
             aria-hidden="true"
-            hidden={!homeScreen}
+            transition:persist="site-pixel-stars"
         >
-            <img
-                class="home-screen-bg__img"
-                src={pcHeroCover.src}
-                alt=""
-                width={pcHeroCover.width}
-                height={pcHeroCover.height}
-                decoding="async"
-                fetchpriority="high"
-                draggable="false"
-            />
-            <div class="home-screen-bg__veil"></div>
-        </div>
-        <div id="site-work-background" hidden={homeScreen}>
-            <Background mode="work" />
+            <BackgroundPixelStars client:load />
         </div>
         <div class="relative z-10">
             <Navbar />
@@ -109,12 +99,6 @@ const pageBackground = "background-color:#000;color-scheme:dark";
         document.body.classList.toggle("is-home-screen", isHome);
 
         document.getElementById("site-page-body")?.classList.toggle("home-page-body", isHome);
-
-        const homeBg = document.getElementById("home-screen-bg");
-        if (homeBg) homeBg.hidden = !isHome;
-
-        const workBg = document.getElementById("site-work-background");
-        if (workBg) workBg.hidden = isHome;
 
         const footer = document.getElementById("site-footer");
         if (footer) {

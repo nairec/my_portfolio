@@ -8,10 +8,11 @@ Portfolio personal de Eric Garcia. Stack: **Astro 6**, **Tailwind CSS v4**, **Re
 src/
 ├── assets/
 │   ├── hero-cover-portada-2.jpg  # Banda izquierda de /home en móvil
-│   ├── pc-hero-cover-generated.jpg # Fondo de /home en desktop (Layout.astro)
+│   ├── pc-hero-cover-generated.jpg # Asset histórico (antes fondo desktop /home)
 │   ├── projectImages/     # Miniaturas de proyectos (PNG)
 │   └── SVGs/              # Iconos del stack tecnológico
 ├── components/            # Componentes Astro y React
+│   └── ui/                # Islas React reutilizables (estilo shadcn)
 ├── layouts/               # Layout base de página
 ├── lib/                   # Lógica de servidor (prompts del chat)
 ├── pages/                 # Rutas y API
@@ -74,7 +75,7 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 
 **Anti-FOUC (flash blanco en prod):** Con `output: "server"`, el CSS externo puede llegar después del HTML. Mitigaciones en [`astro.config.mjs`](astro.config.mjs) y [`Layout.astro`](src/layouts/Layout.astro):
 - `build.inlineStylesheets: "always"` — inyecta Tailwind y estilos en `<style>` del `<head>` en el primer byte.
-- Fondo negro sólido (`#000`) en todo el sitio; sin cuadrícula decorativa. En `/home` también se oculta el gradiente radial de `Background.astro`.
+- Fondo negro sólido (`#000`) en todo el sitio + `BackgroundPixelStars` global en Layout; sin cuadrícula decorativa ni gradiente cyan de `Background.astro`.
 - Imágenes/SVG con `view-transition-name: none` y `transition:animate="none"` en miniaturas de proyecto — evitan snapshots en View Transitions.
 - **Sin prerender** de rutas con i18n dinámico: el middleware resuelve idioma por cookie/`Accept-Language` en cada request.
 
@@ -103,9 +104,11 @@ Página placeholder con título y mensaje «próximamente» traducido (`t.blog`)
 
 ## Componentes clave
 
-### `HomePortada.astro`
-Hero/portada: en móvil, banda izquierda con `hero-cover-portada-2.jpg` + navegación vertical en el panel; en desktop fondo fijo con `pc-hero-cover-generated.jpg` (Layout) y solo navbar superior. Animaciones de entrada escalonadas (copy, CTA, redes, chatbot) en móvil y desktop; chatbot entra desde la derecha en `xl+`.
+### `src/components/ui/background-pixel-stars.tsx`
+Isla React (`client:load`) montada en [`Layout.astro`](src/layouts/Layout.astro) para **todas las páginas**: canvas a 16 FPS con estrellas pixeladas, titileo, regeneración periódica y estrellas fugaces sobre dither negro. Persiste entre View Transitions (`transition:persist`). Sin deps externas. Respeta `prefers-reduced-motion` (frame estático). Alias `@/*` → `src/*` en `tsconfig.json`.
 
+### `HomePortada.astro`
+Hero/portada: en móvil, banda izquierda con `hero-cover-portada-2.jpg` + navegación vertical en el panel; en desktop (`xl+`) layout con navbar superior y chatbot. El fondo atmosférico del sitio lo aporta `BackgroundPixelStars` en Layout. Animaciones de entrada escalonadas (copy, CTA, redes, chatbot) en móvil y desktop; chatbot entra desde la derecha en `xl+`.
 ### `SpecialtiesSections.astro`
 Bloques de especialidades (`t.works.items[]`) con ilustraciones SVG y sección stack con `Tag.astro`. Prop opcional `embedded` para uso en `/home` (sin `padding-top` de página independiente). Separador `SectionDivider.astro` entre ambas secciones. El título y el primer bloque de works tienen animación de entrada al cargar la página; el resto usa scroll-reveal.
 
