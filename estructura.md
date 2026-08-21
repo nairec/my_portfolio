@@ -172,7 +172,7 @@ Tarjeta de proyecto premium:
 - Enlace externo que envuelve toda la card (`group`)
 - Cabecera: nombre + año + icono ojo en hover
 - Imagen `aspect-video` con `object-cover` y zoom sutil
-- Descripción con `line-clamp-3`
+- Descripción con `line-clamp-3`. Si el texto se recorta, al hover aparece un recuadro discreto con la descripción completa (solo cuando `scrollHeight > clientHeight`).
 - Stack tags como pills con borde
 - Hover: borde cyan, glow, título verde con `>`
 

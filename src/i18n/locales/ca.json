@@ -79,7 +79,8 @@
       "latentspace": "Una aplicació web que permet explorar la representació de l'espai latent d'un conjunt de paraules usant un model d'embeddings open-source i anàlisi PCA.",
       "conwaylightsim": "Un simulador web d'autòmats cel·lulars inspirat en el Joc de la Vida de Conway, amb edició interactiva, simulació en temps real, àudio reactiu i més.",
       "macroworth": "Una aplicació web per analitzar accions i ETFs amb recerca i anàlisi impulsades per IA.",
-      "mailresolve": "Un sistema automatitzat de triatge de correus que classifica els correus entrants i executa accions automàticament segons el seu contingut."
+      "mailresolve": "Un sistema automatitzat de triatge de correus que classifica els correus entrants i executa accions automàticament segons el seu contingut.",
+      "procedural-aquarium": "Una simulació d'aquari procedimental que usa el model Lotka-Volterra per recrear la dinàmica depredador-presa amb peixos que es mouen de forma autònoma."
     }
   },
   "chat": {

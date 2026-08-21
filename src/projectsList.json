@@ -29,7 +29,7 @@
     "year": 2025,
     "description": "A cellular automaton web simulator inspired by Conway's Game of Life, featuring interactive editing, real-time simulation, reactive audio and more.",
     "link": "https://lightconwaysimulator.vercel.app",
-    "categories": ["web-app"],
+    "categories": ["alternative"],
     "height": 1,
     "width": 1,
     "imgPath": "/src/assets/projectImages/conwaylightsim.png",
@@ -59,6 +59,18 @@
     "imgPath": "/src/assets/projectImages/mailResolve.png",
     "imgObjectPosition": "center calc(10% - 14px)",
     "stack": ["Python", "FastAPI", "Google Cloud", "Celery", "PostgreSQL"]
+  },
+  {
+    "name": "Procedural Aquarium",
+    "slug": "procedural-aquarium",
+    "year": 2026,
+    "description": "A procedural aquarium simulation that uses the Lotka-Volterra model to simulate the interaction of fish in an aquarium.",
+    "link": "https://github.com/nairec/procedural-aquarium",
+    "categories": ["alternative"],
+    "height": 1,
+    "width": 1,
+    "imgPath": "/src/assets/projectImages/proceduralAquarium.png",
+    "stack": ["Javascript", "HTML", "CSS"]
   }
 
 ]

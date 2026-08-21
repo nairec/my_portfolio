@@ -74,7 +74,12 @@ if (!images[imgPath])
         />
     </div>
 
-    <p class="text-gray-200 text-sm leading-relaxed line-clamp-3">{desc}</p>
+    <div class="project-desc-wrap">
+        <p class="project-desc text-gray-200 text-sm leading-relaxed line-clamp-3">
+            {desc}
+        </p>
+        <span class="project-desc-tip" role="tooltip" aria-hidden="true">{desc}</span>
+    </div>
 
     <div class="flex flex-row gap-2 flex-wrap mt-auto">
         {
@@ -90,6 +95,11 @@ if (!images[imgPath])
 <style>
     .project-card:hover {
         transform: scale(1.01);
+    }
+
+    .project-card:has(.project-desc-wrap[data-truncated]:hover) {
+        position: relative;
+        z-index: 10;
     }
 
     .project-card-title {
@@ -145,6 +155,44 @@ if (!images[imgPath])
         filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-accent) 45%, transparent));
     }
 
+    .project-desc-wrap {
+        position: relative;
+    }
+
+    .project-desc-wrap[data-truncated] {
+        cursor: help;
+    }
+
+    .project-desc-tip {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: calc(100% + 0.4rem);
+        z-index: 20;
+        padding: 0.55rem 0.7rem;
+        font-size: 0.8rem;
+        line-height: 1.5;
+        color: var(--color-bio);
+        background: color-mix(in srgb, #050505 88%, transparent);
+        border: 1px solid color-mix(in srgb, var(--color-surface-border) 70%, transparent);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.75);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(4px);
+        transition:
+            opacity var(--duration-fast) var(--ease-out-smooth),
+            transform var(--duration-fast) var(--ease-out-smooth),
+            visibility var(--duration-fast) var(--ease-out-smooth);
+    }
+
+    .project-desc-wrap[data-truncated]:hover .project-desc-tip {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
     @media (prefers-reduced-motion: reduce) {
         .project-card:hover {
             transform: none;
@@ -153,5 +201,28 @@ if (!images[imgPath])
         .project-card:hover .project-card-title {
             transform: none;
         }
+
+        .project-desc-tip {
+            transform: none;
+        }
     }
 </style>
+
+<script>
+    function bindDescTips() {
+        document.querySelectorAll(".project-desc-wrap").forEach((wrap) => {
+            if (!(wrap instanceof HTMLElement) || wrap.dataset.tipBound) return;
+            wrap.dataset.tipBound = "true";
+            wrap.addEventListener("pointerenter", () => {
+                const p = wrap.querySelector(".project-desc");
+                if (!(p instanceof HTMLElement)) return;
+                wrap.toggleAttribute(
+                    "data-truncated",
+                    p.scrollHeight > p.clientHeight + 1,
+                );
+            });
+        });
+    }
+
+    document.addEventListener("astro:page-load", bindDescTips);
+</script>
