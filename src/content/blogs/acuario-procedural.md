@@ -1,3 +1,13 @@
+---
+title: Simulando un ecosistema estable con Lotka-Volterra
+description: Exploración de una simulación sencilla de un ecosistema biológico basado en el modelo Lotka-Volterra, con movimiento procedimental en la web
+pubDate: 2026-08-20
+draft: true
+tags:
+  - simulación
+  - experimentación
+---
+
 Siempre me ha fascinado la capacidad de simular escenarios verosímiles en medios digitales gracias a la computación y el modelaje de sistemas predecibles y basados en leyes conocidas (o desconocidas).
 
 Existen muchos motivos útiles para simular un escenario en un programa digital, principalmente para predecir el comportamiento de un sistema dada configuración específica o unas condiciones determinadas. Algunos ejemplos que me vienen a la mente son:
