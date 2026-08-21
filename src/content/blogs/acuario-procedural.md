@@ -1,13 +1,3 @@
----
-title: Simulando un ecosistema estable con Lotka-Volterra
-description: Exploración de una simulación sencilla de un ecosistema biológico basado en el modelo Lotka-Volterra, con movimiento procedimental en la web
-pubDate: 2026-08-20
-draft: true
-tags:
-  - simulación
-  - experimentación
----
-
 Siempre me ha fascinado la capacidad de simular escenarios verosímiles en medios digitales gracias a la computación y el modelaje de sistemas predecibles y basados en leyes conocidas (o desconocidas).
 
 Existen muchos motivos útiles para simular un escenario en un programa digital, principalmente para predecir el comportamiento de un sistema dada configuración específica o unas condiciones determinadas. Algunos ejemplos que me vienen a la mente son:
@@ -26,26 +16,25 @@ Aún así, en este blog me centraré únicamente en la simulación de ecosistema
 
 ## Proyecto: Acuario web procedimental
 
-![[Pasted image 20260816231047.png|662]]
+![color aquarium.png](color_aquarium.png)
 
 Mientras investigaba sobre animación procedimental simple de cadenas y llegaba a un punto medianamente satisfactorio (los peces se movían de forma autónoma naturalmente), pensé en que, sin darme cuenta, había logrado la base que siempre he querido para formar una simulación biológica, que era tener agentes que se movieran y se vieran de una forma que no fuera directamente fea.
 Así que decidí aprovechar y ponerme a implementar los elementos que faltaban para darle vida al entorno.
-Mientras comente los diferentes conceptos de la simulación, añadiré tanto fragmentos de la implementación en código como imágenes de la representación visual.
 
 ### Presas
 En todo ecosistema biológico hay dos tipos de agentes: Las presas y los depredadores. Las presas se dedican a buscar alimento pasivo por el entorno (podemos pensar en plantas) y reproducirse para mantener la especie. Estas entidades suelen tener medios para escapar de sus depredadores, como correr más que ellos o tener más aguante físico. En mi simulación, simplemente tienen un _sprint_ para escapar de ellos.
 En esta implementación, se diferenciarán de los depredadores por tener colores fríos y los ojos blancos.
 
-![[Pasted image 20260819231202.png]]
+![prey.png](prey.png)
 ### Depredadores
 Los depredadores se alimentan a costa de las presas, y se dedican a buscarlas y darles caza, además de reproducirse también para aumentar su población.
 En esta implementación, se diferenciarán de las presas por tener colores más cálidos y ojos oscuros.
 
-![[Pasted image 20260819231211.png]]
+![predator.png](predator.png)
 ### Comida
 La comida aparece de forma arbitraria en el entorno, en el caso de mi simulación, esta aparece periódicamente en lugares aleatorios del espacio.
 
-![[Pasted image 20260817211854.png|45]]
+![food.png|45](food.png)
 ### Reproducción
 Cuando un agente se reproduce, normalmente este pasa sus genes a la siguiente generación, con una ligera probabilidad de cambios (mutaciones). Estas mutaciones pueden ser positivas o negativas, y a la larga se podrá observar la dominancia de determinados genes superiores, como mayor aguante, velocidad, etc.
 _Disclaimer_: En mi implementación no se han modelado las mutaciones genéticas por sencillez.
@@ -56,7 +45,7 @@ Buscar el valor apropiado de cada parámetro para encontrar un estado de la simu
 
 ## Resultados
 
-![[Pasted image 20260819223616.png]]
+![results.png](results.png)
 
 En estados estables de la simulación se puede apreciar perfectamente como la evolución de ambas poblaciones siguen un modelo caracterizado por oscilaciones entre el dominio de la población de presas y el dominio de la población de depredadores.
 Esto es natural, porque, lógicamente, cuando hay abundante presa, los depredadores se multiplican rápidamente, y cuando la población de depredadores aumenta, la cantidad de presas disminuye debido al mayor peligro, lo que provoca que vuelva a bajar la población de depredadores, y así, idealmente, continuaría en un ciclo infinito.
