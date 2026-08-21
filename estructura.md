@@ -91,8 +91,10 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 | `/especialidades` | `especialidades.astro` | Especialidades + stack (`SpecialtiesSections.astro`) |
 | `/proyectos` | `proyectos.astro` | Grid de proyectos con filtro por categoría |
 | `/projects` | `projects.astro` | Redirige a `/proyectos` (compatibilidad) |
-| `/blogs` | `blogs.astro` | Listado de posts (índice por año) |
-| `/blogs/[slug]` | `blogs/[slug].astro` | Detalle de un post Markdown |
+| `/blog` | `blog.astro` | Listado de posts (índice por año) |
+| `/blog/[slug]` | `blog/[slug].astro` | Detalle de un post Markdown |
+| `/blogs` | `blogs.astro` | Redirige a `/blog` (compatibilidad) |
+| `/blogs/[slug]` | `blogs/[slug].astro` | Redirige a `/blog/[slug]` (compatibilidad) |
 
 ### `src/pages/home.astro`
 Portada con `Layout homeScreen`, `HomePortada.astro` y bloque `.home-page__specialties` (solo visible en `xl+`) con `SpecialtiesSections embedded`. En móvil la página es solo la portada a pantalla completa; en desktop se puede hacer scroll para ver especialidades y stack. Footer visible en desktop home.
@@ -103,17 +105,17 @@ Secciones **Especialidades** (`#works`) y **My Stack** (`#stack`), extraídas de
 ### `src/pages/proyectos.astro`
 Grid de proyectos con filtro por categoría (IA, app web, automatización). Muestra todos los proyectos por defecto. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`. Título, filtro y cards entran con fade-in + deslizamiento ligero hacia arriba (stagger CSS).
 
-### `src/pages/blogs.astro`
+### `src/pages/blog.astro`
 Listado de posts de la colección `blogs`. Usa `getCollection("blogs")`, excluye `draft` fuera de `dev`, ordena por `pubDate` descendente, agrupa por año y renderiza `BlogsTitle` + `BlogCard` en layout índice (`max-w-4xl`). Textos de UI vía `t.blog`; título/descripción del post no se traducen.
 
-### `src/pages/blogs/[slug].astro`
-Detalle SSR: `getEntry("blogs", slug)` → `render(post)` → `<Content />` dentro de `BlogPost`. 404 si el slug no existe o el post es draft en producción.
+### `src/pages/blog/[slug].astro`
+Detalle SSR: `getEntry("blogs", slug)` → `render(post)` → `<Content />` dentro de `BlogPost`. 404 si el slug no existe o el post es draft en producción. `/blogs` y `/blogs/[slug]` redirigen aquí.
 
 ## Blog (Content Collections)
 
 ### Autoría
 1. Crear `src/content/blogs/mi-slug.md` con frontmatter válido.
-2. El slug de la URL es el nombre del archivo (sin `.md`): `/blogs/mi-slug`.
+2. El slug de la URL es el nombre del archivo (sin `.md`): `/blog/mi-slug`.
 3. Commit + deploy (o `astro dev`) → aparece en el listado y en la ruta de detalle.
 
 ### Schema (`src/content.config.ts`)
