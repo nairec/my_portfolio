@@ -1,0 +1,105 @@
+---
+import type { Locale } from "../i18n";
+
+interface Props {
+    slug: string;
+    title: string;
+    description: string;
+    pubDate: Date;
+    tags?: string[];
+    locale: Locale;
+    index: number;
+}
+
+const {
+    slug,
+    title,
+    description,
+    pubDate,
+    tags = [],
+    locale,
+    index,
+} = Astro.props;
+
+const compactDate = pubDate.toLocaleDateString(locale, {
+    day: "numeric",
+    month: "short",
+});
+---
+
+<article
+    class="blog-card-enter"
+    style={`--enter-delay: ${260 + index * 40}ms`}
+>
+    <a
+        href={`/blogs/${slug}`}
+        class="blog-card interactive-base focus-ring group block px-3 py-4 -mx-3"
+    >
+        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <time
+                datetime={pubDate.toISOString()}
+                class="text-xs font-mono text-muted shrink-0"
+            >
+                {compactDate}
+            </time>
+            <h2
+                class="text-xl tracking-tight text-white group-hover:text-accent transition-colors duration-base min-w-0"
+            >
+                {title}
+            </h2>
+        </div>
+        <p
+            class="mt-1.5 text-sm text-bio leading-relaxed md:pl-[calc(1.5rem+2.5rem)]"
+        >
+            {description}
+        </p>
+        {
+            tags.length > 0 && (
+                <p
+                    class="mt-2 text-xs font-mono text-muted md:pl-[calc(1.5rem+2.5rem)]"
+                    aria-hidden="true"
+                >
+                    {tags.map((tag, index) => (
+                        <span >
+                            {tag}
+                            {index < tags.length - 1 && <span class="text-accent">·</span>}
+                        </span>
+                    ))}
+                </p>
+            )
+        }
+    </a>
+</article>
+
+<style>
+    @keyframes blog-fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(1.25rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .blog-card-enter {
+        opacity: 0;
+        animation: blog-fade-up 700ms var(--ease-out-smooth) forwards;
+        animation-delay: var(--enter-delay, 260ms);
+    }
+
+    .blog-card:hover,
+    .blog-card:focus-visible {
+        background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .blog-card-enter {
+            opacity: 1;
+            animation: none;
+            transform: none;
+        }
+    }
+</style>

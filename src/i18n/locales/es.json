@@ -71,7 +71,8 @@
       "all": "Todos",
       "ai": "IA",
       "web-app": "App web",
-      "automation": "Automatización"
+      "automation": "Automatización",
+      "alternative": "Alternativo"
     },
     "descriptions": {
       "aethertype": "Un entorno de escritura local-first y libre de distracciones que hace que escribir sea una experiencia agradable. Adéntrate en el éter y escribe sin límites.",
@@ -92,6 +93,10 @@
   },
   "blog": {
     "heading": "Blog",
-    "comingSoon": "Próximamente publicaré artículos sobre desarrollo, IA y automatización."
+    "empty": "Aún no hay artículos publicados.",
+    "backToList": "Volver a la lista",
+    "publishedOn": "Publicado el",
+    "updatedOn": "Actualizado el",
+    "tagsLabel": "Etiquetas"
   }
 }

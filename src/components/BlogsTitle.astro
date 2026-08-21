@@ -1,0 +1,46 @@
+---
+import { getTranslations } from "../i18n";
+
+const t = getTranslations(Astro.locals.locale);
+---
+
+<div
+    class="flex flex-col gap-6 items-center md:items-start mt-10 w-full max-w-4xl mx-auto px-6 text-center md:text-left"
+>
+    <h1
+        class="blogs-enter blogs-enter--title text-5xl text-muted tracking-tight"
+    >
+        {t.blog.heading}
+    </h1>
+</div>
+
+<style>
+    @keyframes blogs-fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(1.25rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .blogs-enter {
+        opacity: 0;
+        animation: blogs-fade-up 700ms var(--ease-out-smooth) forwards;
+    }
+
+    .blogs-enter--title {
+        animation-delay: 80ms;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .blogs-enter {
+            opacity: 1;
+            animation: none;
+            transform: none;
+        }
+    }
+</style>

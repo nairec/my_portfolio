@@ -1,7 +1,7 @@
 import { atom } from "nanostores";
 
 export const ALL_CATEGORY = "all";
-export const PROJECT_CATEGORIES = ["ai", "web-app", "automation"];
+export const PROJECT_CATEGORIES = ["ai", "web-app", "automation", "alternative"];
 
 const STORAGE_KEY = "project-category-filter";
 

@@ -71,7 +71,8 @@
       "all": "Tots",
       "ai": "IA",
       "web-app": "App web",
-      "automation": "Automatització"
+      "automation": "Automatització",
+      "alternative": "Alternatiu"
     },
     "descriptions": {
       "aethertype": "Un entorn d'escriptura local-first i lliure de distraccions que fa que escriure sigui una experiència agradable. Endinsa't a l'èter i escriu sense límits.",
@@ -92,6 +93,10 @@
   },
   "blog": {
     "heading": "Blog",
-    "comingSoon": "Aviat publicaré articles sobre desenvolupament, IA i automatització."
+    "empty": "Encara no hi ha articles publicats.",
+    "backToList": "Tornar a la lista",
+    "publishedOn": "Publicat el",
+    "updatedOn": "Actualitzat el",
+    "tagsLabel": "Etiquetes"
   }
 }

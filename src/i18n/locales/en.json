@@ -71,7 +71,8 @@
       "all": "All",
       "ai": "AI",
       "web-app": "Web app",
-      "automation": "Automation"
+      "automation": "Automation",
+      "alternative": "Alternative"
     },
     "descriptions": {
       "aethertype": "A distraction-free, local-first writing environment that makes writing a pleasant experience. Step into the aether and write without limits.",
@@ -92,6 +93,10 @@
   },
   "blog": {
     "heading": "Blog",
-    "comingSoon": "Articles on development, AI, and automation are coming soon."
+    "empty": "No articles published yet.",
+    "backToList": "Back to the list",
+    "publishedOn": "Published on",
+    "updatedOn": "Updated on",
+    "tagsLabel": "Tags"
   }
 }

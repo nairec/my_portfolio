@@ -11,6 +11,9 @@ src/
 │   ├── pc-hero-cover-generated.jpg # Asset histórico (antes fondo desktop /home)
 │   ├── projectImages/     # Miniaturas de proyectos (PNG)
 │   └── SVGs/              # Iconos del stack tecnológico
+├── content/
+│   └── blogs/             # Posts Markdown (Content Collections)
+├── content.config.ts      # Schema Zod + loader de la colección `blogs`
 ├── components/            # Componentes Astro y React
 │   └── ui/                # Islas React reutilizables (estilo shadcn)
 ├── layouts/               # Layout base de página
@@ -45,7 +48,7 @@ Implementado en [`src/middleware.ts`](src/middleware.ts). El `<html lang>` se ac
 ### Traducciones
 Archivos JSON en `src/i18n/locales/`. Los componentes Astro leen `Astro.locals.locale` y usan `getTranslations(locale)`.
 
-- Textos de UI: nav, hero, `a11y`, works, stack, projects, chat, footer
+- Textos de UI: nav, hero, `a11y`, works, stack, projects, chat, footer, blog
 - Descripciones de proyectos: por `slug` en `t.projects.descriptions`
 - Prompts del chatbot: `getSystemPrompt(locale)` en [`src/lib/prompts.ts`](src/lib/prompts.ts)
 
@@ -75,7 +78,7 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 
 **Anti-FOUC (flash blanco en prod):** Con `output: "server"`, el CSS externo puede llegar después del HTML. Mitigaciones en [`astro.config.mjs`](astro.config.mjs) y [`Layout.astro`](src/layouts/Layout.astro):
 - `build.inlineStylesheets: "always"` — inyecta Tailwind y estilos en `<style>` del `<head>` en el primer byte.
-- Fondo negro sólido (`#000`) en todo el sitio + `BackgroundPixelStars` global en Layout; sin cuadrícula decorativa ni gradiente cyan de `Background.astro`.
+- Fondo negro sólido (`#000`) en todo el sitio + `BackgroundPixelStars` global en Layout, con `brightness(0.4)`.
 - Imágenes/SVG con `view-transition-name: none` y `transition:animate="none"` en miniaturas de proyecto — evitan snapshots en View Transitions.
 - **Sin prerender** de rutas con i18n dinámico: el middleware resuelve idioma por cookie/`Accept-Language` en cada request.
 
@@ -88,7 +91,8 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 | `/especialidades` | `especialidades.astro` | Especialidades + stack (`SpecialtiesSections.astro`) |
 | `/proyectos` | `proyectos.astro` | Grid de proyectos con filtro por categoría |
 | `/projects` | `projects.astro` | Redirige a `/proyectos` (compatibilidad) |
-| `/blog` | `blog.astro` | Placeholder del blog (próximamente) |
+| `/blogs` | `blogs.astro` | Listado de posts (índice por año) |
+| `/blogs/[slug]` | `blogs/[slug].astro` | Detalle de un post Markdown |
 
 ### `src/pages/home.astro`
 Portada con `Layout homeScreen`, `HomePortada.astro` y bloque `.home-page__specialties` (solo visible en `xl+`) con `SpecialtiesSections embedded`. En móvil la página es solo la portada a pantalla completa; en desktop se puede hacer scroll para ver especialidades y stack. Footer visible en desktop home.
@@ -97,15 +101,42 @@ Portada con `Layout homeScreen`, `HomePortada.astro` y bloque `.home-page__speci
 Secciones **Especialidades** (`#works`) y **My Stack** (`#stack`), extraídas del antiguo monolito `Welcome.astro`. Usa `SpecialtiesSections.astro` con scroll-reveal.
 
 ### `src/pages/proyectos.astro`
-Grid de proyectos con filtro por categoría (IA, app web, automatización). Muestra todos los proyectos por defecto. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`.
+Grid de proyectos con filtro por categoría (IA, app web, automatización). Muestra todos los proyectos por defecto. Ordena por `year` descendente. Integra `ProjectsTitle` + grid animado con `@formkit/auto-animate`. Título, filtro y cards entran con fade-in + deslizamiento ligero hacia arriba (stagger CSS).
 
-### `src/pages/blog.astro`
-Página placeholder con título y mensaje «próximamente» traducido (`t.blog`).
+### `src/pages/blogs.astro`
+Listado de posts de la colección `blogs`. Usa `getCollection("blogs")`, excluye `draft` fuera de `dev`, ordena por `pubDate` descendente, agrupa por año y renderiza `BlogsTitle` + `BlogCard` en layout índice (`max-w-4xl`). Textos de UI vía `t.blog`; título/descripción del post no se traducen.
+
+### `src/pages/blogs/[slug].astro`
+Detalle SSR: `getEntry("blogs", slug)` → `render(post)` → `<Content />` dentro de `BlogPost`. 404 si el slug no existe o el post es draft en producción.
+
+## Blog (Content Collections)
+
+### Autoría
+1. Crear `src/content/blogs/mi-slug.md` con frontmatter válido.
+2. El slug de la URL es el nombre del archivo (sin `.md`): `/blogs/mi-slug`.
+3. Commit + deploy (o `astro dev`) → aparece en el listado y en la ruta de detalle.
+
+### Schema (`src/content.config.ts`)
+Campos: `title`, `description`, `pubDate`, `updatedDate?`, `draft?` (default `false`), `tags?` (default `[]`). Loader `glob` sobre `./src/content/blogs/**/*.md`.
+
+### Componentes
+- `BlogCard.astro` — fila del índice: número `01`, fecha compacta, título, descripción y tags `//`. Hover con fondo accent suave.
+- `BlogPost.astro` — shell del detalle (volver, meta, título, descripción, tags) + slot para `<Content />`.
+- Estilos del cuerpo Markdown en `.blog-content` (`global.css`), con tokens del sitio.
+
+### Listado
+Ledger agrupado por año: rail sticky con el año + hairline cyan en desktop. Sin cajas ni portadas. Stagger CSS de entrada; `prefers-reduced-motion` lo desactiva.
+
+### Decisiones
+- Un idioma por post (el del autor); la UI sigue i18n.
+- Solo Markdown por ahora (sin MDX).
+- Sin `getStaticPaths`: el sitio es `output: "server"`.
+- Listado tipo índice técnico, sin imágenes de portada.
 
 ## Componentes clave
 
 ### `src/components/ui/background-pixel-stars.tsx`
-Isla React (`client:load`) montada en [`Layout.astro`](src/layouts/Layout.astro) para **todas las páginas**: canvas a 16 FPS con estrellas pixeladas, titileo, regeneración periódica y estrellas fugaces sobre dither negro. Persiste entre View Transitions (`transition:persist`). Sin deps externas. Respeta `prefers-reduced-motion` (frame estático). Alias `@/*` → `src/*` en `tsconfig.json`.
+Isla React (`client:load`) montada en [`Layout.astro`](src/layouts/Layout.astro) para **todas las páginas**: canvas a 16 FPS con estrellas pixeladas, titileo, regeneración periódica y estrellas fugaces sobre dither negro. Persiste entre View Transitions (`transition:persist`). Brillo reducido (`brightness(0.4)`). Sin deps externas. Respeta `prefers-reduced-motion` (frame estático). Alias `@/*` → `src/*` en `tsconfig.json`.
 
 ### `HomePortada.astro`
 Hero/portada: en móvil, banda izquierda con `hero-cover-portada-2.jpg` + navegación vertical en el panel; en desktop (`xl+`) layout con navbar superior y chatbot. El fondo atmosférico del sitio lo aporta `BackgroundPixelStars` en Layout. Animaciones de entrada escalonadas (copy, CTA, redes, chatbot) en móvil y desktop; chatbot entra desde la derecha en `xl+`.
@@ -128,7 +159,7 @@ Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cya
 Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.
 
 ### `ProjectsTitle.astro`
-Cabecera de la página de proyectos: título en gris (`text-5xl text-muted tracking-tight`, mismo estilo que especialidades) e incluye `CategoryFilter` para filtrar por categoría.
+Cabecera de la página de proyectos: título en gris (`text-5xl text-muted tracking-tight`, mismo estilo que especialidades) e incluye `CategoryFilter` para filtrar por categoría. Título y filtro con animación de entrada fade-up.
 
 ### `CategoryFilter.astro`
 Botones `Todos` / `IA` / `App web` / `Automatización` con `role="group"`, `aria-label` y `aria-pressed`. Indicador deslizante bajo el botón activo. Persiste en `localStorage` vía `projects.js` (`categoryFilter` nanostore).

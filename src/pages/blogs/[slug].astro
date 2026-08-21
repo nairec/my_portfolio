@@ -1,0 +1,33 @@
+---
+import { getEntry, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+
+const { slug } = Astro.params;
+
+const notFound = () =>
+    new Response(null, { status: 404, statusText: "Not Found" });
+
+if (!slug) {
+    return notFound();
+}
+
+const post = await getEntry("blogs", slug);
+
+if (!post || (post.data.draft && !import.meta.env.DEV)) {
+    return notFound();
+}
+
+const { Content } = await render(post);
+const locale = Astro.locals.locale;
+---
+
+<Layout>
+    <main id="main-content">
+        <div transition:animate="fade">
+            <BlogPost post={post} locale={locale}>
+                <Content />
+            </BlogPost>
+        </div>
+    </main>
+</Layout>

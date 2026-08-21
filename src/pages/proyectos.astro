@@ -34,13 +34,14 @@ const heightScales: Record<number, string> = {
                 class="grid grid-cols-1 md:grid-cols-3 py-8 px-4 md:py-12 md:px-10 grid-flow-dense max-w-6xl mx-auto gap-0"
             >
                 {
-                    projects.map((project) => (
+                    projects.map((project, index) => (
                         <div
                             class:list={[
-                                "project-tag-wrapper p-3 transition-opacity duration-base",
+                                "project-tag-wrapper projects-enter projects-enter--card p-3 transition-opacity duration-base",
                                 widthScales[project.width],
                                 heightScales[project.height],
                             ]}
+                            style={`--enter-delay: ${260 + index * 20}ms`}
                             data-categories={project.categories.join(",")}
                         >
                             <ProjectTag
@@ -59,6 +60,35 @@ const heightScales: Record<number, string> = {
         </div>
     </main>
 </Layout>
+
+<style>
+    @keyframes projects-fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(1.25rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .projects-enter--card {
+        opacity: 0;
+        animation: projects-fade-up 700ms var(--ease-out-smooth) forwards;
+        animation-delay: var(--enter-delay, 260ms);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .projects-enter--card {
+            opacity: 1;
+            animation: none;
+            transform: none;
+        }
+    }
+</style>
+
 <script>
     import autoAnimate from "@formkit/auto-animate";
     import { ALL_CATEGORY, categoryFilter } from "../projects.js";
