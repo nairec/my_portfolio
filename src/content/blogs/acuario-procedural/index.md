@@ -1,8 +1,8 @@
 ---
 title: Simulando un ecosistema estable con Lotka-Volterra
 description: Exploración de una simulación sencilla de un ecosistema biológico basado en el modelo Lotka-Volterra, con movimiento procedimental en la web
-pubDate: 2026-08-21
-draft: false
+pubDate: 2026-08-20
+draft: true
 tags:
   - simulación
   - experimentación
@@ -26,7 +26,7 @@ Aún así, en este blog me centraré únicamente en la simulación de ecosistema
 
 ## Proyecto: Acuario web procedimental
 
-![color aquarium.png](color_aquarium.png)
+![Acuario procedimental en color](./color_aquarium.png)
 
 Mientras investigaba sobre animación procedimental simple de cadenas y llegaba a un punto medianamente satisfactorio (los peces se movían de forma autónoma naturalmente), pensé en que, sin darme cuenta, había logrado la base que siempre he querido para formar una simulación biológica, que era tener agentes que se movieran y se vieran de una forma que no fuera directamente fea.
 Así que decidí aprovechar y ponerme a implementar los elementos que faltaban para darle vida al entorno.
@@ -35,16 +35,16 @@ Así que decidí aprovechar y ponerme a implementar los elementos que faltaban p
 En todo ecosistema biológico hay dos tipos de agentes: Las presas y los depredadores. Las presas se dedican a buscar alimento pasivo por el entorno (podemos pensar en plantas) y reproducirse para mantener la especie. Estas entidades suelen tener medios para escapar de sus depredadores, como correr más que ellos o tener más aguante físico. En mi simulación, simplemente tienen un _sprint_ para escapar de ellos.
 En esta implementación, se diferenciarán de los depredadores por tener colores fríos y los ojos blancos.
 
-![prey.png](prey.png)
+![Presa](./prey.png)
 ### Depredadores
 Los depredadores se alimentan a costa de las presas, y se dedican a buscarlas y darles caza, además de reproducirse también para aumentar su población.
 En esta implementación, se diferenciarán de las presas por tener colores más cálidos y ojos oscuros.
 
-![predator.png](predator.png)
+![Depredador](./predator.png)
 ### Comida
 La comida aparece de forma arbitraria en el entorno, en el caso de mi simulación, esta aparece periódicamente en lugares aleatorios del espacio.
 
-![food.png|45](food.png)
+![Comida](./food.png)
 ### Reproducción
 Cuando un agente se reproduce, normalmente este pasa sus genes a la siguiente generación, con una ligera probabilidad de cambios (mutaciones). Estas mutaciones pueden ser positivas o negativas, y a la larga se podrá observar la dominancia de determinados genes superiores, como mayor aguante, velocidad, etc.
 _Disclaimer_: En mi implementación no se han modelado las mutaciones genéticas por sencillez.
@@ -55,7 +55,7 @@ Buscar el valor apropiado de cada parámetro para encontrar un estado de la simu
 
 ## Resultados
 
-![results.png](results.png)
+![Evolución de poblaciones en un estado estable](./results.png)
 
 En estados estables de la simulación se puede apreciar perfectamente como la evolución de ambas poblaciones siguen un modelo caracterizado por oscilaciones entre el dominio de la población de presas y el dominio de la población de depredadores.
 Esto es natural, porque, lógicamente, cuando hay abundante presa, los depredadores se multiplican rápidamente, y cuando la población de depredadores aumenta, la cantidad de presas disminuye debido al mayor peligro, lo que provoca que vuelva a bajar la población de depredadores, y así, idealmente, continuaría en un ciclo infinito.
@@ -78,4 +78,3 @@ Es importante considerar que, para conseguir el entorno más realista posible, s
 He decidido no recurrir a estas condiciones porque harían mucho más difícil encontrar el equilibrio del ecosistema, y me demandaría más tiempo del que estoy dispuesto a dedicar en este proyecto.
 
 En general, he disfrutado mucho en el desarrollo de este experimento viendo como puedo modificar notablemente la evolución del sistema con pequeños cambios en parámetros que a simple vista no parecen tan determinantes, y sobre todo me encanta ver cómo un sistema marcado por unas leyes tan simples puede emerger sin mi intervención directa una vez que se pone en marcha.
-

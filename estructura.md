@@ -114,12 +114,12 @@ Detalle SSR: `getEntry("blogs", slug)` → `render(post)` → `<Content />` dent
 ## Blog (Content Collections)
 
 ### Autoría
-1. Crear `src/content/blogs/mi-slug.md` con frontmatter válido.
-2. El slug de la URL es el nombre del archivo (sin `.md`): `/blog/mi-slug`.
+1. Crear `src/content/blogs/mi-slug/index.md` con frontmatter válido. Las imágenes del post van en la misma carpeta y se referencian con ruta relativa (`![alt](./foto.png)`). Markdown estándar: sin sintaxis de tamaño de Obsidian (`![alt|45]`); un `width` puntual se aplica en CSS (p. ej. comida a 45px).
+2. El slug de la URL es el nombre de la carpeta: `/blog/mi-slug`. También vale un `.md` suelto en `blogs/` (mismo nombre = mismo slug).
 3. Commit + deploy (o `astro dev`) → aparece en el listado y en la ruta de detalle.
 
 ### Schema (`src/content.config.ts`)
-Campos: `title`, `description`, `pubDate`, `updatedDate?`, `draft?` (default `false`), `tags?` (default `[]`). Loader `glob` sobre `./src/content/blogs/**/*.md`.
+Campos: `title`, `description`, `pubDate`, `updatedDate?`, `draft?` (default `false`), `tags?` (default `[]`). Loader `glob` sobre `./src/content/blogs/**/*.md`. `generateId` recorta `.md` y `/index` para que `mi-slug/index.md` y `mi-slug.md` compartan id `mi-slug`.
 
 ### Componentes
 - `BlogCard.astro` — fila del índice: número `01`, fecha compacta, título, descripción y tags `//`. Hover con fondo accent suave.
@@ -132,6 +132,7 @@ Ledger agrupado por año: rail sticky con el año + hairline cyan en desktop. Si
 ### Decisiones
 - Un idioma por post (el del autor); la UI sigue i18n.
 - Solo Markdown por ahora (sin MDX).
+- Posts con assets: carpeta `src/content/blogs/<slug>/` + `index.md` + imágenes colocadas. El pipeline de Astro resuelve `./imagen.png`.
 - Sin `getStaticPaths`: el sitio es `output: "server"`.
 - Listado tipo índice técnico, sin imágenes de portada.
 

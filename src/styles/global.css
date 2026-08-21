@@ -224,6 +224,10 @@ html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
     margin: 1.5rem 0;
 }
 
+.blog-content img[alt="Comida"] {
+    width: 45px;
+}
+
 .blog-content table {
     width: 100%;
     margin: 1.25rem 0;
