@@ -1,8 +1,8 @@
 ---
 title: Simulando un ecosistema estable con Lotka-Volterra
 description: Exploración de una simulación sencilla de un ecosistema biológico basado en el modelo Lotka-Volterra, con movimiento procedimental en la web
-pubDate: 2026-08-20
-draft: true
+pubDate: 2026-08-21
+draft: false
 tags:
   - simulación
   - experimentación
