@@ -44,14 +44,14 @@ for (const item of indexedPosts) {
                         <div class="flex flex-col gap-10">
                             {yearGroups.map((group) => (
                                 <div class="blog-index-group">
-                                    <h2 class="blog-index-year font-mono text-sm text-muted tracking-widest">
+                                    <h2 class="blog-index-year font-mono text-sm text-muted tracking-[0.18em]">
                                         {group.year}
                                     </h2>
                                     <div
                                         class="blog-index-rule"
                                         aria-hidden="true"
                                     />
-                                    <div class="blog-index-posts min-w-0">
+                                    <div class="blog-index-posts min-w-0 overflow-visible">
                                         {group.items.map(({ post, index }) => (
                                             <BlogCard
                                                 slug={post.id}
@@ -61,6 +61,7 @@ for (const item of indexedPosts) {
                                                 }
                                                 pubDate={post.data.pubDate}
                                                 tags={post.data.tags}
+                                                hoverImage={post.data.hoverImage}
                                                 locale={locale}
                                                 index={index}
                                             />
@@ -90,7 +91,7 @@ for (const item of indexedPosts) {
     .blog-index-rule {
         display: none;
         width: 1px;
-        background: color-mix(in srgb, var(--color-accent) 45%, transparent);
+        background: var(--color-surface-border);
     }
 
     @media (min-width: 768px) {

@@ -6,6 +6,7 @@ draft: false
 tags:
   - simulación
   - experimentación
+hoverImage: "../../../assets/projectImages/proceduralAquarium.png"
 ---
 
 Siempre me ha fascinado la capacidad de simular escenarios verosímiles en medios digitales gracias a la computación y el modelaje de sistemas predecibles y basados en leyes conocidas (o desconocidas).

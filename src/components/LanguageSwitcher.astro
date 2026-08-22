@@ -15,7 +15,7 @@ const langNames: Record<Locale, string> = {
     <button
         type="button"
         id="lang-trigger"
-        class="lang-trigger interactive-base focus-ring flex items-center gap-1.5 px-2 py-1 cursor-pointer uppercase tracking-wider text-cyan-300 border border-gray-600/80 backdrop-blur-sm hover:border-cyan-400/50 hover:bg-cyan-950/20"
+        class="lang-trigger interactive-base focus-ring flex items-center gap-1.5 px-2 py-1 cursor-pointer uppercase tracking-wider text-accent border border-surface-border/80 backdrop-blur-sm hover:border-accent/50 hover:bg-accent/10"
         aria-label={t.lang.ariaLabel}
         aria-haspopup="listbox"
         aria-expanded="false"
@@ -38,7 +38,7 @@ const langNames: Record<Locale, string> = {
 
     <ul
         id="lang-menu"
-        class="lang-menu hidden absolute right-0 top-full z-50 mt-1 min-w-[7.5rem] py-1 border border-gray-600/80 backdrop-blur-lg bg-black/90 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.8)]"
+        class="lang-menu hidden absolute right-0 top-full z-50 mt-1 min-w-[7.5rem] py-1 border border-surface-border/80 backdrop-blur-lg bg-black/90 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.8)]"
         role="listbox"
         aria-label={t.lang.ariaLabel}
     >
@@ -51,8 +51,8 @@ const langNames: Record<Locale, string> = {
                         class:list={[
                             "lang-option interactive-base focus-ring w-full text-left px-3 py-1.5 cursor-pointer flex items-center justify-between gap-3",
                             locale === code
-                                ? "text-cyan-300 bg-cyan-950/30"
-                                : "text-gray-300 hover:text-cyan-300 hover:bg-cyan-950/20",
+                                ? "text-accent bg-accent/10"
+                                : "text-ink/80 hover:text-accent hover:bg-accent/10",
                         ]}
                         role="option"
                         aria-selected={locale === code ? "true" : "false"}

@@ -66,10 +66,12 @@ Centraliza la identidad visual sin rediseñar la estética:
 
 | Token | Valor | Uso |
 |-------|-------|-----|
-| `--color-accent` | `#41d3ff` | Títulos, links, acentos cyan |
-| `--color-accent-hover` | `#00c932` | Hover en títulos de proyecto |
-| `--color-muted` | `#bababa` | Texto secundario |
-| `--color-bio` | `#a8a8a8` | Párrafo bio (mejor contraste) |
+| `--color-accent` | `#41d3ff` | Títulos, links, acentos cyan (en `/blog`: `#D49B6A`) |
+| `--color-accent-hover` | `#00c932` | Hover en títulos de proyecto (en `/blog`: `#E4B48A`) |
+| `--color-muted` | `#bababa` | Texto secundario (en `/blog`: `#9C9488`) |
+| `--color-bio` | `#a8a8a8` | Párrafo bio (en `/blog`: `#9C9488`) |
+| `--color-ink` | `#ffffff` | Texto principal; en `/blog` marfil `#EAE4DA` |
+| `--color-surface-border` | `#4b5563` | Bordes (en `/blog`: `#2B2926`) |
 | `--duration-base` | `250ms` | Transiciones unificadas |
 
 Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (accesibilidad), `prefers-reduced-motion` desactiva animaciones decorativas.
@@ -119,12 +121,12 @@ Detalle SSR: `getEntry("blogs", slug)` → `render(post)` → `<Content />` dent
 3. Commit + deploy (o `astro dev`) → aparece en el listado y en la ruta de detalle.
 
 ### Schema (`src/content.config.ts`)
-Campos: `title`, `description`, `pubDate`, `updatedDate?`, `draft?` (default `false`), `tags?` (default `[]`). Loader `glob` sobre `./src/content/blogs/**/*.md`. `generateId` recorta `.md` y `/index` para que `mi-slug/index.md` y `mi-slug.md` compartan id `mi-slug`.
+Campos: `title`, `description`, `pubDate`, `updatedDate?`, `draft?` (default `false`), `tags?` (default `[]`), `hoverImage?` (asset Astro). Loader `glob` sobre `./src/content/blogs/**/*.md`. `generateId` recorta `.md` y `/index` para que `mi-slug/index.md` y `mi-slug.md` compartan id `mi-slug`.
 
 ### Componentes
-- `BlogCard.astro` — fila del índice: número `01`, fecha compacta, título, descripción y tags `//`. Hover con fondo accent suave.
+- `BlogCard.astro` — fila del índice: fecha compacta, título, descripción y tags. Si hay `hoverImage`, una capa real se revela de abajo arriba con `clip-path` (220ms). En desktop llega a la raya del índice (`-ml-5`). Sin `transform` inline (pisaba el hover). `is-ready` / `is-hover` cubren recarga y navegación entre rutas.
 - `BlogPost.astro` — shell del detalle (volver, meta, título, descripción, tags) + slot para `<Content />`.
-- Estilos del cuerpo Markdown en `.blog-content` (`global.css`), con tokens del sitio.
+- Estilos del cuerpo Markdown en `.blog-content` (`global.css`). En `/blog` los tokens pasan a paleta editorial (noche de lectura).
 
 ### Listado
 Ledger agrupado por año: rail sticky con el año + hairline cyan en desktop. Sin cajas ni portadas. Stagger CSS de entrada; `prefers-reduced-motion` lo desactiva.
@@ -134,7 +136,9 @@ Ledger agrupado por año: rail sticky con el año + hairline cyan en desktop. Si
 - Solo Markdown por ahora (sin MDX).
 - Posts con assets: carpeta `src/content/blogs/<slug>/` + `index.md` + imágenes colocadas. El pipeline de Astro resuelve `./imagen.png`.
 - Sin `getStaticPaths`: el sitio es `output: "server"`.
-- Listado tipo índice técnico, sin imágenes de portada.
+- Listado tipo índice técnico. Portada opcional solo al hover vía `hoverImage` (p. ej. acuario → `proceduralAquarium.png`).
+- **Modo oscuro editorial** solo en `/blog` y `/blog/[slug]` (`body.is-blog`): fondo `#1A1917`, tinta `#EAE4DA`, secundario `#9C9488`, acento cobre `#D49B6A`, bordes `#2B2926`. Títulos en Cormorant; fechas/tags siguen mono. Navbar/footer usan tokens (`text-accent`) para no quedar en cian sobre el asfalto cálido. Header transparente en todo el sitio (sin blur). Estrellas con filtro sepia suave. El resto del sitio no cambia.
+- En artículos (`/blog/[slug]`), el navbar se oculta al scroll hacia abajo y reaparece al subir (no en el índice). Si el menú móvil está abierto, permanece visible. `inert` mientras está oculto.
 
 ## Componentes clave
 
@@ -156,7 +160,7 @@ Bloques apilados (`t.works.items[]`) con `title` y `description` por área. Cada
 Intersection Observer para elementos con `data-scroll-reveal`. Añade `scroll-reveal-active` en `<html>` al activarse; sin JS o con `prefers-reduced-motion` el contenido permanece visible (fallback en CSS + JS).
 
 ### `Navbar.astro`
-Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo en cyan con `aria-current="page"`. Header **sticky** con fondo semitransparente y `backdrop-blur`. En móvil (&lt; 768px): icono de tres barras que abre un menú desplegable con las rutas; en desktop los enlaces se muestran en línea.
+Navegación numerada traducida. Incluye `LanguageSwitcher`. Estado activo con `text-accent` y `aria-current="page"`. Header **sticky** transparente (sin blur ni borde) en todas las rutas. En móvil (&lt; 768px): icono de tres barras que abre un menú desplegable con las rutas; en desktop los enlaces se muestran en línea.
 
 ### `LanguageSwitcher.astro`
 Dropdown en el navbar: muestra el código del idioma activo (EN / ES / CA) y, al hacer clic, despliega las opciones con nombre nativo (English, Español, Català). Persiste preferencia en cookie `locale`.

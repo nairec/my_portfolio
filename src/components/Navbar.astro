@@ -23,7 +23,7 @@ const isActive = (href: string) => {
 ---
 
 <header
-    class="site-header sticky top-0 z-50 w-full border-b border-gray-800/60 bg-black/25 backdrop-blur-md"
+    class="site-header sticky top-0 z-50 w-full border-b border-transparent bg-transparent"
 >
     <nav
         class="site-nav flex flex-row flex-nowrap items-center font-mono justify-end text-white w-full gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:gap-5 md:p-5 md:pr-10"
@@ -33,7 +33,7 @@ const isActive = (href: string) => {
             <button
                 type="button"
                 id="nav-menu-trigger"
-                class="site-nav__menu-trigger interactive-base focus-ring flex items-center justify-center px-2 py-1 text-cyan-300 border border-gray-600/80 backdrop-blur-sm hover:border-cyan-400/50 hover:bg-cyan-950/20"
+                class="site-nav__menu-trigger interactive-base focus-ring flex items-center justify-center px-2 py-1 text-accent border border-surface-border/80 backdrop-blur-sm hover:border-accent/50 hover:bg-accent/10"
                 aria-label={t.nav.menuOpen}
                 aria-haspopup="menu"
                 aria-expanded="false"
@@ -56,7 +56,7 @@ const isActive = (href: string) => {
 
             <ul
                 id="nav-menu"
-                class="site-nav__dropdown hidden absolute right-0 top-full z-50 mt-1 min-w-[11rem] py-1 border border-gray-600/80 backdrop-blur-lg bg-black/90 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.8)]"
+                class="site-nav__dropdown hidden absolute right-0 top-full z-50 mt-1 min-w-[11rem] py-1 border border-surface-border/80 backdrop-blur-lg bg-black/90 shadow-[0_8px_24px_-4px_rgba(0,0,0,0.8)]"
                 role="menu"
                 aria-label={t.nav.ariaLabel}
             >
@@ -70,8 +70,8 @@ const isActive = (href: string) => {
                                 class:list={[
                                     "site-nav__dropdown-link interactive-base focus-ring block w-full px-3 py-2 text-left",
                                     isActive(item.href)
-                                        ? "text-cyan-300 bg-cyan-950/30"
-                                        : "text-gray-200 hover:text-cyan-300 hover:bg-cyan-950/20",
+                                        ? "text-accent bg-accent/10"
+                                        : "text-ink/90 hover:text-accent hover:bg-accent/10",
                                 ]}
                             >
                                 <span class="text-accent">
@@ -94,8 +94,8 @@ const isActive = (href: string) => {
                         class:list={[
                             "site-nav__link interactive-base focus-ring shrink-0 pb-0.5",
                             isActive(item.href)
-                                ? "text-cyan-300 border-b border-cyan-400/60"
-                                : "text-white border-b border-transparent hover:text-cyan-300",
+                                ? "text-accent border-b border-accent/60"
+                                : "text-ink border-b border-transparent hover:text-accent",
                         ]}
                     >
                         <span class="site-nav__index text-accent">
@@ -112,6 +112,21 @@ const isActive = (href: string) => {
 </header>
 
 <style>
+    .site-header {
+        transition: transform var(--duration-base) var(--ease-out-smooth);
+    }
+
+    .site-header.is-hidden {
+        transform: translateY(-100%);
+        pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .site-header {
+            transition: none;
+        }
+    }
+
     .site-nav__link {
         font-size: 1rem;
         letter-spacing: 0;
@@ -213,4 +228,62 @@ const isActive = (href: string) => {
 
     initMobileNav();
     document.addEventListener("astro:page-load", initMobileNav);
+</script>
+
+<script>
+    let stopArticleNavHide: (() => void) | null = null;
+
+    function isBlogArticlePath(pathname: string) {
+        const path = pathname.replace(/\/$/, "") || "/";
+        return path.startsWith("/blog/") && path !== "/blog";
+    }
+
+    function initArticleNavHide() {
+        stopArticleNavHide?.();
+        stopArticleNavHide = null;
+
+        const header = document.querySelector(".site-header");
+        if (!(header instanceof HTMLElement)) return;
+
+        header.classList.remove("is-hidden");
+        header.removeAttribute("inert");
+
+        if (!isBlogArticlePath(window.location.pathname)) return;
+
+        let lastY = window.scrollY;
+        const threshold = 8;
+
+        const onScroll = () => {
+            const y = window.scrollY;
+            const delta = y - lastY;
+            const menuOpen = Boolean(document.querySelector(".site-nav__mobile.is-open"));
+
+            if (menuOpen || y < 24) {
+                header.classList.remove("is-hidden");
+                header.removeAttribute("inert");
+                lastY = y;
+                return;
+            }
+
+            if (delta > threshold) {
+                header.classList.add("is-hidden");
+                header.setAttribute("inert", "");
+            } else if (delta < -threshold) {
+                header.classList.remove("is-hidden");
+                header.removeAttribute("inert");
+            }
+
+            lastY = y;
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        stopArticleNavHide = () => {
+            window.removeEventListener("scroll", onScroll);
+            header.classList.remove("is-hidden");
+            header.removeAttribute("inert");
+        };
+    }
+
+    document.addEventListener("astro:page-load", initArticleNavHide);
+    document.addEventListener("astro:before-swap", () => stopArticleNavHide?.());
 </script>

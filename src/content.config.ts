@@ -9,14 +9,16 @@ const blogs = defineCollection({
     generateId: ({ entry }) =>
       entry.replace(/\.md$/, "").replace(/\/index$/, ""),
   }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
-    draft: z.boolean().optional().default(false),
-    tags: z.array(z.string()).optional().default([]),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      draft: z.boolean().optional().default(false),
+      tags: z.array(z.string()).optional().default([]),
+      hoverImage: image().optional(),
+    }),
 });
 
 export const collections = { blogs };

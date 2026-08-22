@@ -1,4 +1,6 @@
 ---
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import type { Locale } from "../i18n";
 
 interface Props {
@@ -7,6 +9,7 @@ interface Props {
     description: string;
     pubDate: Date;
     tags?: string[];
+    hoverImage?: ImageMetadata;
     locale: Locale;
     index: number;
 }
@@ -17,6 +20,7 @@ const {
     description,
     pubDate,
     tags = [],
+    hoverImage,
     locale,
     index,
 } = Astro.props;
@@ -25,49 +29,67 @@ const compactDate = pubDate.toLocaleDateString(locale, {
     day: "numeric",
     month: "short",
 });
+
+const hoverSrc = hoverImage
+    ? (await getImage({ src: hoverImage, width: 1400 })).src
+    : undefined;
 ---
 
 <article
     class="blog-card-enter"
     style={`--enter-delay: ${260 + index * 40}ms`}
+    transition:animate="none"
 >
     <a
         href={`/blog/${slug}`}
-        class="blog-card interactive-base focus-ring group block px-3 py-4 -mx-3"
+        class:list={[
+            "blog-card interactive-base focus-ring group block px-3 py-4 -mx-3",
+            hoverSrc && "blog-card--media",
+        ]}
+        style={hoverSrc ? `--blog-card-image: url('${hoverSrc}')` : undefined}
     >
-        <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <time
-                datetime={pubDate.toISOString()}
-                class="text-xs font-mono text-muted shrink-0"
-            >
-                {compactDate}
-            </time>
-            <h2
-                class="text-xl tracking-tight text-white group-hover:text-accent transition-colors duration-base min-w-0"
-            >
-                {title}
-            </h2>
-        </div>
-        <p
-            class="mt-1.5 text-sm text-bio leading-relaxed md:pl-[calc(1.5rem+2.5rem)]"
-        >
-            {description}
-        </p>
         {
-            tags.length > 0 && (
-                <p
-                    class="mt-2 text-xs font-mono text-muted md:pl-[calc(1.5rem+2.5rem)]"
-                    aria-hidden="true"
-                >
-                    {tags.map((tag, index) => (
-                        <span >
-                            {tag}
-                            {index < tags.length - 1 && <span class="text-accent">·</span>}
-                        </span>
-                    ))}
-                </p>
+            hoverSrc && (
+                <span class="blog-card__media" aria-hidden="true" />
             )
         }
+        <div class="blog-card__body">
+            <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <time
+                    datetime={pubDate.toISOString()}
+                    class="text-xs font-mono text-muted shrink-0"
+                >
+                    {compactDate}
+                </time>
+                <h2
+                    class="blog-card-title text-xl tracking-tight text-ink group-hover:text-accent transition-colors duration-base min-w-0"
+                >
+                    {title}
+                </h2>
+            </div>
+            <p
+                class="mt-1.5 text-sm text-bio leading-relaxed md:pl-[calc(1.5rem+2.5rem)]"
+            >
+                {description}
+            </p>
+            {
+                tags.length > 0 && (
+                    <p
+                        class="mt-2 text-xs font-mono text-muted md:pl-[calc(1.5rem+2.5rem)]"
+                        aria-hidden="true"
+                    >
+                        {tags.map((tag, index) => (
+                            <span>
+                                {tag}
+                                {index < tags.length - 1 && (
+                                    <span class="text-accent">·</span>
+                                )}
+                            </span>
+                        ))}
+                    </p>
+                )
+            }
+        </div>
     </a>
 </article>
 
@@ -88,11 +110,56 @@ const compactDate = pubDate.toLocaleDateString(locale, {
         opacity: 0;
         animation: blog-fade-up 700ms var(--ease-out-smooth) forwards;
         animation-delay: var(--enter-delay, 260ms);
+        overflow: visible;
     }
 
-    .blog-card:hover,
-    .blog-card:focus-visible {
-        background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+    .blog-card {
+        position: relative;
+        overflow: hidden;
+        view-transition-name: none;
+    }
+
+    @media (min-width: 768px) {
+        .blog-card--media {
+            margin-left: -1.25rem;
+            padding-left: 1.25rem;
+        }
+    }
+
+    .blog-card__body {
+        position: relative;
+        z-index: 1;
+    }
+
+    .blog-card-title {
+        font-family: "Cormorant Variable", "Times New Roman", serif;
+        font-weight: 500;
+    }
+
+    .blog-card__media {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+            linear-gradient(
+                color-mix(in srgb, var(--blog-bg, #1a1917) 52%, transparent),
+                color-mix(in srgb, var(--blog-bg, #1a1917) 68%, transparent)
+            ),
+            var(--blog-card-image) center / cover no-repeat;
+        clip-path: inset(100% 0 0 0);
+        transition: none;
+        view-transition-name: none;
+    }
+
+    .blog-card--media.is-ready .blog-card__media {
+        transition: clip-path 220ms var(--ease-out-smooth);
+    }
+
+    .blog-card--media:hover .blog-card__media,
+    .blog-card--media:focus-visible .blog-card__media,
+    .blog-card--media.is-hover .blog-card__media {
+        clip-path: inset(0);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -101,5 +168,35 @@ const compactDate = pubDate.toLocaleDateString(locale, {
             animation: none;
             transform: none;
         }
+
+        .blog-card--media.is-ready .blog-card__media {
+            transition: none;
+        }
     }
 </style>
+
+<script>
+    function bindBlogCardMedia() {
+        document.querySelectorAll(".blog-card--media").forEach((card) => {
+            if (!(card instanceof HTMLElement)) return;
+
+            card.classList.toggle("is-hover", card.matches(":hover"));
+
+            if (card.dataset.mediaBound) {
+                requestAnimationFrame(() => card.classList.add("is-ready"));
+                return;
+            }
+
+            card.dataset.mediaBound = "true";
+            card.addEventListener("pointerenter", () => {
+                card.classList.add("is-hover");
+            });
+            card.addEventListener("pointerleave", () => {
+                card.classList.remove("is-hover");
+            });
+            requestAnimationFrame(() => card.classList.add("is-ready"));
+        });
+    }
+
+    document.addEventListener("astro:page-load", bindBlogCardMedia);
+</script>

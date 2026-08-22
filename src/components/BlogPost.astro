@@ -25,7 +25,7 @@ const formattedUpdated = updatedDate?.toLocaleDateString(locale, dateOpts);
 <article class="w-full max-w-3xl mx-auto px-6 py-10">
     <a
         href="/blog"
-        class="interactive-base focus-ring text-sm text-muted hover:text-accent font-mono"
+        class="interactive-base focus-ring text-sm text-muted hover:text-accent font-mono tracking-wide"
     >
         ← {t.blog.backToList}
     </a>
@@ -48,7 +48,7 @@ const formattedUpdated = updatedDate?.toLocaleDateString(locale, dateOpts);
                 )
             }
         </p>
-        <h1 class="mt-3 text-4xl md:text-5xl tracking-tight text-white">
+        <h1 class="blog-post-title mt-3 text-4xl md:text-5xl tracking-tight text-ink">
             {title}
         </h1>
         <p class="mt-4 text-lg text-bio leading-relaxed">
@@ -61,7 +61,7 @@ const formattedUpdated = updatedDate?.toLocaleDateString(locale, dateOpts);
                     aria-label={t.blog.tagsLabel}
                 >
                     {tags.map((tag) => (
-                        <li class="text-xs font-mono text-muted border border-surface-border/50 px-2 py-1">
+                        <li class="text-xs font-mono text-muted border border-surface-border px-2 py-1">
                             {tag}
                         </li>
                     ))}
@@ -70,7 +70,14 @@ const formattedUpdated = updatedDate?.toLocaleDateString(locale, dateOpts);
         }
     </header>
 
-    <div class="blog-content mt-10">
+    <div class="blog-content mt-10 pt-8 border-t border-surface-border">
         <slot />
     </div>
 </article>
+
+<style>
+    .blog-post-title {
+        font-family: "Cormorant Variable", "Times New Roman", serif;
+        font-weight: 500;
+    }
+</style>

@@ -5,6 +5,7 @@
     --color-accent-hover: #00c932;
     --color-muted: #bababa;
     --color-bio: #a8a8a8;
+    --color-ink: #ffffff;
     --color-surface-border: #4b5563;
 
     --ease-out-smooth: cubic-bezier(0.22, 1, 0.36, 1);
@@ -121,11 +122,56 @@ html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
         0 0 0 4px color-mix(in srgb, var(--color-accent) 50%, transparent);
 }
 
+body.is-blog {
+    --color-accent: #d49b6a;
+    --color-accent-hover: #e4b48a;
+    --color-muted: #9c9488;
+    --color-bio: #9c9488;
+    --color-ink: #eae4da;
+    --color-surface-border: #2b2926;
+    --blog-bg: #1a1917;
+    --blog-ink: #eae4da;
+    background-color: #1a1917;
+    color: #eae4da;
+}
+
+html.is-blog {
+    background-color: #1a1917;
+}
+
+.site-header {
+    background: transparent;
+    border-bottom-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+body.is-blog .site-nav__dropdown,
+body.is-blog .lang-menu {
+    background: color-mix(in srgb, #1a1917 94%, transparent);
+    border-color: #2b2926;
+}
+
+#site-pixel-stars.is-blog-stars {
+    background-color: #1a1917;
+    filter: brightness(0.3) sepia(0.42) saturate(0.55);
+}
+
+.blog-card__media {
+    clip-path: inset(100% 0 0 0);
+}
+
+.blog-card--media:hover .blog-card__media,
+.blog-card--media:focus-visible .blog-card__media,
+.blog-card--media.is-hover .blog-card__media {
+    clip-path: inset(0);
+}
+
 /* Markdown body for blog posts */
 .blog-content {
     color: var(--color-bio);
     font-size: 1.2rem;
-    line-height: 1.75;
+    line-height: 1.8;
 }
 
 .blog-content > :first-child {
@@ -136,8 +182,10 @@ html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
     margin: 2rem 0 0.75rem;
     font-size: 1.75rem;
     line-height: 1.25;
-    letter-spacing: -0.02em;
-    color: #fff;
+    letter-spacing: -0.01em;
+    color: var(--blog-ink, var(--color-ink));
+    font-family: "Cormorant Variable", "Times New Roman", serif;
+    font-weight: 500;
 }
 
 .blog-content h3 {
@@ -145,7 +193,9 @@ html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
     font-size: 1.5rem;
     line-height: 1.3;
     letter-spacing: -0.01em;
-    color: #fff;
+    color: var(--blog-ink, var(--color-ink));
+    font-family: "Cormorant Variable", "Times New Roman", serif;
+    font-weight: 500;
 }
 
 .blog-content p {
@@ -164,7 +214,7 @@ html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
 }
 
 .blog-content strong {
-    color: #fff;
+    color: var(--blog-ink, var(--color-ink));
     font-weight: 600;
 }
 
@@ -197,8 +247,8 @@ html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
     margin: 1.25rem 0;
     padding: 1rem 1.1rem;
     overflow-x: auto;
-    border: 1px solid color-mix(in srgb, var(--color-surface-border) 70%, transparent);
-    background: color-mix(in srgb, #000 70%, #111);
+    border: 1px solid var(--color-surface-border);
+    background: color-mix(in srgb, var(--blog-bg, #000) 82%, #000);
     font-size: 0.875rem;
     line-height: 1.55;
 }
@@ -212,9 +262,9 @@ html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
 
 .blog-content :not(pre) > code {
     padding: 0.1em 0.35em;
-    border: 1px solid color-mix(in srgb, var(--color-surface-border) 60%, transparent);
-    background: color-mix(in srgb, #fff 6%, transparent);
-    color: #fff;
+    border: 1px solid var(--color-surface-border);
+    background: color-mix(in srgb, var(--blog-ink, #fff) 6%, transparent);
+    color: var(--blog-ink, var(--color-ink));
 }
 
 .blog-content img {
@@ -222,6 +272,7 @@ html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
     max-width: 100%;
     height: auto;
     margin: 1.5rem 0;
+    border: 1px solid var(--color-surface-border);
 }
 
 .blog-content img[alt="Comida"] {
@@ -238,19 +289,19 @@ html.scroll-reveal-active .scroll-reveal--from-right:not(.is-visible) {
 .blog-content th,
 .blog-content td {
     padding: 0.55rem 0.75rem;
-    border: 1px solid color-mix(in srgb, var(--color-surface-border) 70%, transparent);
+    border: 1px solid var(--color-surface-border);
     text-align: left;
 }
 
 .blog-content th {
-    color: #fff;
-    background: color-mix(in srgb, #fff 4%, transparent);
+    color: var(--blog-ink, var(--color-ink));
+    background: color-mix(in srgb, var(--blog-ink, #fff) 4%, transparent);
 }
 
 .blog-content hr {
     margin: 2rem 0;
     border: 0;
-    border-top: 1px solid color-mix(in srgb, var(--color-surface-border) 70%, transparent);
+    border-top: 1px solid var(--color-surface-border);
 }
 
 .skip-link {
@@ -341,10 +392,10 @@ picture,
 
     body.is-home-screen .site-header {
         z-index: 50;
-        background: rgba(0, 0, 0, 0.22);
-        border-bottom-color: color-mix(in srgb, #374151 45%, transparent);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
+        background: transparent;
+        border-bottom-color: transparent;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
     }
 }
 

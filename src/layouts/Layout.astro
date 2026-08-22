@@ -16,15 +16,19 @@ interface Props {
 const { homeScreen = false } = Astro.props;
 const locale = Astro.locals.locale;
 const t = getTranslations(locale);
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isBlog = pathname === "/blog" || pathname.startsWith("/blog/");
 
-const pageBackground = "background-color:#000;color-scheme:dark";
+const pageBackground = isBlog
+    ? "background-color:#1A1917;color-scheme:dark"
+    : "background-color:#000;color-scheme:dark";
 
 const pixelDither =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAIElEQVR42mIUEhJiwAbevXuHVZyJgUQwqmEUDB0AEGAADd8DEPTX6ksAAAAASUVORK5CYII=";
 ---
 
 <!doctype html>
-<html lang={locale} style={pageBackground}>
+<html lang={locale} class:list={[{ "is-blog": isBlog }]} style={pageBackground}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -36,13 +40,16 @@ const pixelDither =
         <title>{t.meta.title}</title>
     </head>
     <body
-        class:list={[{ "is-home-screen": homeScreen }]}
-        style="margin:0;color:#fff"
+        class:list={[{ "is-home-screen": homeScreen, "is-blog": isBlog }]}
+        style={isBlog ? "margin:0;color:#EAE4DA;background-color:#1A1917" : "margin:0;color:#fff"}
     >
         <a href="#main-content" class="skip-link focus-ring">{t.a11y.skipToContent}</a>
         <div
             id="site-pixel-stars"
-            class="pointer-events-none fixed inset-0 z-0 bg-black bg-[size:10px] brightness-[0.4]"
+            class:list={[
+                "pointer-events-none fixed inset-0 z-0 bg-black bg-[size:10px] brightness-[0.4]",
+                { "is-blog-stars": isBlog },
+            ]}
             style={`background-image: url('${pixelDither}')`}
             aria-hidden="true"
             transition:persist="site-pixel-stars"
@@ -93,16 +100,35 @@ const pixelDither =
         return normalizePath(pathname) === "/home";
     }
 
+    function isBlogPath(pathname: string) {
+        const path = normalizePath(pathname);
+        return path === "/blog" || path.startsWith("/blog/");
+    }
+
     function syncRouteLayout() {
         const isHome = isHomePath(window.location.pathname);
+        const isBlog = isBlogPath(window.location.pathname);
 
         document.body.classList.toggle("is-home-screen", isHome);
+        document.body.classList.toggle("is-blog", isBlog);
+        document.documentElement.classList.toggle("is-blog", isBlog);
 
         document.getElementById("site-page-body")?.classList.toggle("home-page-body", isHome);
+        document.getElementById("site-pixel-stars")?.classList.toggle("is-blog-stars", isBlog);
 
         const footer = document.getElementById("site-footer");
         if (footer) {
             footer.hidden = isHome && window.matchMedia("(max-width: 1279px)").matches;
+        }
+
+        if (isBlog) {
+            document.documentElement.style.backgroundColor = "#1A1917";
+            document.body.style.backgroundColor = "#1A1917";
+            document.body.style.color = "#EAE4DA";
+        } else {
+            document.documentElement.style.backgroundColor = "#000";
+            document.body.style.backgroundColor = "#000";
+            document.body.style.color = "#fff";
         }
 
         if (!isHome) {

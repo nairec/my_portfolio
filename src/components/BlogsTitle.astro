@@ -8,7 +8,7 @@ const t = getTranslations(Astro.locals.locale);
     class="flex flex-col gap-6 items-center md:items-start mt-10 w-full max-w-4xl mx-auto px-6 text-center md:text-left"
 >
     <h1
-        class="blogs-enter blogs-enter--title text-5xl text-muted tracking-tight"
+        class="blogs-enter blogs-enter--title blog-page-title text-5xl text-ink tracking-tight"
     >
         {t.blog.heading}
     </h1>
@@ -34,6 +34,11 @@ const t = getTranslations(Astro.locals.locale);
 
     .blogs-enter--title {
         animation-delay: 80ms;
+    }
+
+    .blog-page-title {
+        font-family: "Cormorant Variable", "Times New Roman", serif;
+        font-weight: 500;
     }
 
     @media (prefers-reduced-motion: reduce) {
