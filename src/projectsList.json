@@ -61,6 +61,18 @@
     "stack": ["Python", "FastAPI", "Google Cloud", "Celery", "PostgreSQL"]
   },
   {
+    "name": "Relai",
+    "slug": "relai",
+    "year": 2026,
+    "description": "A locally hosted automatic WhatsApp reply system built on Baileys and Ollama.",
+    "link": "https://github.com/nairec/relai",
+    "categories": ["automation", "ai"],
+    "height": 1,
+    "width": 1,
+    "imgPath": "/src/assets/projectImages/relai.png",
+    "stack": ["Typescript", "React", "Ollama", "Python"]
+  },
+  {
     "name": "Procedural Aquarium",
     "slug": "procedural-aquarium",
     "year": 2026,

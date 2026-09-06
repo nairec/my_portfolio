@@ -80,6 +80,7 @@
       "conwaylightsim": "A cellular automaton web simulator inspired by Conway's Game of Life, featuring interactive editing, real-time simulation, reactive audio and more.",
       "macroworth": "A web application made for reviewing stocks and ETFs using AI-powered research and analysis.",
       "mailresolve": "An automated email triage system that classifies incoming emails and performs actions automatically based on the email content.",
+      "relai": "A locally hosted automatic WhatsApp reply system built on Baileys and Ollama.",
       "procedural-aquarium": "A procedural aquarium simulation that uses the Lotka-Volterra model to recreate predator-prey dynamics with autonomously moving fish."
     }
   },
