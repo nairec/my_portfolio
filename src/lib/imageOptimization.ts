@@ -1,5 +1,11 @@
-/** Allowed Vercel Image Optimization qualities. Keep a single value to cut variants. */
+/** Quality for explicit `Image` / `getImage` calls. */
 export const IMAGE_QUALITY = 75;
+
+/**
+ * Markdown `![]()` uses Astro's default `q=100`. The Vercel allowlist rejects
+ * any quality not listed here, so 100 must stay until those images set q=75.
+ */
+export const VERCEL_IMAGE_QUALITIES = [IMAGE_QUALITY, 100] as const;
 
 /** Blog hover + article banner share this width so they hit one cache entry. */
 export const BLOG_IMAGE_WIDTH = 1600;

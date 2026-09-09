@@ -89,10 +89,10 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 En producción, `astro:assets` (`Image` / `getImage`) pasa por `/_vercel/image` (`imageService: true` en [`astro.config.mjs`](astro.config.mjs)). Constantes compartidas en [`src/lib/imageOptimization.ts`](src/lib/imageOptimization.ts). Allowlists pensadas para recortar transformaciones y escrituras de caché (docs de Vercel *Managing Usage & Costs*):
 
 - Un solo formato: WebP (sin AVIF extra).
-- `qualities: [75]` y `quality: 75` en cada llamada (el servicio de Astro defaultaría a 100).
+- `qualities: [75, 100]`. Banner/hover/proyectos piden 75; las figuras del Markdown (`![]()`) usan el default de Astro (`q=100`). Si 100 no está en la lista, Vercel las rechaza en producción (en `astro dev` no se nota).
 - `sizes` solo 640 / 1280 (miniaturas de proyecto 1x/2x) y 1600 (hover del índice y banner del post, misma URL de caché).
-- `minimumCacheTTL` 31 días; `domains` / `remotePatterns` vacíos; `localPatterns` solo `/_astro/*`.
-- Hero de `/home` y figuras del Markdown del blog **no** pasan por Image Optimization: se sirven como estáticos del CDN (0 transformaciones). SVGs van en bruto, no por `<Image>`.
+- `minimumCacheTTL` 31 días; `domains` / `remotePatterns` vacíos. Sin `localPatterns` para no bloquear assets colocados junto al Markdown.
+- Hero de `/home` usa `<img>` estático (0 transformaciones). SVGs van en bruto, no por `<Image>`.
 
 ## Páginas
 
