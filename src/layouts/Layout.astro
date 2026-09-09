@@ -11,9 +11,10 @@ import "@fontsource-variable/cormorant";
 
 interface Props {
     homeScreen?: boolean;
+    blogBanner?: boolean;
 }
 
-const { homeScreen = false } = Astro.props;
+const { homeScreen = false, blogBanner = false } = Astro.props;
 const locale = Astro.locals.locale;
 const t = getTranslations(locale);
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -40,7 +41,13 @@ const pixelDither =
         <title>{t.meta.title}</title>
     </head>
     <body
-        class:list={[{ "is-home-screen": homeScreen, "is-blog": isBlog }]}
+        class:list={[
+            {
+                "is-home-screen": homeScreen,
+                "is-blog": isBlog,
+                "has-blog-banner": blogBanner,
+            },
+        ]}
         style={isBlog ? "margin:0;color:#EAE4DA;background-color:#1A1917" : "margin:0;color:#fff"}
     >
         <a href="#main-content" class="skip-link focus-ring">{t.a11y.skipToContent}</a>
@@ -111,6 +118,10 @@ const pixelDither =
 
         document.body.classList.toggle("is-home-screen", isHome);
         document.body.classList.toggle("is-blog", isBlog);
+        document.body.classList.toggle(
+            "has-blog-banner",
+            Boolean(document.getElementById("blog-post-banner")),
+        );
         document.documentElement.classList.toggle("is-blog", isBlog);
 
         document.getElementById("site-page-body")?.classList.toggle("home-page-body", isHome);

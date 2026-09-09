@@ -238,6 +238,26 @@ const isActive = (href: string) => {
         return path.startsWith("/blog/") && path !== "/blog";
     }
 
+    function setHeaderHidden(header: HTMLElement, hidden: boolean) {
+        const menuOpen = Boolean(document.querySelector(".site-nav__mobile.is-open"));
+        if (menuOpen) {
+            header.classList.add("is-revealed");
+            header.classList.remove("is-hidden");
+            header.removeAttribute("inert");
+            return;
+        }
+
+        if (hidden) {
+            header.classList.remove("is-revealed");
+            header.classList.add("is-hidden");
+            header.setAttribute("inert", "");
+        } else {
+            header.classList.add("is-revealed");
+            header.classList.remove("is-hidden");
+            header.removeAttribute("inert");
+        }
+    }
+
     function initArticleNavHide() {
         stopArticleNavHide?.();
         stopArticleNavHide = null;
@@ -245,10 +265,55 @@ const isActive = (href: string) => {
         const header = document.querySelector(".site-header");
         if (!(header instanceof HTMLElement)) return;
 
-        header.classList.remove("is-hidden");
+        header.classList.remove("is-hidden", "is-revealed");
         header.removeAttribute("inert");
 
         if (!isBlogArticlePath(window.location.pathname)) return;
+
+        const banner = document.getElementById("blog-post-banner");
+
+        if (banner) {
+            let bannerVisible = true;
+            let lastY = window.scrollY;
+            const threshold = 8;
+
+            const apply = () => {
+                if (bannerVisible) {
+                    setHeaderHidden(header, true);
+                    return;
+                }
+
+                const y = window.scrollY;
+                const delta = y - lastY;
+                if (delta > threshold) setHeaderHidden(header, true);
+                else if (delta < -threshold) setHeaderHidden(header, false);
+            };
+
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    bannerVisible = Boolean(entry?.isIntersecting);
+                    if (bannerVisible) setHeaderHidden(header, true);
+                    else setHeaderHidden(header, false);
+                },
+                { threshold: 0 },
+            );
+            observer.observe(banner);
+            setHeaderHidden(header, true);
+
+            const onScroll = () => {
+                if (!bannerVisible) apply();
+                lastY = window.scrollY;
+            };
+            window.addEventListener("scroll", onScroll, { passive: true });
+
+            stopArticleNavHide = () => {
+                observer.disconnect();
+                window.removeEventListener("scroll", onScroll);
+                header.classList.remove("is-hidden", "is-revealed");
+                header.removeAttribute("inert");
+            };
+            return;
+        }
 
         let lastY = window.scrollY;
         const threshold = 8;

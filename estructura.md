@@ -121,12 +121,12 @@ Detalle SSR: `getEntry("blogs", slug)` → `render(post)` → `<Content />` dent
 3. Commit + deploy (o `astro dev`) → aparece en el listado y en la ruta de detalle.
 
 ### Schema (`src/content.config.ts`)
-Campos: `title`, `description`, `pubDate`, `updatedDate?`, `draft?` (default `false`), `tags?` (default `[]`), `hoverImage?` (asset Astro). Loader `glob` sobre `./src/content/blogs/**/*.md`. `generateId` recorta `.md` y `/index` para que `mi-slug/index.md` y `mi-slug.md` compartan id `mi-slug`.
+Campos: `title`, `description`, `pubDate`, `updatedDate?`, `draft?` (default `false`), `tags?` (default `[]`), `hoverImage?` (asset Astro), `compactImages?` (gráficas al 50% del ancho). Loader `glob` sobre `./src/content/blogs/**/*.md`. `generateId` recorta `.md` y `/index` para que `mi-slug/index.md` y `mi-slug.md` compartan id `mi-slug`.
 
 ### Componentes
 - `BlogCard.astro` — fila del índice: fecha compacta, título, descripción y tags. Si hay `hoverImage`, una capa real se revela de abajo arriba con `clip-path` (220ms). En desktop llega a la raya del índice (`-ml-5`). Sin `transform` inline (pisaba el hover). `is-ready` / `is-hover` cubren recarga y navegación entre rutas.
-- `BlogPost.astro` — shell del detalle (volver, meta, título, descripción, tags) + slot para `<Content />`.
-- Estilos del cuerpo Markdown en `.blog-content` (`global.css`). En `/blog` los tokens pasan a paleta editorial (noche de lectura).
+- `BlogPost.astro` — shell del detalle (volver, meta, título, descripción, tags) + slot para `<Content />`. Si hay `hoverImage`, banner a ancho completo encima del artículo (`#blog-post-banner`).
+- Estilos del cuerpo Markdown en `.blog-content` (`global.css`). En `/blog` los tokens pasan a paleta editorial (noche de lectura). Citas (`blockquote`): Cormorant italic y filete cobre; los prompts del post de relativismo usan `>` en lugar de `code`.
 
 ### Listado
 Ledger agrupado por año: rail sticky con el año + hairline cyan en desktop. Sin cajas ni portadas. Stagger CSS de entrada; `prefers-reduced-motion` lo desactiva.
@@ -136,9 +136,9 @@ Ledger agrupado por año: rail sticky con el año + hairline cyan en desktop. Si
 - Solo Markdown por ahora (sin MDX).
 - Posts con assets: carpeta `src/content/blogs/<slug>/` + `index.md` + imágenes colocadas. El pipeline de Astro resuelve `./imagen.png`.
 - Sin `getStaticPaths`: el sitio es `output: "server"`.
-- Listado tipo índice técnico. Portada opcional solo al hover vía `hoverImage` (p. ej. acuario → `proceduralAquarium.png`).
+- Listado tipo índice técnico. Portada opcional solo al hover vía `hoverImage` (acuario → captura; relativismo-llm → recorte de *The Architect’s Dream*, Thomas Cole, 1840, dominio público).
 - **Modo oscuro editorial** solo en `/blog` y `/blog/[slug]` (`body.is-blog`): fondo `#1A1917`, tinta `#EAE4DA`, secundario `#9C9488`, acento cobre `#D49B6A`, bordes `#2B2926`. Títulos en Cormorant; fechas/tags siguen mono. Navbar/footer usan tokens (`text-accent`) para no quedar en cian sobre el asfalto cálido. Header transparente en todo el sitio (sin blur). Estrellas con filtro sepia suave. El resto del sitio no cambia.
-- En artículos (`/blog/[slug]`), el navbar se oculta al scroll hacia abajo y reaparece al subir (no en el índice). Si el menú móvil está abierto, permanece visible. `inert` mientras está oculto.
+- En artículos (`/blog/[slug]`), el navbar se oculta al scroll hacia abajo y reaparece al subir (no en el índice). Si el post tiene banner (`hoverImage`), el navbar va `fixed` y permanece oculto mientras el banner está a la vista; al salir del banner reaparece y vuelve la lógica de scroll. Menú móvil abierto: siempre visible. `inert` mientras está oculto.
 
 ## Componentes clave
 

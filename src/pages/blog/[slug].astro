@@ -22,7 +22,7 @@ const { Content } = await render(post);
 const locale = Astro.locals.locale;
 ---
 
-<Layout>
+<Layout blogBanner={Boolean(post.data.hoverImage)}>
     <main id="main-content">
         <div transition:animate="fade">
             <BlogPost post={post} locale={locale}>

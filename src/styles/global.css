@@ -146,6 +146,25 @@ html.is-blog {
     -webkit-backdrop-filter: none;
 }
 
+body.has-blog-banner .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
+body.has-blog-banner .site-header.is-revealed {
+    transform: none;
+    pointer-events: auto;
+}
+
+body.has-blog-banner .site-header.is-revealed.is-hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
 body.is-blog .site-nav__dropdown,
 body.is-blog .lang-menu {
     background: color-mix(in srgb, #1a1917 94%, transparent);
@@ -237,10 +256,26 @@ body.is-blog .lang-menu {
 }
 
 .blog-content blockquote {
-    margin: 1.25rem 0;
-    padding: 0.25rem 0 0.25rem 1rem;
-    border-left: 2px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
-    color: var(--color-muted);
+    margin: 1.75rem 0;
+    padding: 0.2rem 0 0.2rem 1.35rem;
+    border-left: 2px solid color-mix(in srgb, var(--color-accent) 70%, transparent);
+    color: var(--blog-ink, var(--color-ink));
+    font-family: "Cormorant Variable", "Times New Roman", serif;
+    font-size: 1.12em;
+    font-style: italic;
+    line-height: 1.65;
+}
+
+.blog-content blockquote p {
+    margin: 0.4rem 0;
+}
+
+.blog-content blockquote p:first-child {
+    margin-top: 0;
+}
+
+.blog-content blockquote p:last-child {
+    margin-bottom: 0;
 }
 
 .blog-content pre {
@@ -275,8 +310,17 @@ body.is-blog .lang-menu {
     border: 1px solid var(--color-surface-border);
 }
 
+.blog-post--compact-images .blog-content img {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .blog-content img[alt="Comida"] {
     width: 45px;
+    max-width: 45px;
+    margin-left: 0;
+    margin-right: auto;
 }
 
 .blog-content table {
