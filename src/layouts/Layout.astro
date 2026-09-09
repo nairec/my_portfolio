@@ -12,9 +12,10 @@ import "@fontsource-variable/cormorant";
 interface Props {
     homeScreen?: boolean;
     blogBanner?: boolean;
+    bannerPreload?: string;
 }
 
-const { homeScreen = false, blogBanner = false } = Astro.props;
+const { homeScreen = false, blogBanner = false, bannerPreload } = Astro.props;
 const locale = Astro.locals.locale;
 const t = getTranslations(locale);
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -38,6 +39,16 @@ const pixelDither =
         <meta name="generator" content={Astro.generator} />
         <ClientRouter />
         <Analytics />
+        {
+            bannerPreload && (
+                <link
+                    rel="preload"
+                    as="image"
+                    href={bannerPreload}
+                    fetchpriority="high"
+                />
+            )
+        }
         <title>{t.meta.title}</title>
     </head>
     <body

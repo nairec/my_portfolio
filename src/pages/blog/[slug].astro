@@ -1,7 +1,9 @@
 ---
+import { getImage } from "astro:assets";
 import { getEntry, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import BlogPost from "../../components/BlogPost.astro";
+import { BLOG_IMAGE_WIDTH, IMAGE_QUALITY } from "../../lib/imageOptimization";
 
 const { slug } = Astro.params;
 
@@ -20,12 +22,20 @@ if (!post || (post.data.draft && !import.meta.env.DEV)) {
 
 const { Content } = await render(post);
 const locale = Astro.locals.locale;
+
+const banner = post.data.hoverImage
+    ? await getImage({
+          src: post.data.hoverImage,
+          width: BLOG_IMAGE_WIDTH,
+          quality: IMAGE_QUALITY,
+      })
+    : undefined;
 ---
 
-<Layout blogBanner={Boolean(post.data.hoverImage)}>
+<Layout blogBanner={Boolean(banner)} bannerPreload={banner?.src}>
     <main id="main-content">
         <div transition:animate="fade">
-            <BlogPost post={post} locale={locale}>
+            <BlogPost post={post} locale={locale} banner={banner}>
                 <Content />
             </BlogPost>
         </div>

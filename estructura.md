@@ -17,7 +17,7 @@ src/
 ├── components/            # Componentes Astro y React
 │   └── ui/                # Islas React reutilizables (estilo shadcn)
 ├── layouts/               # Layout base de página
-├── lib/                   # Lógica de servidor (prompts del chat)
+├── lib/                   # Lógica de servidor (prompts del chat) e imageOptimization.ts
 ├── pages/                 # Rutas y API
 ├── styles/                # Estilos globales y design tokens
 ├── types/                 # Interfaces TypeScript compartidas
@@ -84,6 +84,16 @@ Clases utilitarias globales: `.interactive-base` (transiciones), `.focus-ring` (
 - Imágenes/SVG con `view-transition-name: none` y `transition:animate="none"` en miniaturas de proyecto — evitan snapshots en View Transitions.
 - **Sin prerender** de rutas con i18n dinámico: el middleware resuelve idioma por cookie/`Accept-Language` en cada request.
 
+### Imágenes (Vercel Image Optimization)
+
+En producción, `astro:assets` (`Image` / `getImage`) pasa por `/_vercel/image` (`imageService: true` en [`astro.config.mjs`](astro.config.mjs)). Constantes compartidas en [`src/lib/imageOptimization.ts`](src/lib/imageOptimization.ts). Allowlists pensadas para recortar transformaciones y escrituras de caché (docs de Vercel *Managing Usage & Costs*):
+
+- Un solo formato: WebP (sin AVIF extra).
+- `qualities: [75]` y `quality: 75` en cada llamada (el servicio de Astro defaultaría a 100).
+- `sizes` solo 640 / 1280 (miniaturas de proyecto 1x/2x) y 1600 (hover del índice y banner del post, misma URL de caché).
+- `minimumCacheTTL` 31 días; `domains` / `remotePatterns` vacíos; `localPatterns` solo `/_astro/*`.
+- Hero de `/home` y figuras del Markdown del blog **no** pasan por Image Optimization: se sirven como estáticos del CDN (0 transformaciones). SVGs van en bruto, no por `<Image>`.
+
 ## Páginas
 
 | Ruta | Archivo | Contenido |
@@ -124,8 +134,8 @@ Detalle SSR: `getEntry("blogs", slug)` → `render(post)` → `<Content />` dent
 Campos: `title`, `description`, `pubDate`, `updatedDate?`, `draft?` (default `false`), `tags?` (default `[]`), `hoverImage?` (asset Astro), `compactImages?` (gráficas al 50% del ancho). Loader `glob` sobre `./src/content/blogs/**/*.md`. `generateId` recorta `.md` y `/index` para que `mi-slug/index.md` y `mi-slug.md` compartan id `mi-slug`.
 
 ### Componentes
-- `BlogCard.astro` — fila del índice: fecha compacta, título, descripción y tags. Si hay `hoverImage`, una capa real se revela de abajo arriba con `clip-path` (220ms). En desktop llega a la raya del índice (`-ml-5`). Sin `transform` inline (pisaba el hover). `is-ready` / `is-hover` cubren recarga y navegación entre rutas.
-- `BlogPost.astro` — shell del detalle (volver, meta, título, descripción, tags) + slot para `<Content />`. Si hay `hoverImage`, banner a ancho completo encima del artículo (`#blog-post-banner`).
+- `BlogCard.astro` — fila del índice: fecha compacta, título, descripción y tags. Si hay `hoverImage`, una capa real se revela de abajo arriba con `clip-path` (220ms). En desktop llega a la raya del índice (`-ml-5`). Sin `transform` inline (pisaba el hover). `is-ready` / `is-hover` cubren recarga y navegación entre rutas. Hover y banner del post piden el mismo `getImage` (1600px, q75) para compartir caché de Image Optimization.
+- `BlogPost.astro` — shell del detalle (volver, meta, título, descripción, tags) + slot para `<Content />`. Si hay `hoverImage`, banner a ancho completo encima del artículo (`#blog-post-banner`). El asset se pide a 1600px (`getImage` en `[slug].astro`), se precarga en el `<head>` y el `<img>` lleva `fetchpriority="high"`.
 - Estilos del cuerpo Markdown en `.blog-content` (`global.css`). En `/blog` los tokens pasan a paleta editorial (noche de lectura). Citas (`blockquote`): Cormorant italic y filete cobre; los prompts del post de relativismo usan `>` en lugar de `code`.
 
 ### Listado
@@ -175,7 +185,7 @@ Botones `Todos` / `IA` / `App web` / `Automatización` con `role="group"`, `aria
 Tarjeta de proyecto premium:
 - Enlace externo que envuelve toda la card (`group`)
 - Cabecera: nombre + año + icono ojo en hover
-- Imagen `aspect-video` con `object-cover` y zoom sutil
+- Imagen `aspect-video` con `object-cover` y zoom sutil. `<Image>` a 640px + density 2x (1280), `quality` 75 — anchos que están en el allowlist de Image Optimization.
 - Descripción con `line-clamp-3`. Si el texto se recorta, al hover aparece un recuadro discreto con la descripción completa (solo cuando `scrollHeight > clientHeight`).
 - Stack tags como pills con borde
 - Hover: borde cyan, glow, título verde con `>`

@@ -3,6 +3,10 @@ import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import eyeIcon from "../assets/SVGs/eye-icon.svg?raw";
 import { getTranslations } from "../i18n";
+import {
+    IMAGE_QUALITY,
+    PROJECT_IMAGE_WIDTH,
+} from "../lib/imageOptimization";
 
 export interface Props {
     name: string;
@@ -61,6 +65,10 @@ if (!images[imgPath])
         <Image
             src={images[imgPath].default}
             alt={name}
+            width={PROJECT_IMAGE_WIDTH}
+            densities={[1, 2]}
+            sizes="(min-width: 1024px) 30vw, 92vw"
+            quality={IMAGE_QUALITY}
             transition:animate="none"
             class:list={[
                 "w-full h-full object-cover select-none transition-transform duration-500 group-hover:scale-[1.02]",

@@ -7,11 +7,12 @@ import { getTranslations } from "../i18n";
 interface Props {
     post: CollectionEntry<"blogs">;
     locale: Locale;
+    banner?: Awaited<ReturnType<typeof getImage>>;
 }
 
-const { post, locale } = Astro.props;
+const { post, locale, banner } = Astro.props;
 const t = getTranslations(locale);
-const { title, description, pubDate, updatedDate, tags, compactImages, hoverImage } =
+const { title, description, pubDate, updatedDate, tags, compactImages } =
     post.data;
 
 const dateOpts: Intl.DateTimeFormatOptions = {
@@ -22,10 +23,6 @@ const dateOpts: Intl.DateTimeFormatOptions = {
 
 const formattedPub = pubDate.toLocaleDateString(locale, dateOpts);
 const formattedUpdated = updatedDate?.toLocaleDateString(locale, dateOpts);
-
-const banner = hoverImage
-    ? await getImage({ src: hoverImage, width: 2400 })
-    : undefined;
 ---
 
 <div class:list={["blog-post-shell", banner && "blog-post-shell--banner"]}>
@@ -42,6 +39,7 @@ const banner = hoverImage
                     alt=""
                     width={banner.attributes.width}
                     height={banner.attributes.height}
+                    fetchpriority="high"
                 />
             </div>
         )
